@@ -8,9 +8,15 @@ author_profile: true
 {% include base_path %}
 
 
-# Teaching
+### Classes
 
-[1. Spatial analyses class](https://github.com/marcopxt/marcopxt.github.io/blob/master/talks_teach/Spatial_analyses/index.md)
+- [PCB6555 - Quantitative Genetics](class/quantGenetic/index.md)
+
+### Workshop and Talks 
+
+- [2023 - Multi-Omics course](talks_teach/Multi_Omics23/index.md)
 
 
-# Talks
+### Others
+
+
