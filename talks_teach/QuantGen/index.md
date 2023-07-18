@@ -3,7 +3,7 @@
 **Fall-2022**
 
 
-# 1. Introduction
+### 1. Introduction
 These three classes were conducted as part of the discipline Quantitative genetics (PCB-6555) tought at the University of Florida in the Fall 2022. It was tougth by Prof. Márcio Resende and Prof. Felipe Ferrão, and I was a invited to participe as Teaching assistante. As part of it, I put some effort together to generate three topics, below indicated. 
 
 <br>
@@ -27,6 +27,6 @@ Any question about the analyses, please, contact me!
 
 Marco  
 
-Dr. Marco Antonio Peixoto
-Email: deamorimpeixotom@ufl.edu
-Page: https://marcopxt.github.io/
+Dr. Marco Antonio Peixoto  
+Email: deamorimpeixotom@ufl.edu  
+Page: https://marcopxt.github.io/  
