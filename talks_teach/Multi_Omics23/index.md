@@ -1,5 +1,5 @@
 
-**Spatial analyses**  
+**Multi-Omics course**  
 **Marco Antônio Peixoto**  
 **Jul-2023**
 
