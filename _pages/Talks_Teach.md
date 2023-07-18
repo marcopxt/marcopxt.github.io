@@ -10,7 +10,7 @@ author_profile: true
 
 ### Classes
 
-- [Quantitative Genetics - Fall/2022](talks_teach/QuantGen/index.md)
+- [Quantitative Genetics - Fall/2022](master/talks_teach/QuantGen/index.md)
 
 ### Workshop and Talks 
 
