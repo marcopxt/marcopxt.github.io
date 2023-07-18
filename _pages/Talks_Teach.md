@@ -10,11 +10,11 @@ author_profile: true
 
 ### Classes
 
-- [Quantitative Genetics - Fall/2022](master/talks_teach/QuantGen/index.md)
+- [Quantitative Genetics - Fall/2022](https://github.com/marcopxt/marcopxt.github.io/blob/master/talks_teach/QuantGen/index.md)
 
 ### Workshop and Talks 
 
-- [Multi-Omics course - Summer/2023](talks_teach/Multi_Omics23/index.md)
+- [Multi-Omics course - Summer/2023](https://github.com/marcopxt/marcopxt.github.io/blob/master/talks_teach/Multi_Omics23/index.md)
 
 
 ### Others
