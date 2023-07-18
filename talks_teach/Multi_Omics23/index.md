@@ -23,7 +23,7 @@ This course was intended for research scientists from the private sector and pub
 
   
 <br>
-Any question about the analyses, please, contact me!
+Any question about the analyses, please, contact me!  
 
 Marco  
 
