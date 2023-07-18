@@ -8,20 +8,25 @@ These three classes were conducted as part of the discipline Quantitative geneti
 
 <br>
 
-# 2. Classes
-## Introduction to AlphasimR and response to selection
+### 2. Classes
+#### Introduction to AlphasimR and response to selection
 
 - Response to selection / AlphaSimR package [[html]](https://htmlpreview.github.io/?https://github.com/marcopxt/marcopxt.github.io/blob/master/talks_teach/QuantGen/RUNME.html)
 
-## Spatial analyses for breeding programs
+#### Spatial analyses for breeding programs
 
 - Implementation of spatial analyses in plant breeding using ASREML package [[html]](https://htmlpreview.github.io/?https://github.com/marcopxt/marcopxt.github.io/blob/master/talks_teach/QuantGen/Spatial.html)  
 
-## Introduction to Genomic Selection - GBLUP
+#### Introduction to Genomic Selection - GBLUP
 
 - GBLUP model implemented using ASREML package [[html]](https://htmlpreview.github.io/?https://github.com/marcopxt/marcopxt.github.io/blob/master/talks_teach/QuantGen/GBLUP.html)
 
 <br>
 
-If you have any comment or sugestion, please, contact me: deamorimpeixotom@ufl.edu
+Any question about the analyses, please, contact me!  
 
+Marco  
+
+Dr. Marco Antonio Peixoto
+Email: deamorimpeixotom@ufl.edu
+Page: https://marcopxt.github.io/
