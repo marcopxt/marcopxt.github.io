@@ -1,7 +1,7 @@
 
-**Multi-Omics course**  
+**Quantitative Genetics**  
 **Marco Antônio Peixoto**  
-**Jul-2023**
+**Fall-2022**
 
 
 # 1. Introduction
@@ -9,18 +9,17 @@
 
 # 2. How to measure the best fit of a model to the data
 
-## Introduction to Genomic selection
+## Introduction to AlphasimR and response to selection
 
-- Introduction to BGLR and Genomics model [[html]](https://htmlpreview.github.io/?https://github.com/marcopxt/marcopxt.github.io/blob/master/talks_teach/Multi_Omics23/Introduction2GS.html)
+- Response to selection / AlphaSimR package [[html]](https://htmlpreview.github.io/?https://github.com/marcopxt/marcopxt.github.io/blob/master/talks_teach/QuantGen/RUNME.html)
 
-## Bayesian factor analityc and other covariances
+## Spatial analyses for breeding programs
 
-- BGLR implementation of diferent (co)variance structures [[html]](https://htmlpreview.github.io/?https://github.com/marcopxt/marcopxt.github.io/blob/master/talks_teach/Multi_Omics23/FA_CovStructures.html)
+- Implementation of spatial analyses in plant breeding using ASREML packages [[html]](https://htmlpreview.github.io/?https://github.com/marcopxt/marcopxt.github.io/blob/master/talks_teach/QuantGen/Spatial.html)
 
-## Multi-trait multienvironment bayesian models for Genomic Selection
+ ## Introduction to Genomic Selection - GBLUP
 
-- Trait simulation via AlphaSimR and MTME models in BGLR [[html]](https://htmlpreview.github.io/?https://github.com/marcopxt/marcopxt.github.io/blob/master/talks_teach/Multi_Omics23/MTMEnv.html)
-  
+- BGLR implementation of diferent (co)variance structures [[html]](https://htmlpreview.github.io/?https://github.com/marcopxt/marcopxt.github.io/blob/master/talks_teach/QuantGen/GBLUP.html)
 
 
 
