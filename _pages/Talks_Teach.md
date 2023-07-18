@@ -10,7 +10,7 @@ author_profile: true
 
 ### Classes
 
-- Quant gen UF
+- [Quantitative Genetics - Fall/2022](talks_teach/QuantGen/index.md)
 
 ### Workshop and Talks 
 
