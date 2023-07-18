@@ -11,7 +11,7 @@
 
 # Introduction to Genomic selection
 
-- Introduction to BGLR and Genomics model [[html]](https://github.com/marcopxt/marcopxt.github.io/blob/master/talks_teach/Multi_Omics23/Introduction2GS.html)
+- Introduction to BGLR and Genomics model [[html]](https://htmlpreview.github.io/?https://github.com/marcopxt/marcopxt.github.io/blob/master/talks_teach/Multi_Omics23/Introduction2GS.html)
 
 
 ### Heritability ($h^2$)
