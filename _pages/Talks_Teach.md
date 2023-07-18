@@ -1,5 +1,5 @@
 ---
-layout: arquive
+layout: archive
 title: "Talks and Teaching"
 permalink: /talks_teach/
 author_profile: true
