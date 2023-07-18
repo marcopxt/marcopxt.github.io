@@ -10,7 +10,7 @@ author_profile: true
 
 ### Classes
 
-- [PCB6555 - Quantitative Genetics](class/quantGenetic/index.md)
+- Quant gen UF
 
 ### Workshop and Talks 
 
