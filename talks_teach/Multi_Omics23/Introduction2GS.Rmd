@@ -1,0 +1,448 @@
+---
+title: |
+  ![](UF.jpg){width=10%}
+
+  Introduction to Genomic Selection (GS) and Genomic Prediction (GP) Models (Bayesian Alphabet)
+author: 
+  - Marcio Resende, professor^[University of Florida, mresende@ufl.edu]
+  
+  - Diego Jarquin, professor^[University of Florida, jhernandezjarqui@ufl.edu]
+  
+  - Marco Antonio Peixoto, Post doc^[University of Florida, deamorimpeixotom@ufl.edu]
+  
+output: 
+  html_document:
+    toc: true
+    toc_float: true
+    theme: flatly
+    highlight: haddock
+bibliography: references.bib
+csl: apa.csl   
+---
+
+```{=html}
+<style type="text/css">
+  body{
+  font-size: 14pt;
+}
+</style>
+```
+<br>
+
+## Introduction
+
+In this practice, we will show how to implement Genomic selection/Genomic prediction models. We will introduce **rrBLUP**, **GBLUP**, **BayesA**, **BayesB**, and a cross validation scheme.
+
+To perform the analyses, we will need the following packages (if you don't have it installed, please, use the function 'install.packages("pack_name")' to do so):
+
+```{r echo=TRUE, warning=FALSE,eval=TRUE}
+rm(list=ls())
+require(AGHmatrix)
+require(BGLR)
+require(tidyverse)
+require(dplyr)
+require(ggplot2)
+
+```
+
+<br>
+
+## Dataset 
+
+This dataset that we will use was simulated using the coalescent theory implemented in $AlphasimR$ package [@gaynor2021alphasimr]. This dataset mimic an evaluation of 500 maize genotypes, in four locations, and four traits were simulated. In addition, a set of 3000 single nucleotide polymorphism (SNPs) were randomly sampled through the 10 pair of chromosomes.
+
+**Phenotypic data**  
+We generated BLUEs (best linear unbiased estimation) for each trait, and it can be loaded from *Phenotypes.csv*.
+
+```{r echo=TRUE}
+# Loading the dataset
+Phenotypes = read.csv("Phenotypes.csv")
+
+# Filtering for one environment and one trait
+phenodata = Phenotypes[Phenotypes$Env == 1, c(1:3)]
+head(phenodata)
+```
+
+<br>
+
+**Genomic data**  
+The genomic data (3000 SNP markers) was coded as 0,1,2 for aa,Aa,AA, respectively. The dataset for all 500 genotypes can be loaded from **Genotypes.csv**.
+
+```{r echo=TRUE}
+# Loading the SNP data
+Genotypes = as.matrix(read.csv("Genotypes.csv"))
+
+#Genotype' names
+rownames(Genotypes)= phenodata$Genotype
+
+# Genotypes
+Genotypes[1:5,1:50]
+
+```
+
+
+Transforming Genotypes and Environment into factors
+
+```{r echo=TRUE,eval=FALSE}
+# As factor
+phenodata$Genotype = phenodata$Genotype %>% as.factor
+phenodata$Env = phenodata$Env %>% as.factor # Only one
+```
+
+
+**Relationship matrix**
+Here, we will compose the additive relationship matrix (*G* matrix) following the propositions made by @vanraden2008efficient, as follows:
+
+$$
+G = {\frac{ZZ'}{2{\sum{p_i(1-p_i)}}}}
+$$
+
+where $p_i$ and $1-p_i$ represents the allele frequency for both $A$ and $a$ at each loci. In this case, we divided by ${2{\sum{p_i(1-p_i)}}}$ to scale **G** to be analogous to the numerator relationship matrix **A** ([@vanraden2008efficient]).
+ 
+To compose the additive kernel (aka genomic relationship matrix), we will use the package AGHMatrix [amadeu2016aghmatrix]. This package uses the SNP information coded as 2,1,0 to create a relationship matrix between the pair of genotypes. Also, we are able to built other kernels, such as dominance relationship matrix. In our case, we should pay attention in three parameters that will be important while we create the kernel:
+
+**Minor allele frequency** ($maf$): This parameter is connected with the frequency of the alleles in the population. As rare alleles tend to decrease the importance of alleles that contributed with the target trait, we can filter and drop those with small frequency.
+
+**Threshold**: This parameter is connected with the quality of the SNP dataset. It represents a threshold to the amount of missing data that we will allow for both, SNP and genotypes.
+
+**Method**: In this case, which one should be the method used to build the kernel. For additive kernels, using the SNP data, the method indicated is the one from VanRaden (2008), as previously discussed.
+
+
+```{r echo=TRUE,eval=TRUE}
+# Additive matrix
+GMat = AGHmatrix::Gmatrix(Genotypes, 
+                          maf=0.05,          # Minor allele frequency
+                          thresh = 0.8,      # threshold for missing data
+                          method="VanRaden", # Kernel (i.e., additice, dominance, etc.)
+                          missingValue = NA) # Missing data representation
+dim(GMat)
+
+```
+
+<br>
+
+## GBLUP
+
+The first model implemented is a **GBLUP** in a Bayesian framework. For such, we will use the [BGLR](https://github.com/gdlc/BGLR-R) package [@perez2022multitrait, @perez2014genome]. In this package, we will need an element named "ETA". In the ETA, we will set the linear predictors of the model and the priors, such as relationship matrix (*Z*) or markers data (*X*), and the specified model, such as *BRR*, *RKHS*, *BayesA*, *BayesB*, *BayesC*, etc.
+
+
+**Statistical model**
+
+The **GBLUP** model was given as follows:
+
+$$
+y = 1u + Za + e
+$$
+
+where $y$ is the vector of BLUEs data for the target trait; $u$ represents the mean (fixed); $g$ is the vector of genotype effects (assumed to be random), where $g \sim N(0,G\sigma^2_a)$, $G$ is a matrix that describes the genomic similarities between pair of genotypes and $\sigma^2_a$ represents the genetic variance; and $e$ is the vector of residuals (random), where $e\sim N(0,I\sigma^2_{res})$, $\sigma^2_{res}$ is the residual variance. The letter $Z$ refers to the incidence matrix for $a$.
+
+
+```{r echo=TRUE, eval=TRUE}
+###----------- Linear predictor for BGLR
+ETA = list(A = list(K = GMat,         # K (relationship matrix)
+                    model = 'RKHS'))  # Specify the model
+
+###----------- Phenotypic data
+Y = as.matrix(phenodata[,3])
+
+###-----------  Model for trait 1
+fmGBLUP = BGLR(y=Y,              # Phenotypic data
+               ETA=ETA,          # Model ETA
+               nIter=1200,       # Number of iterations for the model
+               burnIn=120,       # Burnin iterations
+               thin=5,           # Sampling throughout iterations
+               verbose = TRUE)
+require(BGLR)
+
+```
+
+```{r echo=TRUE,eval=TRUE}
+#Mean estimated
+fmGBLUP$mu
+
+#Variance component for genic effect
+fmGBLUP$ETA[[1]]$varU
+
+#Variance component for the residual effect
+fmGBLUP$varE
+
+#Estimated breeding value
+fmGBLUP$yHat
+
+#Model accuracy
+cor(as.matrix(phenodata$Trait1), fmGBLUP$ETA[[1]]$u, use = 'complete.obs')
+
+```
+
+
+```{r echo=TRUE,eval=TRUE}
+# Estimated breeding values (Genotype effect)
+plot(fmGBLUP$ETA[[1]]$u, col=4, cex=.5, type='o', main='GBLUP')
+
+```
+
+<br>
+
+## rrBLUP
+
+**Statistical model**
+
+Random regression BLUP or RRBLUP is a marker model that is given as follows:
+
+$$
+y = 1u + Zm + e
+$$
+
+where $y$ is the vector of BLUEs data for the target trait; $u$ represents the mean (fixed); $m$ is the vector of random marker effects (assumed to be random), where $m \sim N(0,I\sigma^2_m)$ and $\sigma^2_m$ represents the marker genetic variance; and $e$ is the vector of residuals (random), where $e \sim N(0,I\sigma^2_{res})$, $\sigma^2_{res}$ is the residual variance. The letter $Z$ refers to the incidence matrix for $m$.
+
+
+Now we can deploy RRBLUP model. 
+
+```{r echo=TRUE, eval=TRUE}
+
+###----------- Linear predictor 
+ETA = list(A = list(X = Genotypes,   # change from K (relationship matrix) to X (Markers) in ETA
+                    model = 'BRR'))  # Specify the model
+                                 
+###----------- Phenotypic data
+Y = as.matrix(phenodata[,3])
+
+###----------- Model for trait 1
+fmrrBLUP = BGLR(y=Y,             # Phenotypic data
+               ETA=ETA,          # Model ETA
+               nIter=1200,       # Number of iterations for the model
+               burnIn=120,       # Burnin iterations
+               thin=5,           # Sampling throughout iterations
+               verbose = FALSE)
+
+```
+
+
+
+```{r echo=TRUE,eval=TRUE}
+# Mean estimated
+fmrrBLUP$mu
+
+#Variance component for SNP effect
+fmrrBLUP$ETA[[1]]$varB
+
+#Variance component for the residual effect
+fmrrBLUP$varE
+
+# SNP effects
+length(fmrrBLUP$ETA[[1]]$b) #'b' slot
+
+```
+
+
+```{r echo=TRUE,eval=TRUE}
+# Estimated effect values (SNP effect)
+
+plot(fmrrBLUP$ETA[[1]]$b, col=4, cex=.5, type='o', main='rrBLUP')
+
+
+```
+
+<br>
+**Equivalence  rrBLUP/GBLUP:**
+
+We estimated in the above model the additive marker effects. From that, we can backsolve to estimate a Genomic Estimated Breeding Values (GEBV) for each genotype. The simplest way is to use the product between SNPs matrix and the vector of the additive markers' effects:
+
+
+```{r echo=TRUE}
+# Backsolve to GEBV values
+GEBV = Genotypes %*% fmrrBLUP$ETA[[1]]$b 
+
+# Data frame
+GBLUP_rrBLUP = data.frame("Genotype" = phenodata$Genotype,
+                          "GEBV_GBLUP" = fmGBLUP$ETA[[1]]$u,
+                          "GEBV_rrBLUP" = GEBV)
+
+# Estimated effect values (SNP effect)
+ggplot(GBLUP_rrBLUP, aes(x = GEBV_GBLUP, y = GEBV_rrBLUP))+
+  geom_point()
+
+```
+
+<br>
+
+## BayesA
+
+```{r echo=TRUE, eval=TRUE}
+###----------- Phenotypic data
+Y = as.matrix(phenodata[,3])
+
+###-----------  Model for trait 1
+fmBA <- BGLR(y=Y,            # Phenotypic data
+             ETA=list(list(X=Genotypes, model='BayesA')),          # Model ETA
+             nIter=1200,       # Number of iterations for the model
+             burnIn=120,       # Burnin iterations
+             thin=5,
+             verbose = FALSE)           # Sampling throughout iterations
+
+
+```
+
+```{r echo=TRUE,eval=FALSE}
+# Mean estimated
+fmBA$mu
+
+# Variance component for the residual effect
+fmBA$varE
+
+# SNP effects
+length(fmBA$ETA[[1]]$b) #'b' slot
+
+
+
+```
+
+```{r }
+plot((fmBA$ETA[[1]]$b),col=4, cex=.5, type='o', main='BayesA')
+
+
+```
+
+<br>
+
+## BayesB
+
+```{r echo=TRUE, eval=TRUE}
+###----------- Phenotypic data
+Y = as.matrix(phenodata[,3])
+
+###-----------  Model for trait 1
+fmBB<-BGLR(y=Y,            # Phenotypic data
+         ETA=list(A = list(X = Genotypes, model = 'BayesB')),          # Model ETA
+         nIter=1200,       # Number of iterations for the model
+         burnIn=120,       # Burnin iterations
+         thin=5,           # Sampling throughout iterations
+         verbose = FALSE)          
+
+```
+
+```{r echo=TRUE,eval=TRUE}
+# Mean estimated
+fmBB$mu
+
+#Residual covariance matrix
+fmBB$varE
+
+#Estimated SNP effects
+head(fmBB$ETA[[1]]$b)
+
+```
+
+```{r }
+plot((fmBB$ETA[[1]]$b), col=4, cex=.5, type='o', main='BayesB')
+
+
+```
+<br>
+
+## RRBLUP vs. BayesB
+
+```{r}
+# Filtering for one environment and one trait
+phenodat0 = Phenotypes[Phenotypes$Env == 1, c(1,2,6)]
+
+###----------- Phenotypic data
+Y = as.matrix(phenodat0[,3])
+
+###-----------  Model for trait 1
+fmBB <- BGLR(y=Y,            # Phenotypic data
+             ETA=list(list(X=Genotypes, model='BayesB')),          # Model ETA
+             nIter=1200,       # Number of iterations for the model
+             burnIn=120,       # Burnin iterations
+             thin=5,
+             verbose = FALSE)           # Sampling throughout iterations
+
+
+###-----------  Model for trait 1
+fmBRR <- BGLR(y=Y,            # Phenotypic data
+             ETA=list(list(X=Genotypes, model='BRR')),          # Model ETA
+             nIter=1200,       # Number of iterations for the model
+             burnIn=120,       # Burnin iterations
+             thin=5,
+             verbose = FALSE)           # Sampling throughout iterations
+
+
+# Plotting the effects
+BayesB_rrBLUP = data.frame("effect_BayesB" = fmBB$ETA[[1]]$b,
+                           "effect_rrBLUP" = fmBRR$ETA[[1]]$b)
+
+ggplot(BayesB_rrBLUP, aes(x = effect_BayesB, y = effect_rrBLUP))+
+  geom_point()
+
+```
+<br>
+
+## Cross-validation
+
+**Using the information to predict accuracy in a CV1 method**
+
+The cross-validations methods are divided into four different classes (sensu @jarquin2018increasing), regarding the genotypes and environments. As follows:
+
+![**Figure 1 - Cross-validations schemes.**](CV.jpg){width=80%, heigth=100%}
+
+
+**Phenotypic information**
+
+The first step will be to organize the phenotypic information and create the partitions to the cross validation scheme (CV1). Generally, we can divide the phenotypic dataset into two:
+
+Testing set: Population where the phenotype will be predicted based on the markers and in the information from the training set.
+
+Training set: Population with the information that we use to calibrate the model.
+
+```{r, echo=-TRUE, eval=TRUE}
+
+###----------- Parameters for the folds
+nReps = 5
+nFolds = 5
+
+###----------- Output for the estimated values
+yHatCV=rep(NA,length(phenodata$Trait1))
+pred = data.frame()
+
+###----------- Model
+# Phenodata
+y = as.matrix(phenodata$Trait1)
+
+# Time for the loop
+set.seed(0928761) 
+ for(Rep in 1:nReps){
+   
+ folds=sample(1:nFolds,size=length(phenodata$Trait1),replace=T)  
+ 
+  for(i in 1:max(folds)){
+  	tst=which(folds==i)
+  	yNA=y
+    yNA[tst]=NA
+    # model
+    fm=BGLR(y=yNA,
+            ETA=list(list(K=GMat,model='RKHS')),
+            nIter=1200,
+            burnIn=120,
+            verbose = FALSE)
+    # Predicted values
+    yHatCV[tst]=fm$yHat[tst]
+  }
+ # Accuracy for each fold
+ pred=rbind(pred, 
+            data.frame(Repetitions = Rep,
+                       Cor=cor(yHatCV, y)))
+}
+ 
+
+## Mean for the correlation
+mean(pred$Cor)
+
+```
+
+<br>
+
+
+## References
+
+::: {#refs}
+:::

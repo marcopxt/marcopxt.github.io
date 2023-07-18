@@ -1,0 +1,357 @@
+---
+title: |
+  ![](UF.jpg){width=10%}
+
+  Bayesian Factor Analytic and Other Covariance Structures
+author: 
+  - Diego Jarquin, professor^[University of Florida, jhernandezjarqui@ufl.edu]
+  
+  - Marcio Resende, professor^[University of Florida, mresende@ufl.edu]
+  
+  - Marco Antonio Peixoto, Post doc^[University of Florida, deamorimpeixotom@ufl.edu]
+  
+output: 
+  html_document:
+    toc: true
+    toc_float: true
+    theme: flatly
+    highlight: haddock
+bibliography: references.bib
+csl: apa.csl   
+---
+
+```{=html}
+<style type="text/css">
+  body{
+  font-size: 14pt;
+}
+</style>
+```
+
+<br>
+
+## Introduction
+
+In this practice, we will show how to implement models accounting for several traits (estimate variance components and breeding values). We will cover **Diagonal**,  **Unstructured**, and **Factor analytic** structures for modelling genetic and residuals effects, all in a Bayesian framework.
+
+To perform the analyses, we will need the following packages:
+
+```{r echo=FALSE, warning=FALSE, eval=TRUE}
+rm(list=ls())
+require(AGHmatrix)
+require(BGLR)
+require(dplyr)
+require(tidyverse)
+require(ggplot2)
+
+```
+
+<br>
+
+## Dataset 
+
+This dataset was simulated using the coalescent theory implemented in $AlphasimR$ package [@gaynor2021alphasimr]. This dataset mimic an evaluation of 500 maize genotypes, in four locations, and four traits were measured. Also, a set of 3000 single nucleotide polymorphism (SNPs) were randomly sampled through the 10 pair of chromosomes.
+
+**Phenotypic data**  
+
+We generated BLUEs (best linear unbiased estimation) for each trait, and it can be loaded from *Phenotypes.csv*.
+
+```{r echo=TRUE}
+# Loading data
+Phenotypes = read.csv("Phenotypes.csv")
+
+# As factor
+Phenotypes$Genotype = Phenotypes$Genotype %>% as.factor
+Phenotypes$Env = Phenotypes$Env %>% as.factor # Only one
+
+# Only Environment 1
+data = Phenotypes[Phenotypes$Env == 1,] 
+head(data)
+
+
+```
+
+<br>
+
+**Genomic data**  
+
+The genomic data (3000 SNP markers) was coded as 0,1,2 for aa,Aa,AA, respectively. The dataset for all 500 genotypes can be loaded from **Genotypes.csv**.
+
+```{r echo=TRUE}
+# SNPs
+Genotypes = as.matrix(read.csv("Genotypes.csv"))
+
+# Genotypes names
+rownames(Genotypes)= unique(Phenotypes$Genotype)
+
+```
+
+**Creating G Matrix**
+
+Here, we will compose the additive relationship matrix (*G* matrix) following the propositions made by @vanraden2008efficient.
+
+```{r echo=TRUE, eval=TRUE}
+
+G.Mat = AGHmatrix::Gmatrix(Genotypes) 
+
+```
+
+<br>
+
+## Multitrait Model
+
+
+**Statistical model**
+
+The **GBLUP** model in a multitrait framework is given as follows:
+
+$$
+y = 1u + Za + e
+$$
+
+where $y$ is the matrix of BLUEs data for the target traits; $u$ represents the mean (fixed); $a$ is the matrix of genotype effects (assumed to be random), where $a \sim N(0,\sum_a\otimes G)$, $G$ is a matrix that describes the genomic similarities between pair of genotypes and $\sum_a$ represents the genetic covariance matrix; and $e$ is the  residuals (random), where $e\sim N(0,\sum_{res}\otimes I)$, $\sum_{res}$ is the residual covariance matrix. The letter $Z$ refers to the incidence matrix for $a$.
+Here, we use the 'Multitrait()' function from BGLR package for fitting the model [@perez2022multitrait]
+
+<br>
+
+## Model 1 - DIAG-US
+
+For this model we will consider a *DIAG* matrix for the genetic effects and an *US* covariance matrix for the residuals. 
+
+
+```{r echo=TRUE, eval=TRUE}
+# Linear predictor - specify the genetic matrix
+ETA <- list(A=list(K=G.Mat, model="RKHS", Cov = list(type = 'DIAG')))
+
+# Only Y
+Y = as.matrix(data[,-c(1:2)])
+head(Y)
+# Model
+fm.DU <- Multitrait(y = Y,
+                    ETA = ETA,
+                    resCov = list(df0 = 5, S0 = NULL, type = "UN"), #default
+                    nIter = 1200, burnIn = 120, thin = 5, saveAt = 'ex1_',
+                    verbose = FALSE)
+
+```
+
+**Retrieving estimates**
+
+```{r echo=TRUE, eval=TRUE}
+# Genetic covariance matrix
+fm.DU$ETA$A$Cov$Omega 
+
+# Residual covariance matrix
+fm.DU$resCov$R  
+
+# Phenotypic variation
+fm.DU$ETA$A$Cov$Omega + fm.DU$resCov$R
+
+```
+
+
+<br>
+
+## Model 2 - US-DIAG
+
+For this model we will consider a *US* matrix for the genetic effects and an *DIAG* covariance matrix for the residuals.
+
+
+```{r echo=TRUE, eval=TRUE}
+# Linear predictor - specify the genetic matrix
+ETA <- list(A=list(K=G.Mat, model="RKHS", Cov = list(type = 'UN')))
+
+# Phenotypic data
+Y = as.matrix(data[,-c(1:2)])
+
+
+# Model
+fm.UD <- Multitrait(y = Y,
+                    ETA = ETA,
+                    resCov = list(type = "DIAG"),
+                    nIter = 1200, burnIn = 120, thin = 5, saveAt = 'ex2_',
+                    verbose = FALSE)
+ 
+```
+
+**Retrieving estimates**
+
+```{r echo=TRUE, eval=TRUE}
+# Genetic covariance matrix
+fm.UD$ETA$A$Cov$Omega
+
+# Residual covariance matrix
+fm.UD$resCov$R
+
+# Phenotypic variation
+fm.UD$resCov$R + fm.UD$ETA$A$Cov$Omega
+
+
+```
+
+<br>
+
+
+## Model 3 - US-US
+
+For this model we will consider a *US* matrix for the genetic effects and an *US* covariance matrix for the residuals.
+
+
+```{r echo=TRUE, eval=TRUE}
+# Linear predictor - specify the genetic matrix
+ETA <- list(A=list(K=G.Mat, model="RKHS", Cov = list(type = 'UN')))
+
+# Phenotypic data
+Y = as.matrix(data[,-c(1:2)])
+
+# Model
+fmU <- Multitrait(y = Y,
+                  ETA = ETA,
+                  resCov = list(type = "UN"), #default
+                  nIter = 1200, burnIn = 120, thin = 5, saveAt = 'ex3_',
+                  verbose = FALSE)
+
+```
+
+**Retrieving some estimates**
+
+```{r echo=TRUE, eval=TRUE}
+# Genetic covariance matrix
+fmU$ETA$A$Cov$Omega 
+
+# Residual covariance matrix
+fmU$resCov$R  
+
+# Phenotypic variation
+fmU$ETA$A$Cov$Omega +  fmU$resCov$R 
+
+
+```
+
+**Comparision**
+
+```{r echo=TRUE, eval=TRUE}
+# Genetic covariance matrix
+fmU$ETA$A$Cov$Omega 
+fm.UD$ETA$A$Cov$Omega
+fm.DU$ETA$A$Cov$Omega
+
+# Residual covariance matrix
+fmU$resCov$R  
+fm.UD$resCov$R
+fm.DU$resCov$R
+
+# Phenotypic variation
+fmU$resCov$R + fmU$ETA$A$Cov$Omega 
+fm.UD$resCov$R + fm.UD$ETA$A$Cov$Omega
+fm.DU$resCov$R + fm.DU$ETA$A$Cov$Omega
+
+```
+  
+<br>
+
+## Model 4 - Multi-trait
+
+We will implement a model using the information of the same trait assessed in several environments. 
+
+```{r, echo = TRUE, eval=TRUE}
+# Only Trait 2
+data = Phenotypes[,c(1, 2, 4)] %>%
+    pivot_wider(names_from = 'Env', values_from = 'Trait2')
+
+head(data)
+```
+
+
+For this model we will consider a *US* matrix for the genetic effects and an *US* covariance matrix for the residuals.
+
+
+```{r echo=TRUE, eval=TRUE}
+# Linear predictor - specify the genetic matrix
+ETA <- list(A=list(K=G.Mat, model="RKHS", Cov = list(type = 'UN')))
+
+# Phenotypic data
+Y = as.matrix(data[,-1])
+head(Y)
+# Model
+fmU2 <- Multitrait(y = Y,
+                  ETA = ETA,
+                  resCov = list(type = "UN"), #default
+                  nIter = 1200, burnIn = 120, thin = 5, saveAt = 'ex4_',
+                  verbose = FALSE)
+
+```
+
+**Retrieving some estimates**
+
+```{r echo=TRUE, eval=TRUE}
+# Genetic covariance matrix
+fmU2$ETA$A$Cov$Omega 
+
+# Residual covariance matrix
+fmU2$resCov$R  
+
+# Phenotypic variation
+fmU2$ETA$A$Cov$Omega +  fmU2$resCov$R 
+
+
+```
+
+<br>
+
+## Model 5 - Factor Analytic
+
+For this model we will consider a *FA* matrix for the genetic effects and an *DIAG* covariance matrix for the residuals. To see more details, please check @smith2019estimation. The variance components via FA structure can be solved via the following expression:
+
+$$
+\Omega = WW' + \Psi
+$$
+where W is the environmental loading and $\Psi$ is a diagonal matrix with the specific variance for each environment.
+
+```{r, echo = TRUE, eval=TRUE}
+# Creating an FA structure before entering the model
+M <- matrix(nrow = 4, ncol = 1, TRUE)
+CovFA<-list(type="FA",M=M) # M represents the number of environments/traits
+
+# Linear predictor
+ETA <- list(A=list(K = G.Mat, model='RKHS', Cov = CovFA))
+
+# Phenotypic data
+Y = as.matrix(data[,-1])
+
+
+# Model
+fmF <- Multitrait(y = Y,
+                  ETA = ETA,
+                  resCov = list(type='UN'),
+                  nIter = 1200, burnIn = 200, thin = 5, saveAt='ex5_',
+                  verbose = FALSE)
+
+
+```
+
+**Retrieving some estimates**
+
+```{r, echo = TRUE, eval=TRUE}
+# Genetic covariance matrix
+fmF$ETA$A$Cov$Omega    # Posterior mean of BB’+Psi
+
+# Estimated loadings
+(W <- fmF$ETA$A$Cov$W) 
+
+# Estimated variance of trait-specific factors (Psi)
+(Psi <- fmF$ETA$A$Cov$PSI)
+W%*%t(W) + diag(PSI)
+
+# Residual matrix 
+fmF$resCov$R
+
+#fmF$ETA[[1]]$Cov
+
+
+
+```
+
+
+
+## References
