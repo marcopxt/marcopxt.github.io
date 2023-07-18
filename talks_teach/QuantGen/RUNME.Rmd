@@ -1,0 +1,603 @@
+---
+title: "Response to selection in AlphaSimR"
+author: "Marco Antônio Peixoto & Márcio Resende Jr."
+date: "2022-10-24"
+output: html_document
+---
+
+## 1. Introduction
+
+Simulations have been demonstrated as a powerful tool to improve animal and plant breeding programs. In addition, those tools may offer an alternative to address theoretical concepts in quantitative genetics and breeding.
+
+Here, we will use `AlphaSimR` package (Gaynor et al. 2021). The package uses stochastic simulations for design and optimization of breeding programs. The package offers a fast, simple, and inexpensive way to test alternative breeding programs.
+
+```{r}
+rm(list=ls())
+
+#install.packages("AlphaSimR")
+
+require(AlphaSimR)
+
+```
+
+For a whole set of simulations, four simple steps must be included, as follows:
+
+1.  Simulate founder genomes/haplotypes.
+2.  Set global simulation parameters for a target trait.
+3.  Modeling the breeding program.
+4.  Examining results by looking into population individuals.
+
+## 2. Simulate founder genomes/haplotypes
+
+The base population is created with the function `runMacs`, in addition to set all the parameters expected in the founder haplotypes (i.e. number of individuals, number of chromosomes, segregation sites number).
+
+```{r}
+set.seed(53627)
+
+# Creating the founder genome
+founderGen = runMacs(nInd = 100,
+                     nChr = 10,
+                     segSites = 100,
+                     species = "MAIZE", #wheat, generic, cattle
+                     ploidy = 2L)
+
+# The founder genome
+founderGen
+
+```
+
+## 3. Set global simulation parameters for a target trait
+
+After create the base genome, we may set the parameters for a target trait. Here, we will create a trait with only additive genetic control, using the function `addTraitA`, as follows:
+
+```{r}
+SP <- SimParam$new(founderGen)
+
+#Heritability
+h2 = 0.5
+
+# Additive trait (mean and variance)
+SP$addTraitA(nQtlPerChr = 100,
+             mean = 100,
+             var = 30)
+
+# Residual variance (based on the heritability)
+SP$setVarE(h2 = h2)
+
+```
+
+Now, we can create the base population, using the function `newPop`:
+
+```{r}
+set.seed(53627)
+
+# Base population
+basePop = newPop(founderGen)
+
+# Setting phenotypes
+basePop = setPheno(basePop)
+
+basePop
+
+```
+
+The package `AlphaSimR` allow us to explore several characteristics related with the populations that we created. For instance we can access:
+
+```{r}
+# Individuals
+basePop@id
+
+```
+
+```{r}
+# Phenotypic mean
+mean(basePop@pheno)
+
+```
+
+
+```{r}
+# Phenotypic variance
+varP(basePop)
+
+```
+
+
+```{r}
+# Genetic mean
+mean(basePop@gv)
+
+```
+
+```{r}
+#Genetic variance
+varG(basePop)
+
+```
+
+```{r}
+# Plotting the phenotypic values
+hist(pheno(basePop), xlab = "Phenotype value", main = "")
+
+```
+
+## 4. Modeling the breeding program
+
+After simulate the base population and the target trait parameters, we can implement the breeding program simulations by mimic a real breeding program using the functions from the package.
+
+```{r}
+set.seed(53627)
+
+# Selection of individuals
+basePopSelected = selectInd(basePop, 50)
+
+# Cross of selected individuals
+newPop = randCross(pop = basePopSelected, nCrosses = 10)
+
+# Phenotype the progeny
+newPop = setPheno(newPop)
+
+# Selfing the genotypes
+pop_self = self(newPop, nProgeny = 5)
+
+
+```
+
+## 5. Examining the results: Response to selection
+
+We may observe how do phenotypic and genetic means perform in the base population and in the new population after selection.
+
+To this end, let's analyse mean phenotype and genetic values in the base population, the selected individuals, and the new population.
+
+```{r, echo=TRUE}
+# Mean of phenotype and genetic values in the base population
+c(meanP(basePop), meanG(basePop))
+
+```
+
+```{r, echo=TRUE}
+# Mean of phenotype and genetic values in the selected part of the base population
+c(meanP(basePopSelected), meanG(basePopSelected))
+
+
+```
+
+```{r, echo=TRUE}
+# Mean of phenotype and genetic values in the new population
+c(meanP(newPop), meanG(newPop))
+
+```
+
+We will now visualize these differences in phenotype and genetic values and their means, for all three groups of individuals in each generation. As before, we will highlight with a purple solid line the overall mean of the population in both generations, so we can clearly see response to selection.
+
+```{r}
+phenoRange = range(pheno(c(basePop, newPop)))
+par(mfrow = c(2, 2),
+    mar = c(4, 4, 2, 1))
+# Phenotype values in the base population and the selected individuals
+tmp = hist(pheno(basePop), xlim = phenoRange, xlab = "Phenotype value", main = "Base population")
+abline(v = mean(pheno(basePop)), col = "black", lty = 1, lwd = 3)
+hist(pheno(basePopSelected), col = "blue", breaks = tmp$breaks, add = TRUE)
+abline(v = mean(pheno(basePopSelected)), col = "blue", lty = 4, lwd = 3)
+
+# Genetic values in the base population and the selected individuals
+tmp = hist(gv(basePop), xlim = phenoRange, xlab = "Genetic value", main = "Base population")
+abline(v = mean(gv(basePop)), col = "black", lty = 1, lwd = 3)
+hist(gv(basePopSelected), col = "blue", breaks = tmp$breaks, add = TRUE)
+abline(v = mean(gv(basePopSelected)), col = "blue", lty = 4, lwd = 3)
+
+# Phenotype values in the new population
+hist(pheno(newPop), xlim = phenoRange, xlab = "Phenotype value", main = "New population")
+abline(v = mean(pheno(basePop)), col = "black", lty = 1, lwd = 3)
+abline(v = mean(pheno(newPop)), col = "blue", lty = 4, lwd = 3)
+
+# Genetic values in the new population
+hist(gv(newPop), xlim = phenoRange, xlab = "Genetic value", main = "New population")
+abline(v = mean(gv(basePop)), col = "black", lty = 1, lwd = 3)
+abline(v = mean(gv(newPop)), col = "blue", lty = 4, lwd = 3)
+
+
+```
+
+# 6. Breeder's equation
+
+As we discussed before, the Breeder's equation (Lush, 1937) can measure the gains with selection. It predicts the expected change in mean genetic value due to selection per generation ($\Delta G$) by multiplying the intensity of selection ($i$), accuracy of selection ($r$), and standard deviation of genetic values, as follows:
+
+$$\Delta G = i \times r \times S_G.$$
+
+Intensity of selection ($i$) is defined as selection differential ($SD$) expressed in units of phenotype standard deviation ($S_P$), $i = SD / S_P$. Accuracy of selection ($r$) is defined as Pearson correlation between true genetic values ($G$) and estimated genetic values ($\hat{G}$), $cor(G, \hat{G})$. Estimated genetic values are given by the criterion we use to rank selection candidates. Here we used phenotype values.
+
+Lets evaluate these components and expected change in mean genetic value.
+
+```{r}
+# Selection differential
+(selDiff = meanP(basePopSelected) - meanP(basePop))
+
+```
+
+
+```{r}
+# Intensity of selection
+(i = selDiff / sqrt(varP(basePop)))
+
+
+```
+
+
+```{r}
+# Accuracy of selection
+(r = cor(gv(basePop), pheno(basePop)))
+```
+
+
+```{r}
+par(mfrow = c(1, 1))
+plot(y = gv(basePop), x = pheno(basePop),
+     ylab = "Genetic value", xlab = "Phenotypic values")
+points(y = gv(basePopSelected), x = pheno(basePopSelected), col = "blue", pch = 19)
+```
+
+```{r}
+# Expected change in the mean of genetic values from the simulation
+(deltaG_Exp = i * r * sqrt(varG(basePop)))
+```
+
+```{r}
+# Observed change in the mean of genetic values from the simulation (Observed genetic gain)
+(deltaG_Obs = meanG(newPop) - meanG(basePop))
+```
+
+
+```{r}
+
+# Breeder's equation with the assumed heritability
+selDiff * h2
+```
+
+```{r}
+# Breeder's equation with a realized heritability
+selDiff * varG(basePop) / varP(basePop)
+```
+
+```{r}
+# Expanded Breeder's equation with a realized genetic variance and estimated accuracy
+i * r * sqrt(varG(basePop))
+```
+
+```{r}
+# Expanded Breeder's equation with a realized genetic variance and assumed accuracy
+i * (sqrt(varG(basePop)) / sqrt(varP(basePop))) * sqrt(varG(basePop))
+```
+
+# 7. Population performance over time
+
+The simulations also allow us to track the performance a trait over several cycles of breeding. Realistically, this represents the best strategy to measure the impact of selection on a trait over multiple cycles or generations of breeding.
+
+```{r}
+
+# Store the results
+nGenerations = 20 + 1 
+meanP = numeric(nGenerations)
+varP = numeric(nGenerations)
+meanG = numeric(nGenerations)
+varG = numeric(nGenerations)
+
+# Save the starting values
+meanP[1] = meanP(basePop)
+varP[1] = varP(basePop)
+meanG[1] = meanG(basePop)
+varG[1] = varG(basePop)
+
+# Copy of the object basePopSelected
+newPopSelected = basePopSelected
+
+# Selection over 20 generations
+for (generation in 1:(nGenerations - 1)) {
+  cat('Generation:', generation, "\n")
+  # Cross parents, phenotype progeny, and select new parents
+  newPop = randCross(pop = newPopSelected, nCrosses = nInd(basePop))
+  newPop = setPheno(newPop, h2 = 0.5)
+  newPopSelected = selectInd(pop = newPop,
+                             nInd = 20,
+                             use = "pheno")
+  
+  # Save results for each year
+  meanP[1 + generation] = meanP(newPop)
+  varP[1 + generation] = varP(newPop)
+  meanG[1 + generation] = meanG(newPop)
+  varG[1 + generation] = varG(newPop)
+  
+}
+
+```
+
+```{r}
+meanRanges = range(c(meanP, meanG))
+varRanges = range(c(varP, varG))
+
+par(mfrow = c(2, 2),
+    mar = c(4, 4, 1, 1))
+
+# Plot mean of phenotype values over time
+plot(x = 1:nGenerations, y = meanP, type = "l", col = "blue", lwd = 2, lty = 2,   xlab = "Generation", ylab = "Mean of phenotype values", ylim = meanRanges)
+
+# Plot mean of genetic values over time
+plot(x = 1:nGenerations, y = meanG, type = "l", col = "blue", lwd = 2,
+     xlab = "Generation", ylab = "Mean of genetic values", ylim = meanRanges)
+
+# Plot variance of phenotype values over time
+plot(x = 1:nGenerations, y = varP, type = "l", col = "blue", lwd = 2, lty = 2,
+     xlab = "Generation", ylab = "Variance of phenotype values", ylim = varRanges)
+
+# Plot variance of genetic values over time
+plot(x = 1:nGenerations, y = varG, type = "l", col = "blue", lwd = 2,
+     xlab = "Generation", ylab = "Variance of genetic values", ylim = varRanges)
+
+```
+
+
+# 8. Multi-trait information over several cycles
+
+Breeding programs are often targeting the improvement of several traits at a time. However, in a multi-trait framework, we may consider the correlations in-between the traits. Correlation may vary from -1 to 1, and the signal and the magnitude will impact the response with selection.
+
+Here, we will use `AlphaSimR` to simulate three scenarios, with different strategy in selection and with different correlations in-between pair of traits.
+
+
+#### Positive correlation
+
+First, we will check a case where two traits were simulated, with a positive correlation between them. In addition, the selection will be made in only one trait and we will be able to measure the indirect response in the other trait.
+
+
+```{r}
+rm(list=ls())
+require(AlphaSimR)
+set.seed(53627)
+
+founderGen = runMacs(nInd = 100,
+                         nChr = 10,
+                         segSites = 100,
+                         species = "MAIZE")
+SP = SimParam$new(founderGen)
+
+
+# Define the traits
+means = c(100, 100)
+vars = c(10, 20)
+cors = matrix(data = c( 1.0, 0.3,
+                       0.3,  1.0),
+                byrow = TRUE, nrow = 2, ncol = 2)
+h2s = c(0.5, 0.5)
+SP$addTraitA(nQtlPerChr = 100, 
+             mean = means, 
+             var = vars, 
+             corA = cors)
+
+```
+
+Create the base population for later selection.
+
+```{r}
+# Base population
+basePop = newPop(founderGen)
+
+# Phenotype the population
+basePop = setPheno(basePop, h2 = h2s)
+
+
+```
+
+Plotting the phenotypic and genetic mean/variances through several generations of breeding.
+
+```{r}
+# Store the results
+nGenerations = 10 + 1 # +1 to store starting generation
+meanG = vector("list", length = nGenerations)
+varG = vector("list", length = nGenerations)
+
+# Save the starting values
+meanG[[1]] = meanG(basePop)
+varG[[1]] = varG(basePop)
+
+# First selection step
+nSelected = 20
+newPopSelected = selectInd(pop = basePop,
+                           nInd = nSelected,
+                           use = "pheno",
+                           trait = 1)
+
+# Selection over many generations
+for (generation in 1:(nGenerations - 1)) {
+  newPop = randCross(newPopSelected, nCrosses = nInd(basePop))
+  newPop = setPheno(newPop, h2 = h2s)
+  newPopSelected = selectInd(pop = newPop,
+                             nInd = nSelected,
+                             use = "pheno",
+                             trait = 1)
+  # Save summaries
+  meanG[[1 + generation]] = meanG(newPop)
+  varG[[1 + generation]] = varG(newPop)
+  }
+
+# Plot results
+meanGTrait1 = sapply(meanG, function(x) x[1])
+meanGTrait2 = sapply(meanG, function(x) x[2])
+meanRanges = range(c(meanGTrait1, meanGTrait2))
+
+varGTrait1 = sapply(varG, function(x) x[1, 1])
+varGTrait2 = sapply(varG, function(x) x[2, 2])
+varRanges = range(c(varGTrait1, varGTrait2))
+
+# Plot mean of genetic values over time
+plot(x = 1:nGenerations, y = meanGTrait1, type = "l", col = "grey40", lwd = 3,
+     xlab = "Generation", ylab = "Mean of genetic values", ylim = meanRanges)
+lines(x = 1:nGenerations, y = meanGTrait2, type = "l", col = "grey40", lty = 3, lwd = 3)
+legend(x = "topleft", legend = c("1", "2"), title = "Trait",
+       lwd = 3, lty = c(1, 3), col = c("grey60", "grey60"))
+
+```
+
+#### Negative correlation
+
+The second example will consider two traits with negative correlation, for the same breeding program.
+
+```{r}
+rm(list=ls())
+
+set.seed(53627)
+
+founderGen = runMacs(nInd = 100,
+                         nChr = 10,
+                         segSites = 100,
+                         species = "MAIZE")
+SP = SimParam$new(founderGen)
+
+# Define the traits
+means = c(100, 100)
+vars = c(10, 20)
+cors = matrix(data = c( 1.0, -0.6,
+                       -0.6,  1.0),
+                byrow = TRUE, nrow = 2, ncol = 2)
+
+h2s = c(0.5, 0.5)
+
+SP$addTraitA(nQtlPerChr = 100, 
+             mean = means, 
+             var = vars, 
+             corA = cors)
+
+
+```
+
+Create the base population for later selection
+
+```{r}
+# Base population
+basePop = newPop(founderGen)
+
+# Phenotype the population
+basePop = setPheno(basePop, h2 = h2s)
+
+```
+
+Plotting the phenotypic and genetic mean through several generations of breeding.
+
+```{r, echo=FALSE}
+
+# Store the results
+nGenerations = 10 + 1 # +1 to store starting generation
+meanG = vector("list", length = nGenerations)
+varG = vector("list", length = nGenerations)
+
+# Save the starting values
+meanG[[1]] = meanG(basePop)
+varG[[1]] = varG(basePop)
+
+# First selection step
+nSelected = 20
+newPopSelected = selectInd(pop = basePop,
+                           nInd = nSelected,
+                           use = "pheno",
+                           trait = 1)
+
+# Selection over many generations
+for (generation in 1:(nGenerations - 1)) {
+  newPop = randCross(newPopSelected, nCrosses = nInd(basePop))
+  newPop = setPheno(newPop, h2 = h2s)
+  newPopSelected = selectInd(pop = newPop,
+                             nInd = nSelected,
+                             use = "pheno",
+                             trait = 1)
+  # Save summaries
+  meanG[[1 + generation]] = meanG(newPop)
+  varG[[1 + generation]] = varG(newPop)
+  
+}
+
+# Plot results
+meanGTrait1 = sapply(meanG, function(x) x[1])
+meanGTrait2 = sapply(meanG, function(x) x[2])
+meanRanges = range(c(meanGTrait1, meanGTrait2))
+
+varGTrait1 = sapply(varG, function(x) x[1, 1])
+varGTrait2 = sapply(varG, function(x) x[2, 2])
+varRanges = range(c(varGTrait1, varGTrait2))
+
+# Plot mean of genetic values over time
+plot(x = 1:nGenerations, y = meanGTrait1, type = "l", col = "grey40", lwd = 3,
+     xlab = "Generation", ylab = "Mean of genetic values", ylim = meanRanges)
+lines(x = 1:nGenerations, y = meanGTrait2, type = "l", col = "grey40", lty = 3, lwd = 3)
+legend(x = "topleft", legend = c("1", "2"), title = "Trait",
+       lwd = 3, lty = c(1, 3), col = c("grey40", "grey40"))
+
+```
+
+
+#### Negative correlation with index
+
+In the third case we assume two traits with negative correlation in-between them (same magnitude as above mentioned). However, we will add a selection index for individual selection in each cycle. We use the function `selIndex` from `AlphaSimR` and we set a weight of 0.5 for both traits.
+
+```{r}
+# Store the results
+nGenerations = 10 + 1 
+meanG = vector("list", length = nGenerations)
+varG = vector("list", length = nGenerations)
+
+
+# Save the starting values
+meanG[[1]] = meanG(basePop)
+varG[[1]] = varG(basePop)
+
+# First selection step
+nSelected = 20
+newPopSelected = selectInd(pop = basePop,
+                           nInd = nSelected,
+                           use = "pheno",
+                           trait = selIndex, b = c(0.5, 0.5), scale = TRUE)
+
+# Selection over many generations
+for (generation in 1:(nGenerations - 1)) {
+  # Cross parents, phenotype progeny, and select new parents
+  newPop = randCross(newPopSelected, nCrosses = nInd(basePop))
+  newPop = setPheno(newPop, h2 = h2s)
+  newPopSelected = selectInd(pop = newPop,
+                             nInd = nSelected,
+                             use = "pheno",
+                             trait = selIndex, b = c(0.5, 0.5), scale = TRUE)
+  # Save summaries
+  meanG[[1 + generation]] = meanG(newPop)
+  varG[[1 + generation]] = varG(newPop)
+  }
+
+# Plot results
+meanGTrait1 = sapply(meanG, function(x) x[1])
+meanGTrait2 = sapply(meanG, function(x) x[2])
+meanRanges = range(c(meanGTrait1, meanGTrait2))
+
+varGTrait1 = sapply(varG, function(x) x[1, 1])
+varGTrait2 = sapply(varG, function(x) x[2, 2])
+varRanges = range(c(varGTrait1, varGTrait2))
+
+# Plot mean of genetic values over time
+plot(x = 1:nGenerations, y = meanGTrait1, type = "l", col = "grey40", lwd = 3,
+     xlab = "Generation", ylab = "Mean of genetic values", ylim = meanRanges)
+lines(x = 1:nGenerations, y = meanGTrait2, type = "l", col = "grey40", lty = 2, lwd = 3)
+legend(x = "topleft", legend = c("1", "2"), title = "Trait",
+       lwd = 3, lty = c(1, 2), col = c("grey40", "grey40"))
+
+```
+
+# 9. Conclusions
+
+`AlphaSimR` stands out as an important alternative for breeding program simulations and optimization.
+
+
+
+# References
+
+Falconer, D.S. and Mackay. T.F.C. (1996). Introduction to Quantitative Genetics, Ed 4. Longmans Green, Harlow, Essex, UK.
+
+Gaynor, R.C., Gorjanc, G. and Hickey, J. M. (2021). AlphaSimR: an R package for breeding program simulations. G3, 11(2), jkaa017.
+
+Lush, J. (1937). Animal breeding. Plans. Iowa State College Press, Ames.
+
+

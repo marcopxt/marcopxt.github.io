@@ -1,0 +1,268 @@
+---
+title: "GBLUP"
+author: 'Marco Antônio Peixoto, Marcio F. Resende'
+date: "2022-12-02"
+bibliography: references.bib
+output: html_document
+---
+
+# 1. Introduction
+
+The genetic evaluations discussed so far combined phenotypic data and pedigree information (resemblance between relatives) to predict individuals' performance. We use pedigree information to built the numerator relationship matrix based on probabilities that alleles are identical by descent (IBD). In addition, it is possible to obtain the information of relationship between individuals based on molecular markers. The idea is to estimate the proportion of DNA that are similar between a pair of individuals based on matching of markers alleles, being known as identical by state (IBS).
+
+We can incorporate the markers information into the linear mixed model and predict the estimated breeding values ($EBVs$) of individual with phenotypic record and also individuals without phenotypic record, once they have been genotyped. Here, we will use the information of single nucleotide polimorphism ($SNPs$) markers into the genomic best linear unbiased prediction ($GBLUP$) to predict genomic values of individuals.
+
+
+# 2. Dataset
+
+### **Packages**
+
+```{r, message=FALSE}
+
+rm(list=ls())
+require(asreml)
+require(dplyr)
+require(ggplot2)
+require(superheat)
+
+```
+
+### **Simulated dataset parameters**
+
+This dataset was simulated using the coalescent theory implemented in $AlphasimR$ package [@gaynor2021alphasimr]. This dataset mimic an evaluation of 500 maize genotypes, in one location, and the trait measured was **Yield**. Also, a set of 6759 single nucleotide polymorphism (SNPs) were randomly sampled through the 12 pair of chromosomes.
+
+| Factor       | Levels |
+|:------------:|:------:|
+| Location     | One    |
+| Genotypes    | 500    |
+| Block        | 3      |
+| Traits       | Yield  |
+| Heritability | 0.4    |
+
+### **Phenotypic dataset**
+
+```{r}
+
+# Reading the dataset
+phenodata = read.table("GBLUP_phenodata.txt", h=TRUE,na.strings='NA')
+
+# Plotting the trait distribution
+ggplot(phenodata, aes(x = Yield)) +  
+  geom_histogram(aes(y = after_stat(density)), bins = 30, 
+                 colour = "black", fill = "blue") +
+  geom_density(alpha = .7, linewidth = 1.5, colour = "red") +
+  labs(x = NULL, title = "Yield",y="Density")
+
+# Setting as factors
+phenodata$Genotype = phenodata$Genotype %>% as.factor()
+phenodata$Rep = phenodata$Rep %>% as.factor()
+ 
+ 
+```
+
+### **Dosage matrix dataset**
+
+The dosage matrix (SNP matrix) represents the counting of the number of allele copies at each position/loci in the individuals' DNA. Hence,
+
+$$
+AA = 2 
+$$
+$$
+Aa = 1 
+$$
+$$
+aa = 0
+$$
+
+```{r}
+# Reading the SNP matrix
+genodata = read.table("GBLUP_genodata.txt", h=TRUE)
+
+# Transforming it into matrix format for latter
+SNP_data = as.matrix(genodata)
+dim(SNP_data)
+SNP_data[1:10,1:10]
+
+
+```
+
+# 4. Model implementation
+
+### **Statistical model**
+We implement a one step GBLUP. The model was given as follows:
+
+$$
+y = Xb + Zg + e
+$$
+
+where $y$ is the vector of phenotypic data; $b$ is the vector of repetitions  (assumed to be fixed); $g$ is the vector of genotype effects (assumed to be random), where $g~N(0,G\sigma^2_g)$, $G$ is a matrix that describes the genomic similarities between pair of genotypes and $\sigma^2_g$ represents the genetic variance; and $e$ is the vector of residuals (random), where $e~N(0,\sigma^2_{res})$, $\sigma^2_{res}$ is the residual variance . The letters $X$ and $Z$ refers to the incidence matrices for $b$ and $g$, respectively.
+
+### **Fitting the model**
+
+#### **Creating the kernel for GBLUP**
+
+The kernel is variance-covariance structure that represents the relationship between observations (in our case individuals) based on some measured marker or trait (in our case the SNPs).
+
+```{r}
+# Toy example
+mat = matrix(c(0,1,2,0,1,2,0,1,2,0,1,2,0,1,2,0,2,1,0,0,1,2,0,1), ncol=6)
+
+mat1 = scale(mat)
+
+# Creating the kernel
+mat1%*%t(mat1)
+
+mm=tcrossprod(mat1)
+
+```
+
+
+Here, we will built the additive relationship matrix following the propositions made by @vanraden2008efficient, as follows:
+
+$$
+G = {\frac{ZZ'}{2{\sum{p_i(1-p_i)}}}}
+$$
+
+where $p_i$ and $1-p_i$ represents the allele frequency for both $A$ and $a$ at each loci. In this case, we divided by ${2{\sum{p_i(1-p_i)}}}$ to scale **G** to be analogous to the relationship matrix **A** ([@isik2017genetic; @vanraden2008efficient]).
+ 
+To build the additive kernel (aka genomic relationship matrix), we will use the package AGHMatrix [@amadeu2016aghmatrix]. This package uses the SNP information coded as 2,1,0 to create a relationship matrix between the pair of genotypes. Also, we are able to built other kernels, such as dominance relationship matrix. In our case, we should pay attention in three parameters that will be important while we create the kernel:
+
+**Minor allele frequency** ($maf$): This parameter is connected with the frequency of the alleles in the population. As rare alleles tend to decrease the importance of alleles that contributed with the target trait, we can filter and drop those with small frequency.
+
+**Threshold**: This parameter is connected with the quality of the SNP dataset. It represents a threshold to the amount of missing data that we will allow for both, SNP and genotypes.
+
+**Method**: In this case, which one should be the method used to built the kernel. For additive kernels, using the SNP data, the method indicated is the one from VanRaden (2008), as previously discussed.
+
+
+
+```{r}
+require(AGHmatrix) 
+
+# Built the G matrix based on Van Raden method.
+G.Mat = Gmatrix(SNPmatrix=SNP_data, 
+                maf=0.05, 
+                thresh = 0.8, 
+                method="VanRaden",
+                missingValue = NA)
+
+# Check the G matrix
+G.Mat[1:10,1:10]
+superheat::superheat(G.Mat)
+
+# Adding a value to the diagonal of the matrix if you get an error of singularities
+#diag(G.Mat) = diag(G.Mat) + 0.001
+
+# Requisition of ASREML
+attr(G.Mat,"rowNames")<-as.character(colnames(G.Mat))
+attr(G.Mat,"colNames")<-as.character(colnames(G.Mat))
+
+str(G.Mat)
+
+```
+
+### **Fitting the model using the G.Mat matrix**
+
+```{r}
+
+# Model 1: GBLUP
+  mod1= asreml(fixed = Yield ~ Rep, 
+             random = ~ vm(Genotype, G.Mat), 
+             data = phenodata)
+ 
+
+summary(mod1)
+
+
+```
+
+### **Using the information to predict accuracy in a CV1 method**
+
+The cross-validations methods are divided into four different classes (sensu @jarquin2018increasing), regarding the genotypes and environments. As follows:
+
+![**Figure 1 - Cross-validations schemes.**](C:/Alloc/QGen/GBLUP/CV.JPG)
+
+
+##### **Phenotypic information**
+
+In the first part we will organize the phenotypic information and create the partitions to the cross validation scheme. Generally, we can divide the phenotypic dataset into two:
+
+Testing set: Population where the phenotype will be predicted based on the markers and in the information from the training set.
+
+Training set: Population with the information that we use to calibrate the model.
+
+```{r}
+# Create an ID to track genotypes in the TST and TRN data sets
+phenodata$unique_ID = paste(phenodata$Genotype, phenodata$Rep, sep='_')
+
+head(phenodata)
+# Creating the folds for cross validation
+nInd=500                                # Number of individuals
+k=10                                    # Number of folds
+
+set.seed(1234)                          # Guarantee the same individuals in each fold
+folds = sample(1:k, size=nInd,replace=T)  # Creating the folds 
+
+# Object to store the values across loop
+corr = vector()  
+
+```
+
+##### **Implementation through a loop**
+
+Second, the implementation of the prediction into a loop structure, as follows:
+
+```{r}
+
+
+for(i in 1:max(folds)){              # loop across the folds
+
+  # Store the information of individuals that we will predict
+  pred.gen=which(folds==i)               
+  pred.gen=paste0("G",pred.gen)
+  
+ test.set = phenodata %>%
+    filter(Genotype %in% pred.gen) %>%
+    droplevels()                    
+
+  # Assuming NA in the data for the individuals that we will predict
+  train.set = phenodata
+  train.set$yNA = replace(train.set$Yield, (train.set$Genotype %in% pred.gen), NA)
+  
+   
+  # GBLUP model 
+  mod2 = asreml(fixed = yNA ~ Rep, 
+             random = ~ vm(Genotype,G.Mat), 
+             na.action=na.method(y="include"),
+             data = train.set)
+  
+  # Assessing the predictions by 'predict' function
+  yHat =predict(mod2,classify="Genotype+Rep",sed=T)$pvals
+
+  # Creating the id for later combining
+  yHat.set = yHat %>%
+       mutate(unique_ID = paste(Genotype,Rep,sep="_")) %>%
+       droplevels()
+
+  # Combining the datasets
+  comb_data = merge(yHat.set, test.set, by="unique_ID")
+
+  # Prediction accuracy (correlation)
+  corr[i] = cor(comb_data$predicted.value,comb_data$Yield, use="complete")
+}
+
+
+mean(corr)
+
+
+```
+
+# 5. Final considerations
+
+1. The implementation of Genomic BLUP (GBLUP) resembles the analyses on genetic assessment conduced so far, with the replacement of pedigree-based matrix to an SNP-based matrix.
+2. From a set of SNPs we can create a relationship matrix between individuals.
+3. The G matrix can be used efficiently in the context of linear mixed models to predict individuals' performance.
+
+# 6. References
+
+::: {#refs}
+:::
