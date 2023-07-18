@@ -23,13 +23,10 @@ These three classes were conducted as part of the discipline Quantitative geneti
 
 - GBLUP model implemented using ASREML package [[html]](https://htmlpreview.github.io/?https://github.com/marcopxt/marcopxt.github.io/blob/master/talks_teach/QuantGen/GBLUP.html)
 
-<br>
-
-Any question about the analyses, please, contact me!  
-
-Marco  
 
 ***
+Any question about the analyses, please, contact me!   
+
 Dr. Marco Antonio Peixoto  
 Email: deamorimpeixotom@ufl.edu  
 Page: https://marcopxt.github.io/  
