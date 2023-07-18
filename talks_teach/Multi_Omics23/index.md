@@ -1,3 +1,7 @@
+---
+layout: page
+
+---
 
 **Multi-Omics course**  
 **Marco Antônio Peixoto**  
