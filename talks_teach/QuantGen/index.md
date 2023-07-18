@@ -1,4 +1,4 @@
-## **Quantitative Genetics**  
+
 **Marco Antônio Peixoto**  
 **Fall-2022**
 
@@ -15,9 +15,9 @@ These three classes were conducted as part of the discipline Quantitative geneti
 
 ## Spatial analyses for breeding programs
 
-- Implementation of spatial analyses in plant breeding using ASREML package [[html]](https://htmlpreview.github.io/?https://github.com/marcopxt/marcopxt.github.io/blob/master/talks_teach/QuantGen/Spatial.html)
+- Implementation of spatial analyses in plant breeding using ASREML package [[html]](https://htmlpreview.github.io/?https://github.com/marcopxt/marcopxt.github.io/blob/master/talks_teach/QuantGen/Spatial.html)  
 
- ## Introduction to Genomic Selection - GBLUP
+## Introduction to Genomic Selection - GBLUP
 
 - GBLUP model implemented using ASREML package [[html]](https://htmlpreview.github.io/?https://github.com/marcopxt/marcopxt.github.io/blob/master/talks_teach/QuantGen/GBLUP.html)
 
