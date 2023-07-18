@@ -1,11 +1,13 @@
 ---
-layout: page
 permalink: /
-title: "Welcome to my personal website."
+title: "academicpages is a ready-to-fork GitHub Pages template for academic personal websites"
 excerpt: "About me"
 author_profile: true
-
+redirect_from: 
+  - /about/
+  - /about.html
 ---
+
 
 Hi! My name is **Marco Antônio Peixoto**, a **Postdoctoral Associate** at the Sweet Corn and Genomics lab, working in collaboration with professor Márcio Resende Jr. I recently graduated in genetics and breeding at Federal University of Viçosa with big focus in quantitative genetics. Here, I will share some papers, codes from classes and short courses that I have developing over my career.
 
