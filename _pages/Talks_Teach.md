@@ -14,7 +14,7 @@ author_profile: true
 
 ### Workshop and Talks 
 
-- [2023 - Multi-Omics course]([talks_teach/Multi_Omics23/index.md](https://github.com/marcopxt/marcopxt.github.io/blob/master/talks_teach/Multi_Omics23/index.md)
+- [2023 - Multi-Omics course]([html](https://github.com/marcopxt/marcopxt.github.io/blob/master/talks_teach/Multi_Omics23/index.md)
 
 
 ### Others
