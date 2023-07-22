@@ -1,0 +1,559 @@
+---
+title: |
+  ![](UF.jpg){width=10%}
+
+  Multi-trait and multi-environment strategies for Genomic Selection (GS)
+author: 
+  - Marcio Resende, professor^[University of Florida, mresende@ufl.edu]
+  
+  - Diego Jarquin, professor^[University of Florida, jhernandezjarqui@ufl.edu]
+  
+  - Marco Antonio Peixoto, Post doc^[University of Florida, deamorimpeixotom@ufl.edu]
+  
+output: 
+  html_document:
+    toc: true
+    toc_float: true
+    theme: flatly
+    highlight: haddock
+bibliography: references.bib
+csl: apa.csl   
+---
+
+```{=html}
+<style type="text/css">
+  body{
+  font-size: 14pt;
+}
+</style>
+```
+
+
+<br>
+
+## 1. Introduction to simulations pipeline
+
+Simulations have been demonstrated as a powerful tool to improve animal and plant breeding programs. In addition, those tools may offer an alternative to address theoretical concepts in quantitative genetics and breeding.
+
+Here, we will use `AlphaSimR` package (Gaynor et al. 2021). The package uses stochastic simulations for design and optimization of breeding programs. The package offers a fast, simple, and inexpensive way to test alternative breeding programs.
+
+```{r}
+rm(list=ls())
+
+#install.packages("AlphaSimR")
+require(AlphaSimR)
+
+```
+
+For a whole set of simulations, four simple steps must be included, as follows:
+
+1.  Simulate founder genomes/haplotypes.
+2.  Set global simulation parameters for a target trait.
+3.  Modeling the breeding program.
+4.  Examining results by looking into population individuals.
+
+
+## 2. Multi-trait information over several cycles
+
+Breeding programs are often targeting the improvement of several traits at a time. However, in a multi-trait framework, we may consider the correlations in-between the traits. Correlation may vary from -1 to 1, and the signal and the magnitude will impact the response with selection.
+
+Here, we will use `AlphaSimR` to simulate three scenarios, with different strategy in selection and with different correlations in-between pair of traits.
+
+
+### Positive correlation
+
+First, we will check a case where two traits were simulated, with a positive correlation between them. In addition, the selection will be made in only one trait and we will be able to measure the indirect response in the other trait.
+
+
+```{r}
+rm(list=ls())
+require(AlphaSimR)
+set.seed(53627)
+
+#--- 1. Founder genome
+founderGen = runMacs(nInd = 100,
+                         nChr = 10,
+                         segSites = 100,
+                         species = "MAIZE")
+SP = SimParam$new(founderGen)
+
+
+#--- 2. Define the traits
+means = c(100, 100)
+vars = c(10, 20)
+cors = matrix(data = c( 1.0, 0.3,
+                       0.3,  1.0),
+                byrow = TRUE, nrow = 2, ncol = 2)
+h2s = c(0.5, 0.5)
+SP$addTraitA(nQtlPerChr = 100, 
+             mean = means, 
+             var = vars, 
+             corA = cors)
+
+```
+
+Create the base population for later selection.
+
+```{r}
+# Base population
+basePop = newPop(founderGen)
+
+# Phenotype the population
+basePop = setPheno(basePop, h2 = h2s)
+
+
+```
+
+Plotting the phenotypic and genetic mean/variances through several generations of breeding.
+
+```{r}
+# Store the results
+nGenerations = 10 + 1 # +1 to store starting generation
+meanG = vector("list", length = nGenerations)
+varG = vector("list", length = nGenerations)
+
+# Save the starting values
+meanG[[1]] = meanG(basePop)
+varG[[1]] = varG(basePop)
+
+# First selection step
+nSelected = 20
+newPopSelected = selectInd(pop = basePop,
+                           nInd = nSelected,
+                           use = "pheno",
+                           trait = 1)
+
+# Selection over many generations
+for (generation in 1:(nGenerations - 1)) {
+  newPop = randCross(newPopSelected, nCrosses = nInd(basePop))
+  newPop = setPheno(newPop, h2 = h2s)
+  newPopSelected = selectInd(pop = newPop,
+                             nInd = nSelected,
+                             use = "pheno",
+                             trait = 1)
+  # Save summaries
+  meanG[[1 + generation]] = meanG(newPop)
+  varG[[1 + generation]] = varG(newPop)
+  }
+
+# Plot results
+meanGTrait1 = sapply(meanG, function(x) x[1])
+meanGTrait2 = sapply(meanG, function(x) x[2])
+meanRanges = range(c(meanGTrait1, meanGTrait2))
+
+varGTrait1 = sapply(varG, function(x) x[1, 1])
+varGTrait2 = sapply(varG, function(x) x[2, 2])
+varRanges = range(c(varGTrait1, varGTrait2))
+
+# Plot mean of genetic values over time
+plot(x = 1:nGenerations, y = meanGTrait1, type = "l", col = "blue", lwd = 3,
+     xlab = "Generation", ylab = "Mean of genetic values", ylim = meanRanges)
+lines(x = 1:nGenerations, y = meanGTrait2, type = "l", col = "blue", lty = 3, lwd = 3)
+legend(x = "topleft", legend = c("1", "2"), title = "Trait",
+       lwd = 3, lty = c(1, 3), col = c("blue", "blue"))
+
+```
+
+<br>
+
+### Negative correlation
+
+The second example will consider two traits with negative correlation, for the same breeding program.
+
+```{r}
+rm(list=ls())
+
+set.seed(53627)
+
+founderGen = runMacs(nInd = 100,
+                         nChr = 10,
+                         segSites = 100,
+                         species = "MAIZE")
+SP = SimParam$new(founderGen)
+
+# Define the traits
+means = c(100, 100)
+vars = c(10, 20)
+cors = matrix(data = c( 1.0, -0.6,
+                       -0.6,  1.0),
+                byrow = TRUE, nrow = 2, ncol = 2)
+
+h2s = c(0.5, 0.5)
+
+SP$addTraitA(nQtlPerChr = 100, 
+             mean = means, 
+             var = vars, 
+             corA = cors)
+
+
+```
+
+Create the base population for later selection
+
+```{r}
+# Base population
+basePop = newPop(founderGen)
+
+# Phenotype the population
+basePop = setPheno(basePop, h2 = h2s)
+
+```
+
+Plotting the phenotypic and genetic mean through several generations of breeding.
+
+```{r, echo=TRUE}
+
+# Store the results
+nGenerations = 10 + 1 # +1 to store starting generation
+meanG = vector("list", length = nGenerations)
+varG = vector("list", length = nGenerations)
+
+# Save the starting values
+meanG[[1]] = meanG(basePop)
+varG[[1]] = varG(basePop)
+
+# First selection step
+nSelected = 20
+newPopSelected = selectInd(pop = basePop,
+                           nInd = nSelected,
+                           use = "pheno",
+                           trait = 1)
+
+# Selection over many generations
+for (generation in 1:(nGenerations - 1)) {
+  newPop = randCross(newPopSelected, nCrosses = nInd(basePop))
+  newPop = setPheno(newPop, h2 = h2s)
+  newPopSelected = selectInd(pop = newPop,
+                             nInd = nSelected,
+                             use = "pheno",
+                             trait = 1)
+  # Save summaries
+  meanG[[1 + generation]] = meanG(newPop)
+  varG[[1 + generation]] = varG(newPop)
+  
+}
+
+# Plot results
+meanGTrait1 = sapply(meanG, function(x) x[1])
+meanGTrait2 = sapply(meanG, function(x) x[2])
+meanRanges = range(c(meanGTrait1, meanGTrait2))
+
+varGTrait1 = sapply(varG, function(x) x[1, 1])
+varGTrait2 = sapply(varG, function(x) x[2, 2])
+varRanges = range(c(varGTrait1, varGTrait2))
+
+# Plot mean of genetic values over time
+plot(x = 1:nGenerations, y = meanGTrait1, type = "l", col = "blue", lwd = 3,
+     xlab = "Generation", ylab = "Mean of genetic values", ylim = meanRanges)
+lines(x = 1:nGenerations, y = meanGTrait2, type = "l", col = "blue", lty = 3, lwd = 3)
+legend(x = "topleft", legend = c("1", "2"), title = "Trait",
+       lwd = 3, lty = c(1, 3), col = c("blue", "blue"))
+
+```
+
+<br>
+
+## 3. Genomic selection using multiple-trait information
+
+In this practice, we will show how to implement Genomic prediction/Genomic selection models in a Multi-trait multienvironment framework.
+
+To perform the analyses, we will need the following packages:
+
+```{r echo=FALSE, warning=FALSE,eval=TRUE}
+rm(list=ls())
+require(AGHmatrix)
+require(BGLR)
+require(tidyverse)
+require(dplyr)
+require(ggplot2)
+```
+
+<br>
+
+### Dataset 
+
+This dataset was simulated using the coalescent theory implemented in $AlphasimR$ package [@gaynor2021alphasimr]. This dataset mimic an evaluation of 500 maize genotypes, in six location, and four traits were measured. Also, a set of 3000 single nucleotide polymorphism (SNPs) were randomly sampled through the 10 pair of chromosomes.
+
+**Phenotypic data**  
+We generated BLUEs (best linear unbiased estimation) for each trait, and it can be loaded from *Phenotypes.csv*.
+
+```{r echo=TRUE}
+# Loading the data
+Phenotypes = read.csv("Phenotypes.csv")
+
+# As factor
+Phenotypes$Genotype = Phenotypes$Genotype %>% as.factor
+Phenotypes$Env = Phenotypes$Env %>% as.factor
+
+```
+
+
+
+```{r}
+Phenotypes[,c(1,3:6)] %>%
+  pivot_longer(., cols = c('Trait1','Trait2','Trait3','Trait4')) %>% 
+ggplot(., aes(x = Env, y = value)) +
+  geom_boxplot(color="brown", fill="orange", alpha=0.2) + 
+  theme(strip.text = element_text(face = "bold", size = 20, colour = 'blue'))+
+  labs(x = 'Environment', title = "Traits (BLUEs) distribution across environments",y="Density")+
+  facet_wrap(~name,scales = "free")
+
+
+```
+<br>
+
+Using the trait 1 over four environments.
+
+```{r echo=TRUE, eval=TRUE}
+# Organizing the phenotypic data
+
+Y<- Phenotypes[,c(1,2,3)] %>%  
+  pivot_wider(., names_from = 'Env', values_from = 'Trait1') 
+
+# Scale the data
+y = scale(Y[,-1])
+head(y)
+```
+
+
+<br>
+
+**Genomic data**  
+The genomic data (3000 SNP markers) was coded as 0,1,2 for aa,Aa,AA, respectively. The dataset for all 500 genotypes can be loaded from **Genotypes.csv**.
+
+```{r echo=FALSE}
+# SNPs
+Genotypes = as.matrix(read.csv("Genotypes.csv"))
+
+#Names
+rownames(Genotypes)= unique(Phenotypes$Genotype)
+
+```
+
+**Creating G Matrix**
+
+Here, we will compose the additive relationship matrix (*G* matrix) following the propositions made by @vanraden2008efficient.
+
+```{r echo=FALSE, eval=TRUE}
+# Additive matrix
+G.Mat = AGHmatrix::Gmatrix(Genotypes) 
+
+```
+
+<br>
+
+### Multitrait Model
+
+
+**Statistical model**
+
+The **GBLUP** model in a multitrait framework is given as follows:
+
+$$
+y = 1u + Za + e
+$$
+
+where $y$ is the matrix of BLUEs data for the target traits; $u$ represents the mean (fixed); $a$ is the matrix of genotype effects (assumed to be random), where $a \sim N(0,\sum_a\otimes G)$, $G$ is a matrix that describes the genomic similarities between pair of genotypes and $\sum_a$ represents the genetic covariance matrix; and $e$ is the  residuals (random), where $e\sim N(0,\sum_{res}\otimes I)$, $\sum_{res}$ is the residual covariance matrix. The letter $Z$ refers to the incidence matrix for $a$. Here, we use the 'Multitrait()' function from BGLR package for fitting the model [@perez2022multitrait]
+
+<br>
+
+## 4. Model 1 - CV1
+
+### **Multitrait model**
+
+```{r, eval=TRUE}
+# CROSS-VALIDATION CV1 (Predicting traits for new lines)
+
+#--- 1. Setting the NA's
+set.seed(12345)
+yNA2 <- y
+yNA2[sample(1:dim(Y)[1],100),] <- NA
+
+#--- 2. Model
+fm2 <- Multitrait(
+         y = yNA2,
+         ETA = list(A=list(K=G.Mat, model='RKHS', Cov = list(type = 'UN'))),
+         resCov = list(type = 'DIAG'), 
+         nIter = 1200, 
+         burnIn = 120, 
+         thin = 5,
+         verbose = FALSE)
+
+#--- 3.  Extracting the estimated parameters
+YHatInt2 <- fm2$ETAHat
+
+#--- 4. Predictive correlation
+  test2<-is.na(yNA2)
+  tstB<-test2[,1] # Same position for all traits
+  CORB.T1<-cor(YHatInt2[tstB,1],y[tstB,1])
+  CORB.T2<-cor(YHatInt2[tstB,2],y[tstB,2])
+  CORB.T3<-cor(YHatInt2[tstB,3],y[tstB,3])
+  CORB.T4<-cor(YHatInt2[tstB,4],y[tstB,4])
+  
+#--- 4. Extracting estimates of variance parameters
+(CORB.RES<-fm2$resCov$R) # residual covariance matrix
+(CORB.u<-fm2$ETA[[1]]$Cov$Omega) # genetic covariance matrix UE
+
+#--- 5. Trait correlation  
+cov2cor(CORB.u)
+```
+
+<br>
+
+### **Single trait model**
+
+```{r, eval=TRUE}
+  #--- 1. Run single trait 
+  yB1NA <- yNA2[,1] #Trait 1
+  yB2NA <- yNA2[,2] #Trait 2
+  yB3NA <- yNA2[,3] #Trait 3
+  yB4NA <- yNA2[,4] #Trait 4
+
+  #--- 2. Model
+  ETA2 <- list(a = list(K=G.Mat,model='RKHS'))
+  fmB1 <- BGLR(yB1NA,ETA=ETA2,nIter=1200,burnIn=120,verbose=FALSE)
+  fmB2 <- BGLR(yB2NA,ETA=ETA2,nIter=1200,burnIn=120,verbose=FALSE)
+  fmB3 <- BGLR(yB3NA,ETA=ETA2,nIter=1200,burnIn=120,verbose=FALSE)
+  fmB4 <- BGLR(yB4NA,ETA=ETA2,nIter=1200,burnIn=120,verbose=FALSE)
+
+  #--- 3. Correlations
+  CORB.ST1 <- cor(fmB1$yHat[tstB],y[tstB,1])
+  CORB.ST2 <- cor(fmB2$yHat[tstB],y[tstB,2])
+  CORB.ST3 <- cor(fmB3$yHat[tstB],y[tstB,3])
+  CORB.ST4 <- cor(fmB4$yHat[tstB],y[tstB,4])
+```
+
+### **Correlation for the models (MT and ST)**  
+
+```{r, echo=TRUE, eval=TRUE}  
+
+#--- 1. Correlation output from both models
+CorCV1 <- matrix(NA,nrow=4,ncol=2)
+colnames(CorCV1) <- c('MT','ST')
+
+  # MTM
+  CorCV1[1,1] <- CORB.T1
+  CorCV1[2,1] <- CORB.T2
+  CorCV1[3,1] <- CORB.T3
+  CorCV1[4,1] <- CORB.T4
+ 
+  # STM
+  CorCV1[1,2] <- CORB.ST1
+  CorCV1[2,2] <- CORB.ST2
+  CorCV1[3,2] <- CORB.ST3
+  CorCV1[4,2] <- CORB.ST4
+
+#--- 2. Comparison table
+
+CorCV1
+
+
+```
+
+<br>
+
+## 5. Model 2 - CV2
+
+### **Multi trait model**
+
+
+```{r echo=TRUE, eval=TRUE}
+
+## CROSS-VALIDATION CV2 (Partial Information via Associated Traits)
+
+#--- 1. Set to NA the
+set.seed(524521)
+yNA <-y
+yNA[sample(1:dim(Y)[1],100),1] <- NA
+yNA[sample(1:dim(Y)[1],100),2] <- NA
+yNA[sample(1:dim(Y)[1],100),3] <- NA
+yNA[sample(1:dim(Y)[1],100),4] <- NA
+
+head(yNA, 10)
+#--- 2. Model
+fm <- Multitrait(y = yNA,
+                 ETA = list(A=list(K = G.Mat, model='RKHS', Cov = list(type = 'UN'))), 
+                 nIter = 1200, 
+                 burnIn = 120, 
+                 thin = 5, 
+                 verbose = FALSE)
+
+#--- 3. Extracting the estimated parameters
+YHatInt <- fm$ETAHat
+
+#--- 4. Predictive correlation
+test<-is.na(yNA)
+tst1<-test[,1];tst2<-test[,2]<-tst3<-test[,3];tst4<-test[,4]
+COR.T1<-cor(YHatInt[tst1,1],y[tst1,1])
+COR.T2<-cor(YHatInt[tst2,2],y[tst2,2])
+COR.T3<-cor(YHatInt[tst3,3],y[tst3,3])
+COR.T4<-cor(YHatInt[tst4,4],y[tst4,4])
+
+#--- 5. Extracting estimates of variance parameters
+(COR.RES<-fm$resCov$R) # residual covariance matrix
+(COR.u<-fm$ETA[[1]]$Cov$Omega) # genetic covariance matrix UE
+
+#--- 6. Trait correlation  
+cov2cor(CORB.u)
+```
+
+<br>
+
+
+### **Single-trait model**
+
+
+```{r echo=TRUE, eval=TRUE}
+
+#--- 1. Run single trait model
+  y1NA <- yNA[,1] #Trait 1
+  y2NA <- yNA[,2] #Trait 2
+  y3NA <- yNA[,3] #Trait 3
+  y4NA <- yNA[,4] #Trait 4
+
+#--- 2. ETA and model for each trait
+  ETA <- list(A=list(K=G.Mat, model='RKHS'))
+  fm1 <- BGLR(y1NA,ETA=ETA,nIter=1200,burnIn=120,verbose=FALSE)
+  fm2 <- BGLR(y2NA,ETA=ETA,nIter=1200,burnIn=120,verbose=FALSE)
+  fm3 <- BGLR(y3NA,ETA=ETA,nIter=1200,burnIn=120,verbose=FALSE)
+  fm4 <- BGLR(y4NA,ETA=ETA,nIter=1200,burnIn=120,verbose=FALSE)
+
+#--- 3. Correlation for single trait
+  COR.ST1 <- cor(fm1$yHat[tst1],y[tst1,1])
+  COR.ST2 <- cor(fm2$yHat[tst2],y[tst2,2])
+  COR.ST3 <- cor(fm3$yHat[tst3],y[tst3,3])
+  COR.ST4 <- cor(fm4$yHat[tst4],y[tst4,4])
+  
+
+```
+  
+  
+### **Correlation for the models (MT and ST)**  
+
+```{r, echo=TRUE, eval=TRUE}  
+
+#--- 1. Correlation output from both models
+CorCV2 <- matrix(NA,nrow=4,ncol=2)
+colnames(CorCV2) <- c('MT','ST')
+
+  # MTM
+  CorCV2[1,1] <- COR.T1
+  CorCV2[2,1] <- COR.T2
+  CorCV2[3,1] <- COR.T3
+  CorCV2[4,1] <- COR.T4
+ 
+  # STM
+  CorCV2[1,2] <- COR.ST1
+  CorCV2[2,2] <- COR.ST2
+  CorCV2[3,2] <- COR.ST3
+  CorCV2[4,2] <- COR.ST4
+
+#--- 2. Comparison table
+
+CorCV2
+
+```
+
+
+
+## References
