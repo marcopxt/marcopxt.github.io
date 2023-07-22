@@ -25,19 +25,17 @@ Training set: Population with the information that we use to calibrate the model
 ***
 
 ## Cross-validation scheme 2
-### Introduction to AlphasimR and response to selection
-
-
-
+-  
 ## Cross-validation scheme 1  
 
-- Response to selection / AlphaSimR package [[html]](https://htmlpreview.github.io/?#https://github.com/marcopxt/marcopxt.github.io/blob/master/talks_teach/CV_BGLR/CV1_BGLR.html)
+- Response to selection / AlphaSimR package [[html]](https://htmlpreview.github.io/?#https://github.com/marcopxt/marcopxt.github.io/blob/master/talks_teach/CV_BGLR/CV1_BGLR.html)  
 
-- 
+
 ## Cross-validation scheme 0  
-
+-  
 
 ## Cross-validation scheme 00  
+-  
 
 ***
 Any question about the analyses, please, contact me!   
