@@ -25,7 +25,8 @@ Training set: Population with the information that we use to calibrate the model
 ***
 
 ## Cross-validation scheme 2
--  
+
+
 ## Cross-validation scheme 1  
 
 - Cross-validation [[html]](https://htmlpreview.github.io/?#https://github.com/marcopxt/marcopxt.github.io/blob/master/talks_teach/CV_BGLR/CV1_BGLR.html)  
