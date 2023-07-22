@@ -4,7 +4,7 @@
 
 ***
 ## 1. Introduction
-Cross-Validation schemes are fundamental concept in plant breeding programs that uses Genomic selection as a tool to harness genetic gain. One important way to measure how good is your model is the implementation of cross-validation schemes (aka CV schemes). Fooling the proposition made by Jarquin et al (2018), they can be broken down into four types:
+Cross-Validation schemes are fundamental concept in plant breeding programs that uses Genomic selection as a tool to harness genetic gain. One important way to measure how good is your model is the implementation of cross-validation schemes (aka CV schemes). Following the proposition made by Jarquin et al (2018), they can be broken down into four types:
 
 **CV2**:   
 **CV11**:  
