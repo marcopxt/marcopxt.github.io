@@ -6,10 +6,10 @@
 ## 1. Introduction
 Cross-Validation schemes are fundamental concept in plant breeding programs that uses Genomic selection as a tool to harness genetic gain. One important way to measure how good is your model is the implementation of cross-validation schemes (aka CV schemes). Fooling the proposition made by Jarquin et al (2018), they can be broken down into four types:
 
-**CV2**: 
-**CV11**:
-**CV0**:
-**CV00**:
+**CV2**:   
+**CV11**:  
+**CV0**:  
+**CV00**:  
 
 Here, I put some effort together to combine some scripts that implements those cross validation schemes.
 
@@ -27,11 +27,13 @@ Training set: Population with the information that we use to calibrate the model
 ## Cross-validation scheme 2
 ### Introduction to AlphasimR and response to selection
 
-#- Response to selection / AlphaSimR package [[html]](https://htmlpreview.github.io/?#https://github.com/marcopxt/marcopxt.github.io/blob/master/talks_teach/QuantGen/CV1_BGLR.html)
+
 
 ## Cross-validation scheme 1  
 
+- Response to selection / AlphaSimR package [[html]](https://htmlpreview.github.io/?#https://github.com/marcopxt/marcopxt.github.io/blob/master/talks_teach/CV_BGLR/CV1_BGLR.html)
 
+- 
 ## Cross-validation scheme 0  
 
 
