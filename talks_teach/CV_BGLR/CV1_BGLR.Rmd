@@ -194,6 +194,41 @@ head(y)
 ```{r, eval=TRUE}
 # CROSS-VALIDATION CV1 (Predicting traits for new lines)
 
+
+# Set file for accuracy storage
+M_GB = data.frame()
+
+set.seed(0928761)
+for (i in 1:5){
+##>>----- Partitions for a 5-FCV
+PT_ls = k_fold(BLUP1[,1], K=5)
+
+PT_ls = PT_ls$CrossValidation_list
+
+
+##>>----- Model using MTM
+Y1 = dat1
+
+for(p in 1:5){
+  
+  Y_NA = Y1
+  Pos_NA = PT_ls[[p]]
+  Y_NA[Pos_NA,] = NA
+  
+  fm <- Multitrait(y=Y_NA,
+                   ETA = A.GB,
+                   resCov = list(type="DIAG"),
+                   nIter = nIter,
+                   burnIn = burnIn,
+                   thin = thin,
+                   saveAt='MGB_')
+  
+  PC = diag(cor(Y1[Pos_NA,],fm$ETAHat[Pos_NA,]))
+  M_GB = rbind(M_GB,data.frame(Acc=PC))
+  }
+}
+
+
 #--- 1. Setting the NA's
 set.seed(12345)
 yNA2 <- y
