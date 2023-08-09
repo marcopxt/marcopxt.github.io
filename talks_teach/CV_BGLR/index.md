@@ -11,7 +11,7 @@ Cross-Validation schemes are fundamental concept in plant breeding programs that
 
 Here, I put some effort together to combine some scripts that implements those cross validation schemes.
 
-**How to Implement it**
+## 2. **How to Implement it**
 
 The first step will be to organize the phenotypic information and create the partitions to the cross validation scheme (CV1). Generally, we can divide the phenotypic dataset into two:
 
