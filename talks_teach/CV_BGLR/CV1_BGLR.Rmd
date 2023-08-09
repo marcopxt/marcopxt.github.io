@@ -9,8 +9,8 @@ author:
   
 output: 
   html_document:
-    toc: true
-    toc_float: true
+    toc: FALSE
+    toc_float: FALSE
     theme: flatly
     highlight: haddock
 bibliography: references.bib
@@ -20,7 +20,7 @@ csl: apa.csl
 ```{=html}
 <style type="text/css">
   body{
-  font-size: 14pt;
+  font-size: 12pt;
 }
 </style>
 ```
@@ -133,7 +133,7 @@ Deploy the model using BGLR() function
 
 ###----------- Parameters for the folds
 nReps = 5 #change here for more repetitions (10-20 is a good fit)
-nFolds = 5 #5 is reasonable, but it depends of or dataset size
+nFolds = 5 # 5 is reasonable, but it depends of or dataset size
 
 ###----------- Output for the estimated values
 yHatCV=rep(NA,length(Y$Trait1))
@@ -188,46 +188,74 @@ Y<- Phenotypes[,c(1,2,3)] %>%
 
 # Scale the data
 y = scale(Y[,-1])
-head(y)
-```
 
-```{r, eval=TRUE}
+```
+Deploy the model using Multitrait() function
+
+```{r, echo = TRUE, eval=TRUE}
 # CROSS-VALIDATION CV1 (Predicting traits for new lines)
 
+# nFolds
+nFolds = 5
+nReps = 5
 
 # Set file for accuracy storage
 M_GB = data.frame()
+yHat = data.frame(matrix(nrow = 500, ncol = 4))
 
 set.seed(0928761)
-for (i in 1:5){
+for (i in 1:nFolds){
 ##>>----- Partitions for a 5-FCV
-PT_ls = k_fold(BLUP1[,1], K=5)
-
-PT_ls = PT_ls$CrossValidation_list
-
-
-##>>----- Model using MTM
-Y1 = dat1
-
-for(p in 1:5){
+folds=sample(1:nFolds,size=dim(y)[1],replace=T)  
   
-  Y_NA = Y1
-  Pos_NA = PT_ls[[p]]
-  Y_NA[Pos_NA,] = NA
+##>>----- Model using multitrait
+
+for(p in 1:nReps){
   
-  fm <- Multitrait(y=Y_NA,
-                   ETA = A.GB,
+  tst=which(folds==p)
+  yNA=y
+  yNA[tst]=NA
+  
+  fm <- Multitrait(y=yNA,
+                   ETA = list(list(K=GMat,model='RKHS')),
                    resCov = list(type="DIAG"),
-                   nIter = nIter,
-                   burnIn = burnIn,
-                   thin = thin,
-                   saveAt='MGB_')
+                   nIter = 1200,
+                   burnIn = 120,
+                   saveAt='MGB_',
+                   verbose = FALSE)
   
-  PC = diag(cor(Y1[Pos_NA,],fm$ETAHat[Pos_NA,]))
-  M_GB = rbind(M_GB,data.frame(Acc=PC))
-  }
+  yHat[tst,] = fm$ETAHat[tst,]
+}
+PC = diag(cor(yHat,y))
+M_GB = rbind(M_GB, data.frame(Acc=PC))
+
 }
 
+```
+
+
+
+
+<br>
+
+## GBLUP MTM BGLR()
+
+Using the 4 traits for environment 1.
+
+```{r echo=TRUE, eval=TRUE}
+# Organizing the phenotypic data
+Y<- Phenotypes[Phenotypes$Env == 4,] 
+
+# Scale the pheno data
+y = scale(Y[,-c(1:2)])
+
+```
+
+
+
+<br>
+
+```{r, echo=TRUE}
 
 #--- 1. Setting the NA's
 set.seed(12345)
@@ -265,23 +293,6 @@ cov2cor(CORB.u)
 
 
 
-
-<br>
-
-## GBLUP MTM BGLR()
-
-Using the trait 1 over four environments.
-
-```{r echo=TRUE, eval=TRUE}
-# Organizing the phenotypic data
-
-Y<- Phenotypes[,c(1,2,3)] %>%  
-  pivot_wider(., names_from = 'Env', values_from = 'Trait1') 
-
-# Scale the data
-y = scale(Y[,-1])
-head(y)
-```
 
 ## References
 
