@@ -13,7 +13,7 @@ Here, I put some effort together to combine some scripts that implements those c
 
 ## 2. **How to Implement it**
 
-The first step will be to organize the phenotypic information and create the partitions to the cross validation scheme (CV1). Generally, we can divide the phenotypic dataset into two:
+The first step will be to organize the phenotypic information and create the partitions to the cross validation scheme (CV). Generally, we can divide the phenotypic dataset into two:
 
 Testing set: Population where the phenotype will be predicted based on the markers and in the information from the training set.
 
