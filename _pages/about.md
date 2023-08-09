@@ -9,7 +9,7 @@ redirect_from:
 ---
 
 
-Hi! My name is **Marco Antônio Peixoto**, a **Postdoctoral Associate** at the Sweet Corn and Genomics lab, working in collaboration with professor Márcio Resende Jr. I recently graduated in genetics and breeding at Federal University of Viçosa with big focus in quantitative genetics. Here, I will share some papers, codes from classes and short courses that I have developing over my career.
+Hi! My name is **Marco Antônio Peixoto**, a **Postdoctoral Associate** at the Sweet Corn and Genomics lab, working in collaboration with professor Márcio Resende Jr. I recently graduated in genetics and breeding at Federal University of Viçosa with big focus in quantitative genetics. Here, I will share some papers, codes from classes and short courses that I have been developed over my career.
 
 # Research topics
 
