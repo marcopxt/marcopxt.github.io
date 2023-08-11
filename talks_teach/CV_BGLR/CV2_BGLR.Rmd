@@ -35,7 +35,7 @@ In this file I show how to implement a **GBLUP** model in a CV2 scheme using BGL
 
 To perform the analyses, we will need the following packages:
 
-```{r echo=TRUE, warning=FALSE,eval=FALSE}
+```{r echo=TRUE, warning=FALSE, eval=TRUE}
 #--- 1. Cleaning
 rm(list=ls())
 
@@ -150,14 +150,12 @@ Implementing the model using the function BGLR()
 ```{r echo=TRUE, eval=TRUE}
 
 #--- 1. Setting NAs for the individuals
-set.seed(524521)
-yNA <-y
-yNA[sample(1:dim(Y)[1],100),1] <- NA
-yNA[sample(1:dim(Y)[1],100),2] <- NA
-yNA[sample(1:dim(Y)[1],100),3] <- NA
-yNA[sample(1:dim(Y)[1],100),4] <- NA
-
-
+  set.seed(524521)
+  yNA <-y
+  yNA[sample(1:dim(Y)[1],100),1] <- NA
+  yNA[sample(1:dim(Y)[1],100),2] <- NA
+  yNA[sample(1:dim(Y)[1],100),3] <- NA
+  yNA[sample(1:dim(Y)[1],100),4] <- NA
 
 #--- 2. Preparing the single trait model
   y1NA <- yNA[,1] #Trait 1
@@ -173,6 +171,8 @@ yNA[sample(1:dim(Y)[1],100),4] <- NA
   fm4 <- BGLR(y4NA,ETA=ETA,nIter=1200,burnIn=120,verbose=FALSE)
 
 #--- 4. Correlation for single trait
+  test<-is.na(yNA)
+  tst1<-test[,1];tst2<-test[,2]<-tst3<-test[,3];tst4<-test[,4]
   COR.ST1 <- cor(fm1$yHat[tst1],y[tst1,1])
   COR.ST2 <- cor(fm2$yHat[tst2],y[tst2,2])
   COR.ST3 <- cor(fm3$yHat[tst3],y[tst3,3])
@@ -191,12 +191,12 @@ The same information is used with several traits at once. In this second scenari
 ```{r echo=TRUE, eval=TRUE}
 
 #--- 1. Set to NA the
-set.seed(524521)
-yNA <-y
-yNA[sample(1:dim(Y)[1],100),1] <- NA
-yNA[sample(1:dim(Y)[1],100),2] <- NA
-yNA[sample(1:dim(Y)[1],100),3] <- NA
-yNA[sample(1:dim(Y)[1],100),4] <- NA
+  set.seed(524521)
+  yNA <-y
+  yNA[sample(1:dim(Y)[1],100),1] <- NA
+  yNA[sample(1:dim(Y)[1],100),2] <- NA
+  yNA[sample(1:dim(Y)[1],100),3] <- NA
+  yNA[sample(1:dim(Y)[1],100),4] <- NA
 
 #--- 2. Model
 fm <- Multitrait(y = yNA,
@@ -222,7 +222,7 @@ COR.T4<-cor(YHatInt[tst4,4],y[tst4,4])
 (COR.u<-fm$ETA[[1]]$Cov$Omega) # genetic covariance matrix UE
 
 #--- 6. Trait correlation  
-cov2cor(CORB.u)
+cov2cor(COR.u)
 ```
 
 <br>
