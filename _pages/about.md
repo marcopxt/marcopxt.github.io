@@ -9,7 +9,7 @@ redirect_from:
 ---
 
 
-Hi! My name is **Marco Antônio Peixoto**, a **Postdoctoral Associate** at the Sweet Corn and Genomics lab, working in collaboration with Professor Márcio Resende Jr. I recently graduated in genetics and breeding at the Federal University of Viçosa with a big focus in quantitative genetics. Here, I will share some papers, and codes from classes and short courses that I have developed over my career.
+Hi! My name is **Marco Antônio Peixoto**, a **Postdoctoral Associate** at the Sweet Corn and Genomics lab, working in collaboration with Professor Márcio Resende Jr. I recently graduated in genetics and breeding at the Federal University of Viçosa with a big focus on quantitative genetics. Here, I will share some papers, and codes from classes and short courses that I have developed over my career.
 
 # Research topics
 
@@ -47,7 +47,8 @@ Mainly topics:
 ## Markers panel imputation
 
 
-<img src="https://github.com/marcopxt/marcopxt.github.io/blob/master/images/Imputation_Marco.jpg" width="200" height="200"/>
+![Imputation_Marco](https://github.com/marcopxt/marcopxt.github.io/assets/59318360/716f4c05-ec1d-4a6c-b488-ce227f200bf5)
+
 
 
 #### Motivation
