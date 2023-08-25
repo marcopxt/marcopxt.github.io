@@ -9,14 +9,14 @@ redirect_from:
 ---
 
 
-Hi! My name is **Marco Antônio Peixoto**, a **Postdoctoral Associate** at the Sweet Corn and Genomics lab, working in collaboration with professor Márcio Resende Jr. I recently graduated in genetics and breeding at Federal University of Viçosa with big focus in quantitative genetics. Here, I will share some papers, codes from classes and short courses that I have been developed over my career.
+Hi! My name is **Marco Antônio Peixoto**, a **Postdoctoral Associate** at the Sweet Corn and Genomics lab, working in collaboration with Professor Márcio Resende Jr. I recently graduated in genetics and breeding at the Federal University of Viçosa with a big focus in quantitative genetics. Here, I will share some papers, and codes from classes and short courses that I have developed over my career.
 
 # Research topics
 
 ## Mixed models methodology
 
 #### Motivation
-Mixed models have become a standard tool for evaluating data in breeding programs, offering numerous advantages that motivate researchers to embrace them as a powerful tool in plant breeding. These models enhance genetic-statistical analyses, increase the accuracy of selection, provide a better understanding of trait architectures, and facilitate the implementation of genomic selection in breeding programs. These benefits serve as strong motivation for researchers to embrace mixed models and harness their power into breeding programs.
+Mixed models have become a standard tool for evaluating data in breeding programs, offering numerous advantages that motivate researchers to embrace them as a powerful tool in plant breeding. These models enhance genetic-statistical analyses, increase the accuracy of selection, provide a better understanding of trait architectures, and facilitate the implementation of genomic selection in breeding programs. These benefits serve as strong motivation for researchers to embrace mixed models and harness their power in breeding programs.
 
 Mainly topics:
 
@@ -31,7 +31,7 @@ Mainly topics:
 ## Cross prediction and optimization
 
 #### Motivation  
-Plant breeding programs rely on balancing long-term genetic diversity and genetic gains, which are conflicting goals. Therefore, in short-term, plant breeding programs with genomic selection can improve performance by selecting individuals with the most outstanding genetic values for composing the next generation. Unfortunately, GS also accelerates the decrease of genetic diversity through cycles of selection. A method to deal with this corollary is the cross selection, where we can jointly optimize the selection of crosses and the maintenance of genetic diversity. The combination of those factors (increase the trait means and reducing inbreeding/coancestry) represents an importante tools to select the best parents for the next generation.
+Plant breeding programs rely on balancing long-term genetic diversity and genetic gains, which are conflicting goals. Therefore, in short term, plant breeding programs with genomic selection can improve performance by selecting individuals with the most outstanding genetic values for composing the next generation. Unfortunately, GS also accelerates the decrease of genetic diversity through cycles of selection. A method to deal with this corollary is cross selection, where we can jointly optimize the selection of crosses and the maintenance of genetic diversity. The combination of those factors (increasing the trait means and reducing inbreeding/coancestry) represents an important tool for selecting the best parents for the next generation.
 
 Mainly topics:
 
@@ -46,8 +46,11 @@ Mainly topics:
 
 ## Markers panel imputation
 
+
+![](https://github.com/marcopxt/marcopxt.github.io/assets/59318360/f3ffe53d-5edf-42b7-a483-b16dc0a06a33)
+
 #### Motivation
-The implementation of Whole Genomic Selection has been proved as an import tool to increase genetic gain in several breeding programs. However, the acquisition of such high-density coverad markers represents a barrier to the implementation of WGS in breeding programs. One alternative is to imput some markers rather than measure it directly, which could decrease the costs of WGS.
+The implementation of Whole Genomic Selection has been proven as an important tool for increasing genetic gain in several breeding programs. However, the acquisition of such high-density covered markers represents a barrier to the implementation of WGS in breeding programs. One alternative is to input some markers rather than measure them directly, which could decrease the costs of WGS.
 
 - **Objective**  
   - Evaluate the predictive ability of genomic values for some target traits in Sweet Corn when genotypes at some SNPs loci were imputed rather than measured directly.     
