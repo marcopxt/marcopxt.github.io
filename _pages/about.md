@@ -47,7 +47,7 @@ Mainly topics:
 ## Markers panel imputation
 
 
-<img src="[](https://github.com/marcopxt/marcopxt.github.io/blob/master/images/Imputation_Marco.jpg)" width="200" height="200" />
+<img src="https://github.com/marcopxt/marcopxt.github.io/blob/master/images/Imputation_Marco.jpg" width="200" height="200"/>
 
 
 #### Motivation
