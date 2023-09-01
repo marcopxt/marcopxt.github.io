@@ -31,7 +31,7 @@ Mainly topics:
 
 ## Markers panel imputation 
 
-<img align="right" width="200" height="200" src="https://github.com/marcopxt/marcopxt.github.io/blob/master/images/Imputation_Marco.jpg">
+<img align="right" width="300" height="200" src="https://github.com/marcopxt/marcopxt.github.io/blob/master/images/Imputation_Marco.jpg">
 
 
 #### Motivation  
