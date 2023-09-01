@@ -58,8 +58,7 @@ Mixed models have become a standard tool for evaluating data in breeding program
   - **BLUEs and BLUPs**  
 
 ***
-
-
+<br>
 
 ## Reach out to me
 [![Twitter Badge](https://img.shields.io/badge/-@marcopxt-6cc?style=flat-square&labelColor=6cc&logo=twitter&logoColor=white&link=https://twitter.com/marcopxt)](https://twitter.com/marcopxt)
