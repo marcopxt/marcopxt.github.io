@@ -41,6 +41,9 @@ The implementation of Whole Genomic Selection has been proven as an important to
 - **Objective**  
   - Evaluate the predictive ability of genomic values for some target traits in Sweet Corn when genotypes at some SNPs loci were imputed rather than measured directly.     
 
+***
+
+<br>
 
 ## Mixed models methodology
 
