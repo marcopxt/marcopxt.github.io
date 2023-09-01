@@ -13,21 +13,6 @@ Hi! My name is **Marco Antônio Peixoto**, a **Postdoctoral Associate** at the S
 
 # Research topics
 
-## Mixed models methodology
-
-#### Motivation
-Mixed models have become a standard tool for evaluating data in breeding programs, offering numerous advantages that motivate researchers to embrace them as a powerful tool in plant breeding. These models enhance genetic-statistical analyses, increase the accuracy of selection, provide a better understanding of trait architectures, and facilitate the implementation of genomic selection in breeding programs. These benefits serve as strong motivation for researchers to embrace mixed models and harness their power in breeding programs.
-
-Mainly topics:
-
-- **Variance components estimations**  
-- **Modelling**  
-- **Genomic selection**  
-- **Models with additive and non-additive effects**  
-- **BLUEs and BLUPs**  
-
-***
-
 ## Cross prediction and optimization
 
 #### Motivation  
@@ -58,7 +43,20 @@ The implementation of Whole Genomic Selection has been proven as an important to
   - Evaluate the predictive ability of genomic values for some target traits in Sweet Corn when genotypes at some SNPs loci were imputed rather than measured directly.     
 
 
+## Mixed models methodology
 
+#### Motivation
+Mixed models have become a standard tool for evaluating data in breeding programs, offering numerous advantages that motivate researchers to embrace them as a powerful tool in plant breeding. These models enhance genetic-statistical analyses, increase the accuracy of selection, provide a better understanding of trait architectures, and facilitate the implementation of genomic selection in breeding programs. These benefits serve as strong motivation for researchers to embrace mixed models and harness their power in breeding programs.
+
+Mainly topics:
+
+- **Variance components estimations**  
+- **Modelling**  
+- **Genomic selection**  
+- **Models with additive and non-additive effects**  
+- **BLUEs and BLUPs**  
+
+***
 
 
 
