@@ -20,11 +20,11 @@ Plant breeding programs rely on balancing long-term genetic diversity and geneti
 
 - **Mainly topics:**
 
- - **Usefulness prediction**  
- - **Cross prediction**  
- - **Non-additive effects**  
- - **Cross optimization**
- - **Package development**
+   - **Usefulness prediction**  
+   - **Cross prediction**  
+   - **Non-additive effects**  
+   - **Cross optimization**
+   - **Package development**
 
 
 ***
