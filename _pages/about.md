@@ -29,10 +29,13 @@ Mainly topics:
 
 ***
 
-## Markers panel imputation
+## Markers panel imputation 
 
-#### Motivation
 <img align="right" width="200" height="200" src="https://github.com/marcopxt/marcopxt.github.io/blob/master/images/Imputation_Marco.jpg">
+
+
+#### Motivation  
+
 The implementation of Whole Genomic Selection has been proven as an important tool for increasing genetic gain in several breeding programs. However, the acquisition of such high-density covered markers represents a barrier to the implementation of WGS in breeding programs. One alternative is to input some markers rather than measure them directly, which could decrease the costs of WGS.
 
 - **Objective**  
