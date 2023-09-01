@@ -50,13 +50,12 @@ The implementation of Whole Genomic Selection has been proven as an important to
 #### Motivation
 Mixed models have become a standard tool for evaluating data in breeding programs, offering numerous advantages that motivate researchers to embrace them as a powerful tool in plant breeding. These models enhance genetic-statistical analyses, increase the accuracy of selection, provide a better understanding of trait architectures, and facilitate the implementation of genomic selection in breeding programs. These benefits serve as strong motivation for researchers to embrace mixed models and harness their power in breeding programs.
 
-Mainly topics:
-
-- **Variance components estimations**  
-- **Modelling**  
-- **Genomic selection**  
-- **Models with additive and non-additive effects**  
-- **BLUEs and BLUPs**  
+- **Mainly topics:**
+  - **Variance components estimations**  
+  - **Modelling**  
+  - **Genomic selection**  
+  - **Models with additive and non-additive effects**  
+  - **BLUEs and BLUPs**  
 
 ***
 
