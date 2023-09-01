@@ -32,7 +32,7 @@ Mainly topics:
 ## Markers panel imputation
 
 
-![Imputation_Marco](https://github.com/marcopxt/marcopxt.github.io/assets/59318360/716f4c05-ec1d-4a6c-b488-ce227f200bf5)
+<img src="https://github.com/marcopxt/marcopxt.github.io/blob/master/images/Imputation_Marco.jpg"
 
 
 
