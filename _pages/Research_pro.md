@@ -11,7 +11,7 @@ author_profile: true
 
 ## Cross prediction and optimization
 
-<img align="right" width="350" height="200" src="[https://github.com/marcopxt/marcopxt.github.io/blob/master/images/Imputation_Marco.png](https://github.com/marcopxt/marcopxt.github.io/blob/master/images/Picture3.png)">
+<img align="right" width="350" height="200" src="images/Mate_Allocation.png">
 
 
 #### Motivation  
@@ -31,7 +31,7 @@ Plant breeding programs rely on balancing long-term genetic diversity and geneti
 
 ## Markers panel imputation 
 
-<img align="right" width="350" height="200" src="https://github.com/marcopxt/marcopxt.github.io/blob/master/images/Imputation_Marco.png">
+<img align="right" width="350" height="200" src="images/Imputation_Marco.png">
 
 
 #### Motivation  
