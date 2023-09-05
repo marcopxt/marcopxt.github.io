@@ -45,7 +45,7 @@ The implementation of Whole Genomic Selection has been proven as an important to
 ## Breeding programs simulations
 
 ### Motivation
-
+![Imputation](../assets/images/Picture1.png){:width="30%" align="right"}
 
 - **Mainly topics:**
   - **Decision-based breeding**  
