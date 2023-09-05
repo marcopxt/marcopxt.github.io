@@ -11,7 +11,7 @@ author_profile: true
 
 ## Cross prediction and optimization
 
-![Optim](../assets/images/Mate_Allocation.png){:width="50%" align="right"}
+![Optim](../assets/images/Mate_Allocation.png){:width="30%" align="right"}
   
 
 ### Motivation  
@@ -30,7 +30,7 @@ Plant breeding programs rely on balancing long-term genetic diversity and geneti
 
 ## Markers panel imputation 
 
-![Imputation](../assets/images/Imputation_Marco.png){:width="50%"}
+![Imputation](../assets/images/Imputation_Marco.png){:width="30%" align="right"}
 
 ### Motivation  
 
