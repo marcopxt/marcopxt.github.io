@@ -1,8 +1,11 @@
 ---
-title: "Research topics"
 layout: archive
-permalink:  /projects/
+title: "Research topics"
+permalink: /projects/
+author_profile: true
 ---
+
+
 
 # Research topics
 
