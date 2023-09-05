@@ -3,9 +3,9 @@ layout: archive
 title: "Research topics"
 permalink: /projects/
 author_profile: true
-
 ---
 
+{% include base_path %}
 
 # Research topics
 
