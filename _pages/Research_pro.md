@@ -31,7 +31,7 @@ Plant breeding programs rely on balancing long-term genetic diversity and geneti
 
 ## Markers panel imputation 
 
-<img align="right" width="350" height="200" src="./images/Imputation_Marco.png">
+<img src="./images/Imputation_Marco.png">
 
 
 #### Motivation  
