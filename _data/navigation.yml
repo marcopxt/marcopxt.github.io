@@ -2,13 +2,12 @@
 main:
   - title: "RESEARCH PROJECTS"
     url: /projects/
-
+  
   - title: "TALKS/TEACHING"
     url: /talks_teach/    
     
   - title: "EDUCATION"
     url: /education/
     
-    - title: "PUBLICATIONS"
+  - title: "PUBLICATIONS"
     url: /publications/
-
