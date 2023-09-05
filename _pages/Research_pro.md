@@ -3,8 +3,8 @@ layout: archive
 title: "Research topics"
 permalink: /projects/
 author_profile: true
----
 
+---
 
 
 # Research topics
