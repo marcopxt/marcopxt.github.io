@@ -47,16 +47,19 @@ The implementation of Whole Genomic Selection has been proven as an important to
 ### Motivation
 ![Imputation](../assets/images/Picture1.png){:width="30%" align="right"}
 
+Breeding programs are intricate and multifaceted systems that demand careful consideration when implementing tools and refining resource allocation. Simulating breeding programs has emerged as a valuable approach for assessing and fine-tuning various aspects of these programs. This simulation method serves as an ideal platform for evaluating the overarching strategy and the intricate details of breeding programs. This includes aspects like selection methods, program sizes, the number of testers, the integration of genomic selection tools, and the optimal number of environments to be included.
+
 - **Mainly topics:**
   - **Decision-based breeding**  
-  - **Simulations**  
+  - **Genomic selection implementation**
+  - **Parental selection and allocation**  
  
 ***
 
 ## Mixed models methodology
 
 ### Motivation
-Mixed models have become a standard tool for evaluating data in breeding programs, offering numerous advantages that motivate researchers to embrace them as a powerful tool in plant breeding. These models enhance genetic-statistical analyses, increase the accuracy of selection, provide a better understanding of trait architectures, and facilitate the implementation of genomic selection in breeding programs. These benefits serve as strong motivation for researchers to embrace mixed models and harness their power in breeding programs.
+Mixed models has become a standard tool for evaluating data in breeding programs, offering numerous advantages that motivate researchers to embrace them as a powerful tool in plant breeding. These models enhance genetic-statistical analyses, increase the accuracy of selection, provide a better understanding of trait architectures, and facilitate the implementation of genomic selection in breeding programs. These benefits serve as strong motivation for researchers to embrace mixed models and harness their power in breeding programs.
 
 - **Mainly topics:**
   - **Variance components estimations**  
