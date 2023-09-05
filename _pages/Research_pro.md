@@ -11,7 +11,7 @@ author_profile: true
 
 ## Cross prediction and optimization
 
-<img align="right" width="350" height="200" src="./images/Mate_Allocation.png">
+<img src="./images/Mate_Allocation.png">
 
 
 #### Motivation  
