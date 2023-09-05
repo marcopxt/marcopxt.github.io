@@ -11,7 +11,7 @@ author_profile: true
 
 ## Cross prediction and optimization
 
-<img src="https://github.com/marcopxt/marcopxt.github.io/blob/master/images/Mate_Allocation.png">
+<img align="right" width="100" height="100" src="https://github.com/marcopxt/marcopxt.github.io/blob/master/images/Mate_Allocation.png">
 
 
 #### Motivation  
