@@ -1,7 +1,7 @@
 ---
 title: "Research topics"
 layout: archive
-permalink: /archive-layout-with-content/
+permalink:  /projects/
 ---
 
 # Research topics
