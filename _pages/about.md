@@ -11,10 +11,15 @@ redirect_from:
 
 Hi! My name is **Marco Antônio Peixoto**, a **Postdoctoral Associate** at the Sweet Corn and Genomics lab, working in collaboration with Professor Márcio Resende Jr. I recently graduated in genetics and breeding at the Federal University of Viçosa with a big focus on quantitative genetics. Here, I will share some papers, research projects, and codes from classes and short courses that I have developed over my career.
 
+
+<br>
+
+*** 
+
 Feel free to contact me:  
 
-Marco Antonio Peixoto  
-Sweet Corn Breeding and Genomics lab  
+**Marco Antonio Peixoto**  
+*Sweet Corn Breeding and Genomics lab*  
 Horticultural Sciences Department | IFAS - University of Florida  
 deamorimpeixotom@ufl.edu  
 marco.peixotom@gmail.com  
