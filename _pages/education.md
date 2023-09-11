@@ -23,7 +23,7 @@ redirect_from:
 
 
 
-[Download CV here](https://github.com/marcopxt/marcopxt.github.io/blob/master/files/CV_MPeixoto.pdf)
+[Download CV here](https://github.com/marcopxt/marcopxt.github.io/blob/master/files/MPeixoto_cv.pdf)
 
 
 
