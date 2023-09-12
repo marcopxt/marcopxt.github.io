@@ -9,7 +9,7 @@ redirect_from:
 
 {% include base_path %}
 
-* **2023-currently**: Postdoctoral Researcher, University of florida - USA. Supervisor: Dr. Márcio Resende
+* **2023-currently**: Postdoctoral Researcher, University of Florida - USA. Supervisor: Dr. Márcio Resende
 
 * **2021-2023**: Visiting Research Scholar, University of Florida - USA. Supervisor: Dr. Márcio Resende
 
