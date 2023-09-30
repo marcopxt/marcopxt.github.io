@@ -12,8 +12,8 @@
 
 ---
 layout: archive  
-title: "Research topics"   #Title in the page
-permalink: /projects/  #Conect with step 1
+title: "Research topics"   #Title on the page  
+permalink: /projects/  #Conect with step 1  
 author_profile: true  
 ---  
 
