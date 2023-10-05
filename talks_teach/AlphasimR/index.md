@@ -11,6 +11,7 @@ Dates: 13-15/Nov
 ***
 
 ### **Introduction**
+![Imputation](../assets/images/Picture1.png){:width="30%" align="right"}
 
 Simulations have been demonstrated as a powerful tool to improve animal and plant breeding programs. In addition, those tools may offer an alternative to address theoretical concepts in quantitative genetics and breeding. Here, we are proposing to use AlphaSimR package (Gaynor et al. 2021) to guide a discussion about breeding program optimization. The package uses stochastic simulations for the design and optimization of breeding programs. The package offers a fast, simple, and inexpensive way to test alternative breeding programs.
 
