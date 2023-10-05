@@ -12,9 +12,17 @@ Dates: 13-15/Nov
 
 **Introduction**
 
+Simulations have been demonstrated as a powerful tool to improve animal and plant breeding programs. In addition, those tools may offer an alternative to address theoretical concepts in quantitative genetics and breeding. Here, we are proposing to use AlphaSimR package (Gaynor et al. 2021) to guide a discussion about breeding program optimization. The package uses stochastic simulations for the design and optimization of breeding programs. The package offers a fast, simple, and inexpensive way to test alternative breeding programs.
+
 ***
 
 **Recommended literature**
+
+We recommend reading the following papers before the course, so should all be on the same page regarding simulations.
+
+- Paper 1:
+- Paper 2
+- Paper 3
 
 ***
 
@@ -23,12 +31,12 @@ Dates: 13-15/Nov
 | Subject                                                  | Sections  | Time  |
 |----------------------------------------------------------|-----------|-------|
 |**Base population and traits**                            |  Block 1  |  2 hr |
-| -Genetic basis of base populations                       |                | 
-| -Inputting real data for creating an improved population |                 |
-| -Trait characteristics                                   |                 |
-| -SNP/QTL for traits                                      |                |
-| -Non-additive effects                                    |                 |
-| -Population characteristics                              |                |
+| - Genetic basis of base populations                       |                | 
+| - Inputting real data for creating an improved population |                 |
+| - Trait characteristics                                   |                 |
+| - SNP/QTL for traits                                      |                |
+| - Non-additive effects                                    |                 |
+| - Population characteristics                              |                |
 | **Functions in AlphaSimR**                               | Block 1   | 2 hr  |
 | -   Functions for modeling a breeding program            |           |       |
 | **Breeding pipeline**                                    | Block 2   | 2 hr  |
