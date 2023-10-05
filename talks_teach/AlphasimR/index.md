@@ -1,8 +1,8 @@
-Breeding program modeling via AlphaSimR
-Marco Antonio Peixoto
-Marcio Resende Jr.
-Camila Azevedo
-Luis Felipe Ferrao
+# Breeding program modeling via AlphaSimR
+Marco Antonio Peixoto  
+Marcio Resende Jr.  
+Camila Azevedo  
+Luis Felipe Ferrao  
 
 
 Dates: 13-15/Nov
