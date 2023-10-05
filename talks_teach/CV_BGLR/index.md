@@ -4,7 +4,7 @@
 
 ***
 ## 1. Introduction
-Cross-Validation schemes are fundamental concept in plant breeding programs that uses Genomic selection as a tool to harness genetic gain. One important way to measure how good is your model is the implementation of cross-validation schemes (aka CV schemes). Following the proposition made by Jarquin et al (2018), they can be broken down into four types:
+Cross-validation schemes are a fundamental concept in plant breeding programs that use Genomic selection as a tool to harness genetic gain. One important way to measure how good is your model is the implementation of cross-validation schemes (aka CV schemes). Following the proposition made by Jarquin et al. (2018), they can be broken down into four types:
 
 ![CV](https://github.com/marcopxt/marcopxt.github.io/assets/59318360/80369856-9d75-46db-90dd-77933c4d3779)
 
@@ -15,7 +15,7 @@ Here, I put some effort together to combine some scripts that implement those cr
 
 The first step will be to organize the phenotypic information and create the partitions to the cross-validation scheme (CV). Generally, we can divide the phenotypic dataset into two:
 
-Testing set: Population where the phenotype will be predicted based on the markers and in the information from the training set.
+Testing set: Population where the phenotype will be predicted based on the markers and the information from the training set.
 
 Training set: Population with the information that we use to calibrate the model.
 
