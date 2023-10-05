@@ -1,5 +1,5 @@
 **Fall/2023**
-![FL](https://github.com/marcopxt/marcopxt.github.io/blob/master/talks_teach/CV_BGLR/UF.jpg){:width="60%" align="right"}  
+![FL](../../assets/images/Picture2.jpg){:width="60%" align="right"}  
 ***
 
 # Breeding program simulations via AlphaSimR
