@@ -2,6 +2,31 @@
 
 Dates: 13-15/Nov
 
+**Introduction**
+
+
+**Recommended literature**
+
+
+**Tentative program**
+
+|Subject                                                   | Sections  | Time  |
+|----------------------------------------------------------|-----------|-------|
+|**Base population and traits**                            |  Block 1  |  2 hr |
+| -   Genetic basis of base populations                    |           |       | 
+|                                                          |           |           |
+| -   Inputting real data for creating an improved population |           |           |
+|                                                          |           |           |
+| -   Trait characteristics                                |           |           |
+|                                                          |           |           |
+| -   SNP/QTL for traits                                   |           |           |
+|                                                          |           |           |
+| -   non-additive effects                                 |           |           |
+|                                                          |           |           |
+| -   Population characteristics                           |           |           |
+
+
+
 +----------------------------------------------------------+-----------+-----------+
 | Subject                                                  | Sections  | Time      |
 +:=========================================================+:=========:+:=========:+
