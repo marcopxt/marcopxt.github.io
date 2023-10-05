@@ -27,17 +27,18 @@ We recommend reading the following papers before the course, so should all be on
 - Paper 1: Gaynor CR, Gorjanc G, and Hickey JM (2021). AlphaSimR: an R package for breeding program simulations. G3. https://doi.org/10.1093/g3journal/jkaa017
 - Paper 2: Bančič, Jon, et al. (2021). Modeling illustrates that genomic selection provides new opportunities for intercrop breeding. Frontiers in Plant Science. https://doi.org/10.3389/fpls.2021.605172
 - Paper 3: Werner, CR et al. (2023). Genomic selection strategies for clonally propagated crops. Theoretical and Applied Genetics. https://doi.org/10.1007/s00122-023-04300-6
+- Vignette: https://cran.r-project.org/web/packages/AlphaSimR/vignettes/traits.pdf
 
 
 # **Tentative program**
 
 | Subject                                                  | Sections  | Time  |
 |----------------------------------------------------------|-----------|-------|
-|**Base population and traits**                            |  Block 1  |  2 hr |
+|**Base population and Global parameters**                            |  Block 1  |  2 hr |
 | -Genetic basis of base populations                       |                | 
-| -Inputting real data for creating an improved population |                 |
+| -Imputing real data into base population    |                 |
 | -Trait characteristics                                   |                 |
-| -SNP/QTL for traits                                      |                |
+| -QTL (and SNPs) for traits                                      |                |
 | -Non-additive effects                                    |                 |
 | -Population characteristics                              |                |
 | **Functions in AlphaSimR**                                | Block 1   | 2 hr  |
@@ -47,7 +48,7 @@ We recommend reading the following papers before the course, so should all be on
 | -Recurrent Selection breeding program                     |           |       |
 | -Reciprocal Recurrent Selection breeding program          |           |       |
 | -Clonal breeding program                                  |           |       |
-| **How to deploy GS**                                     | Block 2   | 2 hr  |
+| **How to deploy Genomic selection in AlphaSimR**          | Block 2   | 2 hr  |
 | -Models and predictions into AlphaSimR                |           |       |
 | -RRBLUP, RRBLUP_D, RRBLUP_GCA, RRBLUP_SCA             |           |       |
 | -Using external packages for predictions            |           |       |
