@@ -4,7 +4,7 @@
 
 ***
 ## 1. Introduction
-These three classes were conducted as part of the discipline Quantitative genetics (PCB-6555) taught at the University of Florida in the Fall 2022. It was tougth by Prof. Márcio Resende and Prof. Felipe Ferrão, and I was a invited to participe as Teaching assistante. As part of it, I put some effort together to generate three topics, below indicated. 
+These three classes were conducted as part of the discipline Quantitative Genetics (PCB-6555) taught at the University of Florida in the Fall of 2022. It was taught by Prof. Márcio Resende and Prof. Felipe Ferrão, and I was invited to participate as a Teaching assistant. As part of it, I put some effort together to generate three topics, as below indicated. 
 
 ***
 
@@ -23,7 +23,7 @@ These three classes were conducted as part of the discipline Quantitative geneti
 
 
 ***
-Any question about the analyses, please, contact me!   
+Any questions about the analyses, please, contact me!   
 
 Dr. Marco Antonio Peixoto  
 Email: deamorimpeixotom@ufl.edu  
