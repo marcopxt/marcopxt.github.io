@@ -6,11 +6,9 @@ Camila Azevedo
 Luis Felipe Ferrao  
 
 University of Florida  
-Date: 13-15/Nov/23
+13-15/Nov/23
 
-<br>
-
-***
+**
 
 ## **Introduction**
 
