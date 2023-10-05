@@ -1,4 +1,4 @@
-## Tentative program
+**Tentative program**
 
 Dates: 13-15/Nov
 
@@ -9,7 +9,7 @@ Dates: 13-15/Nov
 |                                                          |           |           |
 | -   Genetic basis of base populations                    |           |           |
 |                                                          |           |           |
-| -   Inputting real data for creating improved population |           |           |
+| -   Inputting real data for creating an improved population |           |           |
 |                                                          |           |           |
 | -   Trait characteristics                                |           |           |
 |                                                          |           |           |
@@ -21,7 +21,7 @@ Dates: 13-15/Nov
 +----------------------------------------------------------+-----------+-----------+
 | **Functions in AlphaSimR**                               | Block 1   | 2 hr      |
 |                                                          |           |           |
-| -   Functions for modeling the a breeding program        |           |           |
+| -   Functions for modeling a breeding program        |           |           |
 +----------------------------------------------------------+-----------+-----------+
 | **Breeding pipeline**                                    | Block 2   | 2 hr      |
 |                                                          |           |           |
@@ -39,7 +39,7 @@ Dates: 13-15/Nov
 |                                                          |           |           |
 | -   RRBLUP, RRBLUP_D, RRBLUP_GCA, RRBLUP_SCA             |           |           |
 |                                                          |           |           |
-| -   Using a external packages for predictions            |           |           |
+| -   Using an external package for predictions            |           |           |
 +----------------------------------------------------------+-----------+-----------+
 | **Practical implementation GS**                          | Block 3   | 2 hr      |
 |                                                          |           |           |
