@@ -9,11 +9,11 @@ Cross-Validation schemes are fundamental concept in plant breeding programs that
 ![CV](https://github.com/marcopxt/marcopxt.github.io/assets/59318360/80369856-9d75-46db-90dd-77933c4d3779)
 
 
-Here, I put some effort together to combine some scripts that implements those cross validation schemes.
+Here, I put some effort together to combine some scripts that implement those cross-validation schemes.
 
 ## 2. **How to Implement it**
 
-The first step will be to organize the phenotypic information and create the partitions to the cross validation scheme (CV). Generally, we can divide the phenotypic dataset into two:
+The first step will be to organize the phenotypic information and create the partitions to the cross-validation scheme (CV). Generally, we can divide the phenotypic dataset into two:
 
 Testing set: Population where the phenotype will be predicted based on the markers and in the information from the training set.
 
@@ -38,7 +38,7 @@ Training set: Population with the information that we use to calibrate the model
 -  
 
 ***
-Any question about the analyses, please, contact me!   
+Any questions about the analyses, please, contact me!   
 
 Dr. Marco Antonio Peixoto  
 Email: deamorimpeixotom@ufl.edu  
