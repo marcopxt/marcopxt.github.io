@@ -4,18 +4,21 @@ Marcio Resende Jr.
 Camila Azevedo  
 Luis Felipe Ferrao  
 
-***
-
 Dates: 13-15/Nov
+
+<br>
+
+***
 
 **Introduction**
 
+***
 
 **Recommended literature**
 
+***
 
 **Tentative program**
-
 
 | Subject                                                  | Sections  | Time  |
 |----------------------------------------------------------|-----------|-------|
