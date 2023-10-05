@@ -1,5 +1,5 @@
 **Fall/2023**
-![FL](../../assets/images/UF.jpg){:width="60%" align="right"}  
+![FL](../../assets/images/UF.jpg){:width="20%" align="right"}  
 
 ***
 
