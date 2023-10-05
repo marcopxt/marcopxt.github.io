@@ -1,4 +1,4 @@
-# Breeding program modeling via AlphaSimR
+
 Marco Antonio Peixoto  
 Marcio Resende Jr.  
 Camila Azevedo  
@@ -43,14 +43,14 @@ We recommend reading the following papers before the course, so should all be on
 | **Functions in AlphaSimR**                                | Block 1   | 2 hr  |
 | -Functions for modeling a breeding program               |           |       |
 | **Breeding pipeline**                                     | Block 2   | 2 hr  |
-| -From the beginning to the varieties.                     |           |       |
+| -From crosses to the release of varieties                     |           |       |
 | -Recurrent Selection breeding program                     |           |       |
 | -Reciprocal Recurrent Selection breeding program          |           |       |
 | -Clonal breeding program                                  |           |       |
 | **How to deploy GS**                                     | Block 2   | 2 hr  |
 | -Models and predictions into AlphaSimR                |           |       |
 | -RRBLUP, RRBLUP_D, RRBLUP_GCA, RRBLUP_SCA             |           |       |
-| -Using an external package for predictions            |           |       |
+| -Using external packages for predictions            |           |       |
 | **Practical implementation GS**                          | Block 3   | 2 hr  |
 | -Training populations                                 |           |       |
 | -Comparison                                           |           |       |
