@@ -19,4 +19,4 @@ author_profile: true
 ### Others
 
 - Cross-validation schemes in BGLR [Summer/2023](talks_teach/CV_BGLR/index.md)
-- GWAS simulated in AlphaSimR [Fall/2023](talks_teach/Mol_Markers23/index.md)
+- GWAS simulated in AlphaSimR [Fall/2023](talks_teach/Mol_Markers_2023/index.md)
