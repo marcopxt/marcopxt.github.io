@@ -2,8 +2,7 @@
 title: |
   ![](UF.png){width=10%}
 
-  Genomic whole association study (GWAS
-  )
+  Genomic-wide association study (GWAS)
 author: 
   - Marcio Resende, professor^[University of Florida, mresende@ufl.edu]
   
@@ -11,7 +10,7 @@ author:
   
 output: 
   html_document:
-    toc: true
+    toc: FALSE
     toc_float: FALSE
     theme: flatly
     highlight: haddock
@@ -28,22 +27,26 @@ bibliography: references.bib
 
 ## Introduction
 
-This is an script developed using a population simulated in AlphaSimR package [@gaynor2021alphasimr]. The GWAS models implemented came from four different models: 
+This is an script developed using a population simulated in AlphaSimR package [@gaynor2021alphasimr]. One trait with high heritability and controlled by a few QTLs was simulated into two breeding populations. In addition, four GWAS models were implemented and an extension with models in GAPIT [@wang2021gapit] is presented, as follows: 
 
-i. Unadjusted markers
-ii. Adjusted by Q
-iii. Adjusted by K
-iv. Adjusted by K+Q
+**Model 1.** Non Adjusted markers  
+**Model 2.** Adjusted by Q  
+**Model 3.** Adjusted by K  
+**Model 4.** Adjusted by K+Q  
+**Models with GAPIT** Extra implementations
 
-## Loading the packages for the GWAS
+## Loading the packages for the simulation/GWAS
 
 ```{r eval=TRUE}
-#Example GWAS analysis for Q+K models
+rm(list=ls())
 library(AlphaSimR) 
 library(rrBLUP) #For K and Q+K GWAS
 library(qqman) #For Manhattan and Q-Q plots
-library(ggplot2)
-library('ggfortify')
+library(ggfortify)
+
+#install.packages("remotes")
+#remotes::install_github("jiabowang/GAPIT3")
+library(GAPIT)
 
 ```
 
@@ -54,7 +57,7 @@ library('ggfortify')
 
 ```{r eval=TRUE}
 # Global parameters
-nQtlPerChr = 10 #Per pair of chromosome
+nQtlPerChr = 4 #Per pair of chromosome
 nSnpPerChr = 500 # must be > nQtlPerChr
 
 # Simulate mapping population
@@ -80,7 +83,7 @@ pop = newPop(FOUNDERPOP)
 
 ### 2. Creating a population structure
 
-In a way to create a population structure, we implemented two steps. The first was to split the base genome into two. We used above the argument `split=20`, which represents that the base genome was splited in two 20 generations ago. The second, is going to be the cycles of selections below. as we have two groups, we will split the base population (pop) into two (one from 1:500, and the second from 501:1000). With the first population (PopA) going to 4 cycles of selections and the second population (PopB) facing 4 cycles of selection. As they differ, it is likely that the allele frequency of the two populations would be different themselves.
+In a way to create a population structure, we implemented two steps. The first was to split the base genome into two. We used above (`runMacs` function) the argument `split=20`, which splits the base genome in two, 20 generations ago. The second, is going to be the cycles of selections where each population go through (below). As we did split the base genome before, we will create two populations (popA and popB), where the popA takes the individuals from 1:500, and the second from 501:1000 out of 1000 individuals from the base genome. Then, the first population (popA) go through 6 cycles of selections and the second population (popB) face 4 cycles of selection. As they initially differ, after the different number of cycles of selection, it is likely that the allele frequency of the two populations would be different.
 
 ```{r eval=TRUE}
 
@@ -107,22 +110,19 @@ pop = c(popA,popB)
 
 ```
 
-
-
 ## PCA and population genotypes
 
 
 In this step we will extract the SNPs from the core population and we will create a PCA to explore the structure in the data.
 
 ```{r eval=TRUE}
-#Format genotypes for rrBLUP
+# Format genotypes for rrBLUP
 rawGeno = pullSnpGeno(pop)
 freq = colMeans(rawGeno)/2
 MAF = apply(cbind(freq,1-freq),1,min)
 
-#Ploting PCA
+# Ploting PCA
 pca_res <- prcomp(rawGeno)
-
 autoplot(pca_res)
 
 
@@ -131,40 +131,44 @@ autoplot(pca_res)
 
 ## Organizing the data for the GWAS 
 
-For the GWAS we need to get the data. We will need dosage matrix, phenotypes values for the trait of interest, and the QTL positions.
+For the GWAS analysis, we going to organize the data. We will need dosage matrix (coded -1,0,1), phenotypes values for the trait of interest, and the QTL positions.
 
 ```{r eval=TRUE}
 
-# Genotypes/SNP matrix/ dosage matrix
+# Genotypes/SNP matrix/dosage matrix
 rawGeno = rawGeno-1
 geno = as.data.frame(t(rawGeno))
 geno = data.frame(snp=row.names(geno),
                   chr=rep(1:10,each=nSnpPerChr),
                   pos=rep(1:nSnpPerChr,10),
                   geno)
-geno[1:10, 1:10]
 
-#Create "pheno" data.frames for rrBLUP
+# Create "pheno" data.frames for rrBLUP
 pheno = data.frame(gid=names(geno)[-(1:3)],
                    trait1=pop@pheno[,1])
 
+# Tracking the information of population
 phenoQ = data.frame(gid=pheno$gid,
                     subPop=factor(rep(c("a","b"),each=500)),
                     trait1=pheno$trait1)
 
-#Find QTL locations within SNP chip
-qtl = paste0("SNP_",
-             SP$traits[[1]]@lociLoc+
-               rep(0:9*nSnpPerChr,each=nQtlPerChr))
+# Find QTL locations within SNP chip and chromosome position
+qtl =  paste0(rep(1:10, each = 10), '_',SP$traits[[1]]@lociLoc)
+
 
 ```
 
 ## Model 1 - GWAS with no adjustament
 
+Single marker regression
+
+$$y = S\alpha + e$$
+
+
+
 ```{r eval=TRUE}
 
-##GWAS
-#No adjustments----
+# No adjustments----
 model0 = data.frame(snp=geno$snp,
                     chr=geno$chr,
                     pos=geno$pos,
@@ -172,9 +176,9 @@ model0 = data.frame(snp=geno$snp,
 
 for(i in 1:(10*nSnpPerChr)){
   if(MAF[i]>=0.05){
-    #Fit linear model with aov and extract p-value
-    tmp = summary(aov(pheno$trait1~rawGeno[,i]))[[1]][1,5]
-    #Check for bad p-values
+    #Fit linear model with lm() and extract p-value
+    mod1 = summary(lm(pheno$trait1~rawGeno[,i]))
+    tmp = mod1[[4]][2,4]
     #Check for markers confounded with structure
     if(is.na(tmp)){ 
       model0$trait1[i] = 1
@@ -190,16 +194,24 @@ model0$trait1[model0$trait1==0] = 1e-300
 
 ```
 
-## Model 2 - GWAS correcting with Q
+## Model 2 - GWAS correcting with population structure (Q)
+
+Single marker regression with population as fixed effect
+
+$$y = X\beta + S\alpha + e$$
 
 ```{r eval=TRUE}
 #Adjust for population structure (Q)----
 modelQ = model0
 for(i in 1:(10*nSnpPerChr)){
   if(MAF[i]>=0.05){
-    #Fit linear model with aov and extract p-value
-    tmp = summary(aov(pheno$trait1~phenoQ$subPop+rawGeno[,i]))
-    tmp = tmp[[1]][2,5]
+    #Fit linear model with lm() and extract p-value
+    mod2 = summary(lm(pheno$trait1~phenoQ$subPop+rawGeno[,i]))[[4]]
+    if(dim(mod2)[1] == 2){
+      tmp = NA
+    }else{
+      tmp = mod2[3,4]
+    }
     #Check for markers confounded with structure
     if(is.na(tmp)){ 
       modelQ$trait1[i] = 1
@@ -217,6 +229,11 @@ modelQ$trait1[modelQ$trait1==0] = 1e-300
 
 ## Model 3 - GWAS correcting with Kinship matrix (K)
 
+Single marker regression with covariance information among the individuals. The matrix will be calculated internally by the function 'A.mat`.
+
+$$y = S\alpha + Qv + e $$
+
+
 ```{r eval=TRUE}
 #Adjust for kinship (K)----
 modelK = GWAS(pheno,geno,plot=FALSE)
@@ -226,8 +243,13 @@ modelK$trait1 = 10^(-modelK$trait1) #Revert to p-value
 
 ## Model 4 - GWAS correcting with both, Q and K
 
+
+$$y = X\beta + S\alpha + Qv + e $$
+
+
+
 ```{r eval=TRUE}
-#Adjust for structure and kinship (Q+K)----
+#Adjust for both structure and kinship (Q+K)----
 modelQK = GWAS(phenoQ,geno,fixed="subPop",plot=FALSE)
 modelQK$trait1 = 10^(-modelQK$trait1) #Revert to p-value
 
@@ -235,37 +257,97 @@ modelQK$trait1 = 10^(-modelQK$trait1) #Revert to p-value
 
 ## Manhattan plot
 ```{r eval=TRUE}
-#Manhattan plots
+# Assuming Bonferroni Threshold (0.05/m)
+hline = -log10(0.05/ncol(rawGeno))
+
+# Manhattan plots
 op = par(mfrow=c(2,2),mai=c(.9,.9,0.9,0.9),
          mar=c(2.5,2.5,1,1)+0.1,
          mgp = c(1.5,0.5,0))
-manhattan(model0,chr="chr",bp="pos",p="trait1",snp="snp",
-          highlight=qtl,main="Unadjusted")
-manhattan(modelQ,chr="chr",bp="pos",p="trait1",snp="snp",
-          highlight=qtl,main="Adjusted for Q")
-manhattan(modelK,chr="chr",bp="pos",p="trait1",snp="snp",
-          highlight=qtl,main="Adjusted for K")
-manhattan(modelQK,chr="chr",bp="pos",p="trait1",snp="snp",
-          highlight=qtl,main="Adjusted for Q+K")
-par(op)
 
+manhattan(model0,chr="chr",bp="pos",p="trait1",snp="snp",  highlight=qtl,
+         main="Unadjusted", col = c("blue4", "orange3"),
+          suggestiveline = FALSE, genomewideline = hline)
+manhattan(modelQ,chr="chr",bp="pos",p="trait1",snp="snp",highlight=qtl,
+          main="Adjusted for Q", col = c("blue4", "orange3"),
+          suggestiveline = FALSE, genomewideline = hline)
+manhattan(modelK,chr="chr",bp="pos",p="trait1",snp="snp",highlight=qtl,
+          main="Adjusted for K", col = c("blue4", "orange3"),
+          suggestiveline = FALSE, genomewideline = hline)
+manhattan(modelQK,chr="chr",bp="pos",p="trait1",snp="snp",highlight=qtl,
+          main="Adjusted for Q+K", col = c("blue4", "orange3"),
+          suggestiveline = FALSE, genomewideline = hline)
 
 ```
+
 ## QQ-plot
+
 ```{r eval=TRUE}
 #Q-Q plots
 op = par(mfrow=c(2,2),mai=c(.9,.9,0.9,0.9),
          mar=c(2.5,2.5,1,1)+0.1,
          mgp = c(1.5,0.5,0))
-qq(model0$trait1,main="Unadjusted")
-qq(modelQ$trait1,main="Adjusted for Q")
-qq(modelK$trait1,main="Adjusted for K")
-qq(modelQK$trait1,main="Adjusted for Q+K")
-par(op)
+qq(model0$trait1,main="Unadjusted", col = "blue4")
+qq(modelQ$trait1,main="Adjusted for Q", col = "blue4")
+qq(modelK$trait1,main="Adjusted for K", col = "blue4")
+qq(modelQK$trait1,main="Adjusted for Q+K", col = "blue4")
+
 
 ```
 
-# 6. References
+## Extra Models with GAPIT
+
+```{r, eval = FALSE}
+# Create "pheno" data.frames for rrBLUP
+myYp = data.frame(gid=pop@id,
+                  trait1=pop@pheno[,1])
+
+
+# Geno
+rawGeno = pullSnpGeno(pop)
+Markers = data.frame(myYp["gid"],rawGeno)
+rownames(Markers) = NULL
+
+# markers position
+Map.pos = data.frame(snp=colnames(Markers[,-1]),
+                     chr=rep(1:10,each=nSnpPerChr),
+                     pos=rep(1:nSnpPerChr,10)) 
+
+
+# Model MLMM
+
+mod1=GAPIT(Y=myYp, #fist column is ID
+           GD=Markers,
+           GM=Map.pos,
+           PCA.total=2,
+           model="MLMM",  # MLMM
+           Geno.View.output = FALSE,
+           PCA.View.output=FALSE)
+
+# Model FarmCPU
+
+mod2=GAPIT(Y=myYp, #fist column is ID
+           GD=Markers,
+           GM=Map.pos,
+           PCA.total=2,
+           model="FarmCPU",  # MLMM
+           Geno.View.output = FALSE,
+           PCA.View.output=FALSE)
+
+# Model MLM
+
+mod3=GAPIT(Y=myYp, #fist column is ID
+           GD=Markers,
+           GM=Map.pos,
+           PCA.total=2,
+           model="MLM",  # MLMM
+           Geno.View.output = FALSE,
+           PCA.View.output=FALSE)
+
+```
+
+
+## References
 
 ::: {#refs}
 :::
