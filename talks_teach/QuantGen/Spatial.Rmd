@@ -47,7 +47,7 @@ $$
 where the $std.error$ represents the standard error from the genotypes predictions. After, we can use the following equation (Mrode, 2014):
 
 $$
-r_{\tilde{g}g} = \sqrt{\frac{1-PEV}{\sigma^2_g}}
+r_{\tilde{g}g} = \sqrt{1-\frac{PEV}{\sigma^2_g}}
 $$
 
 The accuracy values can vary from 0 to 1. Values close to 1 represents the best accuracy from a prediction of a target trait.
