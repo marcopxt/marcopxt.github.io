@@ -65,7 +65,7 @@ We recommend reading the following papers before the course, so should all be on
 
 ## 1. Base population and Global parameters
 
-- Link [[html]](https://htmlpreview.github.io/?https://github.com/marcopxt/marcopxt.github.io/blob/-/talks_teach/CV_BGLR/CV2_BGLR.html)  
+- Link [[html]](https://htmlpreview.github.io/?https://github.com/marcopxt/marcopxt.github.io/blob/master/talks_teach/AlphasimR/RUNME_BasePopTraits.html)  
 
 ## 2. Functions in AlphaSimR 
 
