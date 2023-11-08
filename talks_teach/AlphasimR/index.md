@@ -13,7 +13,7 @@ Luis Felipe Ferrao
 University of Florida  
 13-15/Nov/23
 
-**Schedule**
+**Schedule**  
 Monday (11/13) - 10:00 am - 3:00 pm  
 Tuesday (11/14) - 10:00 am - 3:00 pm   
 Wednesday (11/15) - 9:00 - 11:00 am  
