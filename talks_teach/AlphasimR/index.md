@@ -72,7 +72,8 @@ We recommend reading the following papers before the course, so should all be on
 
 ## 1. Base population and Global parameters
 
-- Link 
+- Link
+
 ## 2. Functions in AlphaSimR 
 
 - Link 
