@@ -13,6 +13,12 @@ Luis Felipe Ferrao
 University of Florida  
 13-15/Nov/23
 
+#### Schedule
+Monday (11/13) - 10:00 am - 3:00 pm
+Tuesday (11/14) - 10:00 am - 3:00 pm 
+Wednesday (11/15) - 9:00 - 11:00 am
+1:00 pm - 5:00 pm (if needed - this is blocked just as discussion time). 
+
 
 # **Introduction**
 
@@ -65,20 +71,19 @@ We recommend reading the following papers before the course, so should all be on
 
 ## 1. Base population and Global parameters
 
-- Link [[html]](https://htmlpreview.github.io/?https://github.com/marcopxt/marcopxt.github.io/blob/master/talks_teach/AlphasimR/RUNME_BasePopTraits.html)  
-
+- Link 
 ## 2. Functions in AlphaSimR 
 
-- Link [[html]](https://htmlpreview.github.io/?https://github.com/marcopxt/marcopxt.github.io/blob/-/talks_teach/CV_BGLR/CV1_BGLR.html)  
+- Link 
 
 ## 3. Breeding pipeline
 
-- Link [[html]](https://htmlpreview.github.io/?https://github.com/marcopxt/marcopxt.github.io/blob/-/talks_teach/CV_BGLR/CV1_BGLR.html)  
+- Link 
 
 ## 4. How to deploy Genomic selection in AlphaSimR
 
-- Link [[html]](https://htmlpreview.github.io/?https://github.com/marcopxt/marcopxt.github.io/blob/-/talks_teach/CV_BGLR/CV1_BGLR.html)  
+- Link 
 
 ## 5. Practical implementation GS
 
-- Link [[html]](https://htmlpreview.github.io/?https://github.com/marcopxt/marcopxt.github.io/blob/-/talks_teach/CV_BGLR/CV1_BGLR.html)  
+- Link 
