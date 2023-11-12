@@ -72,7 +72,7 @@ We recommend reading the following papers before the course, so should all be on
 
 ## 1. Base population and Global parameters
 
-- Link
+- Link [[link]](https://htmlpreview.github.io/?https://github.com/marcopxt/marcopxt.github.io/blob/master/talks_teach/AlphasimR/AlphaSimR_Functions.html)
 
 ## 2. Functions in AlphaSimR 
 
@@ -80,7 +80,7 @@ We recommend reading the following papers before the course, so should all be on
 
 ## 3. Breeding Pipeline
 
-- Link 
+- Link
 
 ## 4. How to deploy Genomic selection in AlphaSimR
 
