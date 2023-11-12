@@ -28,7 +28,7 @@ bibliography: references.bib
 
 ## Introduction
 
-As we recall from the first part, in a way to implement a set of simulations in the `AlphaSimR` four steps must be followed:
+As we recall from the first vignette, in a way to implement a set of simulations in the `AlphaSimR` four steps must be followed:
 
 1. Simulate founder genomes/haplotypes.
 2. Set global simulation parameters for a target trait/traits.
@@ -76,7 +76,7 @@ Parents = newPop(founderGenomes)
 
 ### Making crosses
 
-First, at the begin of each breeding cycle, we generate new crosses.
+First, at the beginning of each breeding cycle, we generate new crosses.
 
 
 
@@ -111,9 +111,9 @@ Now, we can advance the materials
 
 ``` 
 
-Then, we may assume phenotypes for all those individuals. The phenotypes assumed came from the genetic values generated before for the individuals. Then, **AlphaSimR** add in each genetic value a random error sampled from a multivariate normal distribution in the function `setPheno()`. Some important arguments in the function `setPheno()` are:
+Then, we may assume phenotypes for all those individuals. The phenotypes assumed came from the genetic values generated before for the individuals. Then, **AlphaSimR** adds in each genetic value a random error sampled from a multivariate normal distribution in the function `setPheno()`. Some important arguments in the function `setPheno()` are:
 
-**pop** = the target population to assumed the phenotypes.
+**pop** = the target population to assume the phenotypes.
 **h2** = narrow-sense heritability.
 **H2** = broad-sense heritability.
 **varE** = residual variance.
@@ -121,7 +121,7 @@ Then, we may assume phenotypes for all those individuals. The phenotypes assumed
 **p** = the p-value for the environmental covariate used by GxE traits. If NULL, a value is sampled at random.
 
 
-There are three options for assuming the error variance before mentioned. We can set the argument *h2*, *H2*, *varE*. The user should use only one of these arguments. If the user supplies values for more than one, only one will be used according to the order in which they are listed above.
+There are three options for assuming the error variance mentioned. We can set the argument *h2*, *H2*, *varE*. The user should use only one of these arguments. If the user supplies values for more than one, only one will be used according to the order in which they are listed above.
 
 ```{r}
 # Setting phenotypes
@@ -186,7 +186,7 @@ ggplot(df, aes(x = Id, y = Trait1, color = Pop)) +
 
 
 
-Another argument in the `setPheno()` function is *p*. It represents the environmental covariate and it varies from 0-1. Values close to 0 and 1 put more weight in the phenotypic values (larger errors) and values close to 0.5, smaller weight (lower errors). Generally, we assume a uniform values for the *p* argument.
+Another argument in the `setPheno()` function is *p*. It represents the environmental covariate and it varies from 0-1. Values close to 0 and 1 put more weight on the phenotypic values (larger errors) and values close to 0.5, have a smaller weight (lower errors). Generally, we assume uniform values for the *p* argument.
 
 We will explore more in the following populations:
 
@@ -223,7 +223,7 @@ F2pop = self(pop = F1pop, nProgeny = 1)
 # Setting phenotypes
 F2pop = setPheno(F2pop, varE = 10, reps = 1)
 
-# Select the best performing individuals according to their phenotype
+# Select the best-performing individuals according to their phenotype
 F2popSel = selectInd(pop = F2pop,
                             nInd = 20,
                             use = "pheno") # gv, pheno, bv, ebv
@@ -381,7 +381,7 @@ nSelected2 =25
 # Phenotype base population
 basePop = setPheno(F3popSel, h2 = heritability)
 
-##------------------- For first scenario
+##------------------- For the first scenario
 # Select the best performing individuals according to their phenotype
 basePopSelected = selectInd(pop = basePop,
                             nInd = nSelected1,
@@ -417,7 +417,7 @@ meanGAll_n10 = meanGAll
 varGAll_n10 = varGAll
 
 ##------------------- For second scenario
-# Select the best performing individuals according to their phenotype
+# Select the best-performing individuals according to their phenotype
 basePopSelected = selectInd(pop = basePop,
                             nInd = nSelected2,
                             use = "pheno")
@@ -456,7 +456,7 @@ varGAll_n50 = varGAll
 
 
 
-Lets plot and see the changes overtime
+Let's plot and see the changes over time
 
 
 ```{r}
