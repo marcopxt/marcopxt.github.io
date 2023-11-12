@@ -1,0 +1,565 @@
+---
+title: |
+  ![](UF.jpg){width=10%}
+
+  Base population and traits
+  
+author: 
+  - Marcio Resende, professor^[University of Florida, mresende@ufl.edu]
+ 
+  - Marco Antonio Peixoto, Post doc^[University of Florida, deamorimpeixotom@ufl.edu]
+  
+output: 
+  html_document:
+    toc: true
+    toc_float: FALSE
+    theme: flatly
+    highlight: haddock
+bibliography: references.bib
+---
+
+```{=html}
+<style type="text/css">
+  body{
+  font-size: 12pt;
+}
+</style>
+```
+
+## Introduction
+
+As we recall from the first part, in a way to implement a set of simulations in the `AlphaSimR` four steps must be followed:
+
+1. Simulate founder genomes/haplotypes.
+2. Set global simulation parameters for a target trait/traits.
+3. Model the breeding program.
+4. Examine results by looking into population individuals' metrics.
+
+In this vignette, we will cover a few useful functions from **AlphaSimR** that will help to Model the breeding program.
+
+
+We will start by loading the packages.
+
+
+```{r}
+# Loading packages
+library(AlphaSimR)
+library(ggplot2)
+
+```
+
+## Implementing a breeding program in AlphaSimR
+
+### Base Genome
+
+Let's start the simulation by creating the base genome.
+
+```{r}
+# Base Genome
+founderGenomes = runMacs(nInd = 100,
+                         nChr = 10,
+                         segSites = 100,
+                         species = "MAIZE")
+
+
+# Setting up trait characteristics
+SP = SimParam$new(founderGenomes)
+SP$addTraitA(nQtlPerChr = 100, 
+             mean = 10, 
+             var = 1)
+
+# Generating base population
+Parents = newPop(founderGenomes)
+
+
+```
+
+### Making crosses
+
+First, at the begin of each breeding cycle, we generate new crosses.
+
+
+
+```{r}
+
+# Crossing randomly
+F1pop = randCross(pop = Parents, nCrosses = 100)
+
+# Make crosses by a list of individuals
+# Making the crossing plan
+MatingPlan = data.frame(Parent1 = Parents@id[1:5],
+                        Parent2 = Parents@id[6:10])
+# Crossing based on the crossing list
+F1Pop = makeCross(Parents, crossPlan = as.matrix(MatingPlan))
+
+# Checking out the pedigree records from these F1
+Pedigree = data.frame(Ind = F1Pop@id,
+                 Parent1 = F1Pop@mother,
+                 Parent2 = F1Pop@father)
+
+
+```
+
+### Advance the genotypes
+
+Now, we can advance the materials
+
+
+```{r}
+  # Advancing F1->F2
+  F2pop = self(pop = F1pop, nProgeny = 10)
+
+``` 
+
+Then, we may assume phenotypes for all those individuals. The phenotypes assumed came from the genetic values generated before for the individuals. Then, **AlphaSimR** add in each genetic value a random error sampled from a multivariate normal distribution in the function `setPheno()`. Some important arguments in the function `setPheno()` are:
+
+**pop** = the target population to assumed the phenotypes.
+**h2** = narrow-sense heritability.
+**H2** = broad-sense heritability.
+**varE** = residual variance.
+**reps** = number of repetitions.
+**p** = the p-value for the environmental covariate used by GxE traits. If NULL, a value is sampled at random.
+
+
+There are three options for assuming the error variance before mentioned. We can set the argument *h2*, *H2*, *varE*. The user should use only one of these arguments. If the user supplies values for more than one, only one will be used according to the order in which they are listed above.
+
+```{r}
+# Setting phenotypes
+F2popvarE = setPheno(pop = F2pop, varE = 10, reps = 1) # Option 1
+
+F2poph2 = setPheno(pop = F2pop, h2 = 0.5, reps = 1) # Option 2
+
+F2popH2 = setPheno(pop = F2pop, H2 = 0.6, reps = 1) # Option 3
+
+
+# Correlation
+
+df = data.frame('VarE' = cor(F2popvarE@gv, F2popvarE@pheno),
+                'h2' = cor(F2poph2@gv, F2poph2@pheno),
+                'H2' = cor(F2popH2@gv, F2popH2@pheno))
+df
+
+# Plotting the values
+par(mfrow = c(2,3))
+
+hist(F2popvarE@gv)
+hist(F2poph2@gv)
+hist(F2popH2@gv)
+hist(F2popvarE@pheno)
+hist(F2poph2@pheno)
+hist(F2popH2@pheno)
+
+```
+
+
+The *reps* argument is for convenient representation of replicated data. It is intended to represent replicated yield trials in plant breeding programs. In this case, varE is set to the plot error and reps is set to the number of plots per entry. The resulting phenotype represents the entry-means.
+
+We will explore more in the following populations:
+
+```{r}
+# Setting phenotypes
+F2pheno1 = setPheno(F2pop, varE = 10, reps = 1) # Option 1
+
+
+# Setting phenotypes
+F2pheno6 = setPheno(F2pop, varE = 10, reps = 6) # Option 2
+
+
+# Setting phenotypes
+F2pheno10 = setPheno(F2pop, varE = 10, reps = 10) # Option 3
+
+
+cor(F2pheno1@gv, F2pheno1@pheno)
+cor(F2pheno6@gv, F2pheno6@pheno)
+cor(F2pheno10@gv, F2pheno10@pheno)
+
+# Plotting the parameters
+df = data.frame(Trait1 = c(F2pheno1@pheno,F2pheno6@pheno,F2pheno10@pheno),
+                Id = c(1:(3*nInd(F2pop))),
+                Pop = rep(c(1,2,3), each=nInd(F2pop)))
+
+#require(ggplot2)
+ggplot(df, aes(x = Id, y = Trait1, color = Pop)) +
+  geom_point()
+
+```
+
+
+
+Another argument in the `setPheno()` function is *p*. It represents the environmental covariate and it varies from 0-1. Values close to 0 and 1 put more weight in the phenotypic values (larger errors) and values close to 0.5, smaller weight (lower errors). Generally, we assume a uniform values for the *p* argument.
+
+We will explore more in the following populations:
+
+```{r}
+# Setting phenotypes
+F2_pop1 = setPheno(F2pop, reps = 2, h2 = 0.1, p = 0.9) # Option 1
+
+
+# Setting phenotypes
+F2_pop2 = setPheno(F2pop, reps = 2, h2 = 0.1, p = 0.5) # Option 1
+
+
+# Setting phenotypes
+F2_pop3 = setPheno(F2pop, reps = 2, h2 = 0.1, p = 0.1) # Option 1
+
+
+cor(F2_pop1@gv, F2_pop1@pheno)
+cor(F2_pop2@gv, F2_pop2@pheno)
+cor(F2_pop3@gv, F2_pop3@pheno)
+
+
+
+```
+
+
+
+Now, we can do selections on the phenotypes:
+
+```{r}
+
+# Advancing F1->F2
+F2pop = self(pop = F1pop, nProgeny = 1)
+
+# Setting phenotypes
+F2pop = setPheno(F2pop, varE = 10, reps = 1)
+
+# Select the best performing individuals according to their phenotype
+F2popSel = selectInd(pop = F2pop,
+                            nInd = 20,
+                            use = "pheno") # gv, pheno, bv, ebv
+
+# Create a new population and phenotype it
+newPop = randCross(F2popSel, nCrosses = 100)
+newPop = setPheno(newPop, h2 = 0.5)
+
+# Evaluate observed response to selection between generations
+# (as the difference between the mean of genetic values)
+(deltaGObserved_h205 = mean(gv(newPop)) - mean(gv(F2pop)))
+
+
+
+```
+
+
+## Plotting
+
+
+
+```{r}
+phenoRange = range(pheno(c(F2pop, newPop)))
+par(mfrow = c(2, 2),
+    mar = c(4, 4, 2, 1))
+# Phenotype values in the base population and the selected individuals
+tmp = hist(pheno(F2pop), xlim = phenoRange, xlab = "Phenotype value", main = "Base population")
+abline(v = mean(pheno(F2pop)), col = "black", lty = 1, lwd = 3)
+hist(pheno(F2popSel), col = "blue", breaks = tmp$breaks, add = TRUE)
+abline(v = mean(pheno(F2popSel)), col = "blue", lty = 4, lwd = 3)
+
+# Genetic values in the base population and the selected individuals
+tmp = hist(gv(F2pop), xlim = phenoRange, xlab = "Genetic value", main = "Base population")
+abline(v = mean(gv(F2pop)), col = "black", lty = 1, lwd = 3)
+hist(gv(F2popSel), col = "blue", breaks = tmp$breaks, add = TRUE)
+abline(v = mean(gv(F2popSel)), col = "blue", lty = 4, lwd = 3)
+
+# Phenotype values in the new population
+hist(pheno(newPop), xlim = phenoRange, xlab = "Phenotype value", main = "New population")
+abline(v = mean(pheno(F2pop)), col = "black", lty = 1, lwd = 3)
+abline(v = mean(pheno(newPop)), col = "blue", lty = 4, lwd = 3)
+
+# Genetic values in the new population
+hist(gv(newPop), xlim = phenoRange, xlab = "Genetic value", main = "New population")
+abline(v = mean(gv(F2pop)), col = "black", lty = 1, lwd = 3)
+abline(v = mean(gv(newPop)), col = "blue", lty = 4, lwd = 3)
+
+```
+
+Do it to the end of the pipeline
+
+```{r}
+  # Advancing F2->F3 and selection
+  F3pop = self(pop = F2pop, nProgeny = 4)
+  F3pop = setPheno(F3pop, varE = 10, reps = 3)
+  
+  F3popSel = selectWithinFam(F3pop, nInd = 4, use = "pheno")
+  F3popSel = selectInd(F3popSel, nInd = 300, use = "pheno")
+
+   # Advancing F3->F4 and selection
+  F4pop = self(pop = F3popSel, nProgeny = 2)
+  F4pop = setPheno(F4pop, varE = 10, reps = 5)
+  
+  F4popSel = selectWithinFam(F4pop, nInd = 1, use = "pheno")
+  F4popSel = selectInd(F4popSel, nInd = 50, use = "pheno")
+
+  # Advancing F4->F5 and selection
+  F5pop = self(pop = F4popSel, nProgeny = 1)
+  F5pop = setPheno(F5pop, varE = 10, reps = 8)
+  
+  F5popSel = selectInd(F5pop, nInd = 10, use = "pheno")
+  
+  # Advancing F5->F6 and selection
+  F6pop = self(pop = F5popSel, nProgeny = 1)
+  F6pop = setPheno(F6pop, varE = 10, reps = 10)
+  
+  F6Sel = selectInd(F6pop, nInd = 5, use = "pheno")
+
+  # Selecting Variety
+  F6Sel = setPheno(F6Sel, varE = 10, reps = 20)
+  Variety = selectInd(F6Sel, nInd = 1, use = "pheno")
+    
+
+
+```
+
+# Some (other) useful functions for **AlphaSimR**
+
+
+```{r}  
+# Making DHs
+F1 = randCross(Parents,120,1)
+
+# DHs
+DHs = makeDH(F1, nDH = 10)
+
+# Hybrid Cross
+tester = DHs[1:5]
+
+lines = DHs[6:105]
+
+# Hybrid cross
+Hybrids = hybridCross(tester, lines, crossPlan = 'testcross')
+length(unique(Hybrids@father))
+
+
+# Set pheno for CGA
+linesGCA = setPhenoGCA(lines, tester, h2 = 0.2)
+lines = setPheno(lines, h2 = 0.2)
+
+cor(linesGCA@pheno, lines@pheno)
+
+```
+
+#### Pedigree tracking
+
+
+```{r} 
+
+# Quick haplo
+require(AlphaSimR)
+
+# Create a founder population (using quickHaplo instead of runMacs - it is faster but does not create LD among individuals)
+founderPop = quickHaplo(10,10,10)
+
+# Set simulation parameters
+SP = SimParam$new(founderPop)
+#SimParam$setTrackPed(isTrackPed, force = FALSE)
+
+SP$addTraitA(10)
+
+# Create a population
+pop = newPop(founderPop, simParam=SP)
+
+# Get the pedigree
+getPed(pop)
+
+# Crosses
+pop1 = randCross(pop, 10)
+
+getPed(pop1)
+
+
+```
+
+
+## Evaluating changes overtime
+
+```{r}
+# Set simulation parameters for the scenario with trait heritability of 0.5 and 10 selected
+heritability = 0.5
+nSelected1 = 100
+nSelected2 =25
+
+# Phenotype base population
+basePop = setPheno(F3popSel, h2 = heritability)
+
+##------------------- For first scenario
+# Select the best performing individuals according to their phenotype
+basePopSelected = selectInd(pop = basePop,
+                            nInd = nSelected1,
+                            use = "pheno")
+
+# Allocate vectors
+nGenerations = 10 + 1 # +1 to store starting generation
+meanGAll = numeric(nGenerations)
+varGAll = numeric(nGenerations)
+
+# Save the starting values
+meanGAll[1] = meanG(basePop)
+varGAll[1] = varG(basePop)
+
+# To make the for loop below simpler we will make a copy of the object basePopSelected
+newPopSelected = basePopSelected
+
+# Selection over many generations
+for (generation in 1:(nGenerations - 1)) {
+  # Cross parents, phenotype progeny, and select new parents
+  newPop = randCross(newPopSelected, nCrosses = nInd(basePop))
+  newPop = setPheno(newPop, h2 = heritability)
+  newPopSelected = selectInd(pop = newPop,
+                             nInd = nSelected1,
+                             use = "pheno")
+  # Save summaries
+  meanGAll[1 + generation] = meanG(newPop)
+  varGAll[1 + generation] = varG(newPop)
+}
+
+# Now save these outputs by copying the objects
+meanGAll_n10 = meanGAll
+varGAll_n10 = varGAll
+
+##------------------- For second scenario
+# Select the best performing individuals according to their phenotype
+basePopSelected = selectInd(pop = basePop,
+                            nInd = nSelected2,
+                            use = "pheno")
+
+# Allocate vectors
+nGenerations = 10 + 1 # +1 to store starting generation
+meanGAll = numeric(nGenerations)
+varGAll = numeric(nGenerations)
+
+# Save the starting values
+meanGAll[1] = meanG(basePop)
+varGAll[1] = varG(basePop)
+
+# To make the for loop below simpler we will make a copy of the object basePopSelected
+newPopSelected = basePopSelected
+
+# Selection over many generations
+for (generation in 1:(nGenerations - 1)) {
+  # Cross parents, phenotype progeny, and select new parents
+  newPop = randCross(newPopSelected, nCrosses = nInd(basePop))
+  newPop = setPheno(newPop, h2 = heritability)
+  newPopSelected = selectInd(pop = newPop,
+                             nInd = nSelected2,
+                             use = "pheno")
+  # Save summaries
+  meanGAll[1 + generation] = meanG(newPop)
+  varGAll[1 + generation] = varG(newPop)
+}
+
+# Now save these outputs by copying the objects
+meanGAll_n50 = meanGAll
+varGAll_n50 = varGAll
+
+
+```
+
+
+
+Lets plot and see the changes overtime
+
+
+```{r}
+
+par(mfrow = c(2, 1),
+    mar = c(4, 4, 1, 1))
+
+# Plot mean of genetic values over time
+meanRanges = range(c(meanGAll_n10, meanGAll_n50))
+plot(x = 1:nGenerations, y = meanGAll_n10, type = "l", col = "black", lwd = 3,
+     xlab = "Generation", ylab = "Mean of genetic values", ylim = meanRanges)
+lines(x = 1:nGenerations, y = meanGAll_n50, type = "l", col = "purple", lty = 2, lwd = 3)
+legend(x = "topleft", legend = c(10, 50), title = "nSelected",
+       lwd = 3, lty = c(1, 2), col = c("black", "purple"), bty = "n")
+
+# Plot variance of genetic values over time
+varRanges = range(c(varGAll_n50, varGAll_n10))
+plot(x = 1:nGenerations, y = varGAll_n10, type = "l", col = "black", lwd = 3,
+     xlab = "Generation", ylab = "Variance of genetic values", ylim = varRanges)
+lines(x = 1:nGenerations, y = varGAll_n50, type = "l", col = "purple", lty = 2, lwd = 3)
+legend(x = "topright", legend = c(10, 50), title = "nSelected",
+       lwd = 3, lty = c(1, 2), col = c("black", "purple"), bty = "n")
+```
+
+
+
+## Multi traits 
+
+```{r}
+# Clean the working environment
+rm(list = ls())
+
+# Load AlphaSimR, simulate founder genomes, define a trait, and simulate a base population
+library(AlphaSimR)
+founderGenomes = runMacs(nInd = 100,
+                         nChr = 10,
+                         segSites = 100,
+                         species = "MAIZE")
+
+
+SP = SimParam$new(founderGenomes)
+
+SP$addTraitA(nQtlPerChr = 100,
+             mean = c(10, 2), 
+             var = c(1,1),
+             corA = matrix(data=c(0.5,0.1,0.1,0.5), ncol = 2))
+
+Parents = newPop(founderGenomes)
+
+# Pedigree information
+
+
+```
+
+```{r}
+# Crossing randomly
+F1pop = randCross(pop = Parents, nCrosses = 100)
+
+# Advancing F1->F2
+F2pop = self(pop = F1pop, nProgeny = 1)
+
+# Setting phenotypes
+F2pop = setPheno(F2pop, varE = c(10, 2), reps = 1)
+
+# Select the top individuals based on their phenotypes - trait 1
+popSelT1 = selectInd(pop = F2pop,
+                     nInd = 20,
+                     use = "pheno",
+                     trait = 1) # gv, pheno, bv, ebv
+
+# Select the top individuals based on their phenotypes - trait 2
+popSelT2 = selectInd(pop = F2pop,
+                     nInd = 20,
+                     use = "pheno",
+                     trait = 2) # gv, pheno, bv, ebv
+
+
+# Select the top individuals based on their phenotypes - trait 2
+popSelBoth = selectInd(pop = F2pop,
+                     nInd = 20,
+                     use = "pheno",
+                     trait = selIndex,
+                     b=c(0.5,0.5)) # index
+
+
+
+# Data frame with results
+df = data.frame(Basepop = c(apply(F2pop@pheno, 2, FUN = mean)),
+                Sel_T1 = c(apply(popSelT1@pheno, 2, FUN = mean)),
+                Sel_T2 = c(apply(popSelT2@pheno, 2, FUN = mean)),
+                Sel_Both = c(apply(popSelBoth@pheno, 2, FUN = mean)))
+df
+
+```
+
+
+
+
+
+## References
+
+::: {#refs}
+:::
+
+
+
