@@ -28,14 +28,14 @@ bibliography: references.bib
 
 ## Introduction
 
-As we recall from the first vignette, in a way to implement a set of simulations in the `AlphaSimR` four steps must be followed:
+As we recall from the first vignette, in a way to implement a set of simulations in the **AlphaSimR** package four steps must be followed:
 
 1. Simulate founder genomes/haplotypes.
 2. Set global simulation parameters for a target trait/traits.
 3. Model the breeding program.
 4. Examine results by looking into population individuals' metrics.
 
-In this vignette, we will cover a few useful functions from **AlphaSimR** that will help to Model the breeding program.
+In this vignette, we will cover a few useful functions from **AlphaSimR** that will help to Model the breeding program (step 3). In addition, we will compare two implementations over a few generations of selection.
 
 
 We will start by loading the packages.
@@ -48,16 +48,16 @@ library(ggplot2)
 
 ```
 
-## Implementing a breeding program in AlphaSimR
+## Modeling a breeding program in **AlphaSimR**
 
-### Base Genome
+### Founder Genome
 
 Let's start the simulation by creating the base genome.
 
 ```{r}
-# Base Genome
+# Creating the founding genome
 founderGenomes = runMacs(nInd = 100,
-                         nChr = 10,
+                         nChr = 4,
                          segSites = 100,
                          species = "MAIZE")
 
@@ -76,34 +76,30 @@ Parents = newPop(founderGenomes)
 
 ### Making crosses
 
-First, at the beginning of each breeding cycle, we generate new crosses.
-
-
+First, at the beginning of each breeding cycle, we generate new crosses. We can implement random crosses as well as make oriented crosses by giving the list of crosses to make.
 
 ```{r}
 
-# Crossing randomly
+# 1. Crossing randomly
 F1pop = randCross(pop = Parents, nCrosses = 100)
 
-# Make crosses by a list of individuals
+# 2. Make crosses by a list of individuals
 # Making the crossing plan
 MatingPlan = data.frame(Parent1 = Parents@id[1:5],
                         Parent2 = Parents@id[6:10])
 # Crossing based on the crossing list
 F1Pop = makeCross(Parents, crossPlan = as.matrix(MatingPlan))
 
-# Checking out the pedigree records from these F1
+# Checking out the pedigree records out of F1
 Pedigree = data.frame(Ind = F1Pop@id,
                  Parent1 = F1Pop@mother,
                  Parent2 = F1Pop@father)
-
 
 ```
 
 ### Advance the genotypes
 
-Now, we can advance the materials
-
+Now, we can advance the materials. One function that we may use is the `self()`.
 
 ```{r}
   # Advancing F1->F2
@@ -111,9 +107,9 @@ Now, we can advance the materials
 
 ``` 
 
-Then, we may assume phenotypes for all those individuals. The phenotypes assumed came from the genetic values generated before for the individuals. Then, **AlphaSimR** adds in each genetic value a random error sampled from a multivariate normal distribution in the function `setPheno()`. Some important arguments in the function `setPheno()` are:
+Then, we may assume phenotypes for all those individuals. For each individual, the phenotypes are assumed to come from the genetic values generated. Then, **AlphaSimR** adds in each genetic value a random error sampled from a multivariate normal distribution in the function `setPheno()`. Some important arguments in the function `setPheno()` are:
 
-**pop** = the target population to assume the phenotypes.
+**pop** = the target population with the individuals to assume the phenotypes.
 **h2** = narrow-sense heritability.
 **H2** = broad-sense heritability.
 **varE** = residual variance.
@@ -121,7 +117,7 @@ Then, we may assume phenotypes for all those individuals. The phenotypes assumed
 **p** = the p-value for the environmental covariate used by GxE traits. If NULL, a value is sampled at random.
 
 
-There are three options for assuming the error variance mentioned. We can set the argument *h2*, *H2*, *varE*. The user should use only one of these arguments. If the user supplies values for more than one, only one will be used according to the order in which they are listed above.
+There are three options for assuming the error variance mentioned. We can set the argument *h2*, *H2*, *varE*. We should use only one of these arguments. If we supply values for more than one, only one will be used according to the order in which they are listed above.
 
 ```{r}
 # Setting phenotypes
@@ -151,24 +147,21 @@ hist(F2popH2@pheno)
 
 ```
 
-
-The *reps* argument is for convenient representation of replicated data. It is intended to represent replicated yield trials in plant breeding programs. In this case, varE is set to the plot error and reps is set to the number of plots per entry. The resulting phenotype represents the entry-means.
+The *reps* argument is for convenient representation of replicated data. It is intended to represent replicated yield trials in plant breeding programs. In this case, *varE* is set to the plot error and *reps* is set to the number of plots per entry. The resulting phenotype represents the entry-means.
 
 We will explore more in the following populations:
 
 ```{r}
 # Setting phenotypes
-F2pheno1 = setPheno(F2pop, varE = 10, reps = 1) # Option 1
-
-
-# Setting phenotypes
-F2pheno6 = setPheno(F2pop, varE = 10, reps = 6) # Option 2
-
+F2pheno1 = setPheno(F2pop, varE = 10, reps = 1)
 
 # Setting phenotypes
-F2pheno10 = setPheno(F2pop, varE = 10, reps = 10) # Option 3
+F2pheno6 = setPheno(F2pop, varE = 10, reps = 6)
 
+# Setting phenotypes
+F2pheno10 = setPheno(F2pop, varE = 10, reps = 10)
 
+# Correlation with the genetic value using different numbers of repetitions
 cor(F2pheno1@gv, F2pheno1@pheno)
 cor(F2pheno6@gv, F2pheno6@pheno)
 cor(F2pheno10@gv, F2pheno10@pheno)
@@ -184,36 +177,27 @@ ggplot(df, aes(x = Id, y = Trait1, color = Pop)) +
 
 ```
 
-
-
 Another argument in the `setPheno()` function is *p*. It represents the environmental covariate and it varies from 0-1. Values close to 0 and 1 put more weight on the phenotypic values (larger errors) and values close to 0.5, have a smaller weight (lower errors). Generally, we assume uniform values for the *p* argument.
 
 We will explore more in the following populations:
 
 ```{r}
 # Setting phenotypes
-F2_pop1 = setPheno(F2pop, reps = 2, h2 = 0.1, p = 0.9) # Option 1
-
-
-# Setting phenotypes
-F2_pop2 = setPheno(F2pop, reps = 2, h2 = 0.1, p = 0.5) # Option 1
-
+F2_pop1 = setPheno(F2pop, reps = 2, h2 = 0.1, p = 0.9) 
 
 # Setting phenotypes
-F2_pop3 = setPheno(F2pop, reps = 2, h2 = 0.1, p = 0.1) # Option 1
+F2_pop2 = setPheno(F2pop, reps = 2, h2 = 0.1, p = 0.5) 
 
+# Setting phenotypes
+F2_pop3 = setPheno(F2pop, reps = 2, h2 = 0.1, p = 0.1)
 
+# Correlation of the phenotypes with the genetic values
 cor(F2_pop1@gv, F2_pop1@pheno)
 cor(F2_pop2@gv, F2_pop2@pheno)
 cor(F2_pop3@gv, F2_pop3@pheno)
-
-
-
 ```
 
-
-
-Now, we can do selections on the phenotypes:
+The next step in modeling the breeding program is to make selections on the phenotypes. We may use the function `selectInd()`
 
 ```{r}
 
@@ -228,22 +212,19 @@ F2popSel = selectInd(pop = F2pop,
                             nInd = 20,
                             use = "pheno") # gv, pheno, bv, ebv
 
-# Create a new population and phenotype it
+# Create a new population and assume phenotypes
 newPop = randCross(F2popSel, nCrosses = 100)
 newPop = setPheno(newPop, h2 = 0.5)
 
-# Evaluate observed response to selection between generations
-# (as the difference between the mean of genetic values)
-(deltaGObserved_h205 = mean(gv(newPop)) - mean(gv(F2pop)))
-
-
+# Evaluate observed response to selection between generations (as the difference between the mean of genetic values)
+deltaG = mean(gv(newPop)) - mean(gv(F2pop))
 
 ```
 
 
 ## Plotting
 
-
+To see the impact of the selections in the genetic mean of the populations, we can plot the phenotypic and genetic values from both populations:
 
 ```{r}
 phenoRange = range(pheno(c(F2pop, newPop)))
@@ -273,7 +254,7 @@ abline(v = mean(gv(newPop)), col = "blue", lty = 4, lwd = 3)
 
 ```
 
-Do it to the end of the pipeline
+Then, we can advance the materials and do selections to the end of the pipeline.
 
 ```{r}
   # Advancing F2->F3 and selection
@@ -307,28 +288,22 @@ Do it to the end of the pipeline
   Variety = selectInd(F6Sel, nInd = 1, use = "pheno")
     
 
-
 ```
 
-# Some (other) useful functions for **AlphaSimR**
+# Some (other) useful functions in **AlphaSimR**.
 
 
 ```{r}  
-# Making DHs
+# 1. Making DHs
 F1 = randCross(Parents,120,1)
-
-# DHs
 DHs = makeDH(F1, nDH = 10)
 
-# Hybrid Cross
-tester = DHs[1:5]
+# 2. Hybrid Cross
+tester = DHs[1:5] # Five individuals as testers
+lines = DHs[6:105] # Lines
 
-lines = DHs[6:105]
-
-# Hybrid cross
 Hybrids = hybridCross(tester, lines, crossPlan = 'testcross')
 length(unique(Hybrids@father))
-
 
 # Set pheno for CGA
 linesGCA = setPhenoGCA(lines, tester, h2 = 0.2)
@@ -368,18 +343,15 @@ getPed(pop1)
 
 
 ```
-
-
-## Evaluating changes overtime
+## Examine results over generations
 
 ```{r}
 # Set simulation parameters for the scenario with trait heritability of 0.5 and 10 selected
-heritability = 0.5
 nSelected1 = 100
-nSelected2 =25
+nSelected2 = 25
 
 # Phenotype base population
-basePop = setPheno(F3popSel, h2 = heritability)
+basePop = setPheno(F3popSel, h2 = 0.5)
 
 ##------------------- For the first scenario
 # Select the best performing individuals according to their phenotype
@@ -454,8 +426,6 @@ varGAll_n50 = varGAll
 
 ```
 
-
-
 Let's plot and see the changes over time
 
 
@@ -490,35 +460,30 @@ legend(x = "topright", legend = c(10, 50), title = "nSelected",
 rm(list = ls())
 
 # Load AlphaSimR, simulate founder genomes, define a trait, and simulate a base population
-library(AlphaSimR)
 founderGenomes = runMacs(nInd = 100,
                          nChr = 10,
                          segSites = 100,
                          species = "MAIZE")
 
-
+# Trait
 SP = SimParam$new(founderGenomes)
-
 SP$addTraitA(nQtlPerChr = 100,
              mean = c(10, 2), 
              var = c(1,1),
-             corA = matrix(data=c(0.5,0.1,0.1,0.5), ncol = 2))
+             corA = matrix(data=c(1, 0.25, 0.25, 1), ncol = 2))
 
+# Parents
 Parents = newPop(founderGenomes)
-
-# Pedigree information
-
-
 ```
+
+We can proceed and create crosses that take both traits into account. In addition, we can assume phenotypes and select individuals.
 
 ```{r}
 # Crossing randomly
 F1pop = randCross(pop = Parents, nCrosses = 100)
 
-# Advancing F1->F2
+# Advancing F1->F2 and phenotypes
 F2pop = self(pop = F1pop, nProgeny = 1)
-
-# Setting phenotypes
 F2pop = setPheno(F2pop, varE = c(10, 2), reps = 1)
 
 # Select the top individuals based on their phenotypes - trait 1
@@ -541,9 +506,7 @@ popSelBoth = selectInd(pop = F2pop,
                      trait = selIndex,
                      b=c(0.5,0.5)) # index
 
-
-
-# Data frame with results
+# Gain with selections based on individual traits or in the index.
 df = data.frame(Basepop = c(apply(F2pop@pheno, 2, FUN = mean)),
                 Sel_T1 = c(apply(popSelT1@pheno, 2, FUN = mean)),
                 Sel_T2 = c(apply(popSelT2@pheno, 2, FUN = mean)),
