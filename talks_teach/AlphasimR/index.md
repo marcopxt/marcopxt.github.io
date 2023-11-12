@@ -76,7 +76,7 @@ We recommend reading the following papers before the course, so should all be on
 
 ## 2. Functions in AlphaSimR 
 
-- Link 
+- Link [link](https://github.com/marcopxt/marcopxt.github.io/edit/master/talks_teach/AlphasimR/AlphaSimR_Functions.html)
 
 ## 3. Breeding pipeline
 
