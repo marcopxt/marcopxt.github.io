@@ -124,6 +124,9 @@ After simulating the base genome and to set the trait characteristics, we can cr
 # Creating individuals/population
 basePop = newPop(founderGenomes)
 
+# Gen param
+genParam(basePop)
+
 # Looking at the population
 # haplotypes
 popHaplo = pullSegSiteHaplo(basePop)
