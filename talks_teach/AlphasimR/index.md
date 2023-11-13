@@ -72,7 +72,8 @@ We recommend reading the following papers before the course, so should all be on
 
 ## 1. Base population and Global parameters
 
-- Link [[link]](https://htmlpreview.github.io/?https://github.com/marcopxt/marcopxt.github.io/blob/master/talks_teach/AlphasimR/1.BasePopTraits.html)
+- Content [[html]](https://htmlpreview.github.io/?https://github.com/marcopxt/marcopxt.github.io/blob/master/talks_teach/AlphasimR/1.BasePopTraits.html)
+- Script [[rmd]](https://minhaskamal.github.io/DownGit/#/home?url=https://github.com/marcopxt/marcopxt.github.io/blob/master/talks_teach/AlphasimR/1.BasePopTraits.Rmd)
 - Data [[externalData]](https://minhaskamal.github.io/DownGit/#/home?url=https://github.com/marcopxt/marcopxt.github.io/blob/master/talks_teach/AlphasimR/External_Data.RData)
 
 ## 2. Functions in AlphaSimR 
