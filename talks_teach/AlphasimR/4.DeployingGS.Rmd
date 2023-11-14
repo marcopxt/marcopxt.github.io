@@ -1,7 +1,5 @@
 ---
 title: |
-  ![](UF.jpg){width=10%}
-
   AlphaSimR: Deploying genomic selection
   
 author: 
@@ -9,25 +7,8 @@ author:
  
   - Marco Antonio Peixoto, Post doc^[University of Florida, deamorimpeixotom@ufl.edu]
   
-output: 
-  html_document:
-    toc: true
-    toc_float: FALSE
-    theme: flatly
-    highlight: haddock
-bibliography: references.bib
+
 ---
-
-```{=html}
-<style type="text/css">
-  body{
-  font-size: 14pt;
-}
-</style>
-```
-
-
-<br>
 
 ## Deploying genomic selection
 
@@ -52,16 +33,21 @@ founderPop = runMacs(nInd=1000, nChr=10, segSites=600)
 SP = SimParam$
   new(founderPop)$
   addTraitA(100)$
-  addSnpChip(500)$ # Number of SNPs
+  addSnpChip(500)$ # Number of SNPs per pair of chromosome
   setVarE(h2=0.4)
   
 # Split the founders into two population
 pop1 = newPop(founderPop[1:500])
 pop2 = newPop(founderPop[501:1000])
 
+#SNPs
+SNPop = pullSnpGeno(pop1)
+
+SNPop[1:10,1:10]
+
 ```
 
-#### New population from crosses and training the model
+### New population from crosses and training the model
 
 Now, we can create a large F1 population derived from the initial individuals and fit a genomic selection model using the function `RRBLUP()` from **AlphaSimR**. We may use the phenotypes assumed out of `setPheno()` function and, together with the marker's information, create a model that will give us the marker's effects, as follows:
 
@@ -76,7 +62,7 @@ gsModel = RRBLUP(pop1, use = 'pheno') #RRBLUP
 
 ```
 
-#### Using markers effect to predict the values
+### Using markers effect to predict the values
 
 Now that we have a calibration, we can deploy genomic selection by using the marker effects to predict, together with the genotypes of the target population, the estimated breeding value of the individuals.
 
@@ -87,7 +73,7 @@ pop2 = setEBV(pop2, gsModel)
 pop3 = setEBV(pop3, gsModel)
 ```
 
-#### Measuring the correlation with the genetic value (parametric value of the trait)
+### Measuring the correlation with the genetic value (parametric value of the trait)
 
 We can measure how good was the prediction by comparing the actual true genetic value (gv) with the prediction (ebv) for each individual.
 
@@ -126,7 +112,7 @@ pop2 = newPop(founderPop[501:1000])
 ```
 
 
-#### New population from crosses and training the model
+### New population from crosses and training the model
 
 We may implement a model with additive and a model with additive and dominance effects in order to compare the implementations.
 
@@ -141,7 +127,7 @@ gsModelD = RRBLUP_D(pop1) ##RRBLUP with both, A+D
 
 ```
 
-#### Using markers effect to predict the values
+### Using markers effect to predict the values
 
 Now we can deploy the model in the same way that we did before and use both models in the same three populations.
 
@@ -159,7 +145,7 @@ popD3 = setEBV(pop3, gsModelD)
 
 ```
 
-#### Measuring the correlation with the genetic value (parametric value of the trait)
+### Measuring the correlation with the genetic value (parametric value of the trait)
 
 Measuring the accuracies to see how was the impact of the dominance effect on the model.
 
@@ -185,7 +171,7 @@ df
 
 ## General combining ability model
 
-*AlphaSimR* also gives us the possibility to calculate the general combining ability using genomic information.
+**AlphaSimR** also gives us the possibility to calculate the general combining ability using genomic information.
 
 ```{r}
 rm(list=ls())
@@ -213,6 +199,7 @@ tester = newPop(founderPop[101:102])
 
 Creating Doubled haploids (DHs)
 
+
 ```{r}
 # Creating DHs and testers from the founder
 DHs = makeDH(lines, 2)
@@ -230,10 +217,6 @@ GCA_Male = setEBV(Hybrid, gsModel_GCA, value = 'male', simParam=SP)
 
 GCA_Female = setEBV(Hybrid, gsModel_GCA, value = 'female', simParam=SP)
 
-#Evaluate accuracy
-cor(gv(GCA_Male), ebv(GCA_Male))
-
-cor(gv(GCA_Female), ebv(GCA_Female))
 
 ```
 
@@ -279,9 +262,6 @@ gsModel_SCA = RRBLUP_SCA(Hybrid)
 
 # Model deployment
 SCA_pop = setEBV(Hybrid, gsModel_SCA, value = 'gv', simParam=SP)
-
-#Evaluate accuracy
-cor(gv(SCA_pop), ebv(SCA_pop))
 
 
 ```
