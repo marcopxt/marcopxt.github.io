@@ -83,17 +83,18 @@ We recommend reading the following papers before the course, so should all be on
 
 ## 3. Breeding Pipeline
 
-- Content - Recurrent selection program [[html]](https://htmlpreview.github.io/?https://github.com/marcopxt/marcopxt.github.io/blob/master/talks_teach/AlphasimR/3.MaizeBreeding.html)
-- Script [[rmd]]
-- Content - Reciprocal recurrent selection program [[html]](https://htmlpreview.github.io/?https://github.com/marcopxt/marcopxt.github.io/blob/master/talks_teach/AlphasimR/3.WheatBreeding.html)
-- Script [[rmd]]
+- Content - Recurrent selection program [[html]](https://htmlpreview.github.io/?https://github.com/marcopxt/marcopxt.github.io/blob/master/talks_teach/AlphasimR/3.WheatBreeding.html)
+- Script [[rmd]](https://minhaskamal.github.io/DownGit/#/home?url=https://github.com/marcopxt/marcopxt.github.io/blob/master/talks_teach/AlphasimR/3.WheatBreeding(RMD).Rmd)
+
+- Content - Reciprocal recurrent selection program [[html]](https://htmlpreview.github.io/?https://github.com/marcopxt/marcopxt.github.io/blob/master/talks_teach/AlphasimR/3.MaizeBreeding.html)
+- Script [[rmd]](https://minhaskamal.github.io/DownGit/#/home?url=https://github.com/marcopxt/marcopxt.github.io/blob/master/talks_teach/AlphasimR/3.MaizeBreeding(RMD).Rmd)
+
 
 ## 4. How to deploy Genomic selection in AlphaSimR
 
 - Content [[HTML]]
-- Script [[rmd]](https://minhaskamal.github.io/DownGit/#/home?url=https://github.com/marcopxt/marcopxt.github.io/blob/master/talks_teach/AlphasimR/4.DeployingGS.Rmd)
-
-
+- Script [[rmd]]
+  
 ## 5. Practical implementation GS
 
 - Link 
