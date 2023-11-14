@@ -83,11 +83,14 @@ We recommend reading the following papers before the course, so should all be on
 
 ## 3. Breeding Pipeline
 
-- Link
+- Content [[HTML]]
+- Script [[rmd]]
 
 ## 4. How to deploy Genomic selection in AlphaSimR
 
-- Link 
+- Content [[HTML]]
+- Script [[rmd]](https://minhaskamal.github.io/DownGit/#/home?url=https://github.com/marcopxt/marcopxt.github.io/blob/master/talks_teach/AlphasimR/4.DeployingGS.Rmd)
+
 
 ## 5. Practical implementation GS
 
