@@ -83,7 +83,9 @@ We recommend reading the following papers before the course, so should all be on
 
 ## 3. Breeding Pipeline
 
-- Content [[HTML]]
+- Content - Recurrent selection program [[html]](https://htmlpreview.github.io/?https://github.com/marcopxt/marcopxt.github.io/blob/master/talks_teach/AlphasimR/3.MaizeBreeding.html)
+- Script [[rmd]]
+- Content - Reciprocal recurrent selection program [[html]](https://htmlpreview.github.io/?https://github.com/marcopxt/marcopxt.github.io/blob/master/talks_teach/AlphasimR/3.WheatBreeding.html)
 - Script [[rmd]]
 
 ## 4. How to deploy Genomic selection in AlphaSimR
