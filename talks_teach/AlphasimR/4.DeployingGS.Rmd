@@ -40,7 +40,7 @@ Genomic selection is a method that leverages both phenotype and genome data from
 
 ## One trait with additive effect
 
-First implementation will use one additive trait. Let's create the founder genome and also a base population and assume the trait characteristics. In addition to the argument that we have been describing, we need to use the function `addSnpChip` to add the SNPs for each individual.
+The first implementation will use one additive trait. Let's create the founder genome and also a base population and assume the trait characteristics. In addition to the argument that we have been describing, we need to use the function `addSnpChip` to add the SNPs for each individual.
 
 ```{r}
 library(AlphaSimR)
@@ -63,7 +63,7 @@ pop2 = newPop(founderPop[501:1000])
 
 #### New population from crosses and training the model
 
-Now, we can create a large F1 population derived from the initial individuals and fit a genomic selection model using the function `RRBLUP()` from **AlphaSimR**. We may use the phenotypes assumed out of `setPheno()` function and, together with the markers information, create a model that will give us the markers effects, as follows:
+Now, we can create a large F1 population derived from the initial individuals and fit a genomic selection model using the function `RRBLUP()` from **AlphaSimR**. We may use the phenotypes assumed out of `setPheno()` function and, together with the marker's information, create a model that will give us the marker's effects, as follows:
 
 
 ```{r}
@@ -78,7 +78,7 @@ gsModel = RRBLUP(pop1, use = 'pheno') #RRBLUP
 
 #### Using markers effect to predict the values
 
-Now that we have a calibration, we can deploy genomic selection by using the marker effects to prediction, together with the genotypes of the target population, the estimated breeding value of the individuals.
+Now that we have a calibration, we can deploy genomic selection by using the marker effects to predict, together with the genotypes of the target population, the estimated breeding value of the individuals.
 
 ```{r}
 # Set EBVs for all populations using the GS model
@@ -90,6 +90,7 @@ pop3 = setEBV(pop3, gsModel)
 #### Measuring the correlation with the genetic value (parametric value of the trait)
 
 We can measure how good was the prediction by comparing the actual true genetic value (gv) with the prediction (ebv) for each individual.
+
 ```{r}
 # Measure prediction accuracy
 cor(gv(pop1), ebv(pop1)) 
@@ -100,8 +101,7 @@ cor(gv(pop3), ebv(pop3))
 
 ## One trait with additive/dominance effect
 
-So, we can implement the same pipeline before deployed, but account for dominance effects as well. In this case, the may use the function `RRBLUP_D` from *AlphaSimR*.
-
+So, we can implement the same pipeline as before but accounting for dominance effects. In this case, we may use the function `RRBLUP_D` from *AlphaSimR*.
 
 ```{r}
 rm(list=ls())
@@ -122,7 +122,6 @@ SP = SimParam$
 # Split the founders into two population
 pop1 = newPop(founderPop[1:500])
 pop2 = newPop(founderPop[501:1000])
-
 
 ```
 
@@ -162,7 +161,7 @@ popD3 = setEBV(pop3, gsModelD)
 
 #### Measuring the correlation with the genetic value (parametric value of the trait)
 
-Measuring the accuracies to see how was the impact of the dominance effect into the model.
+Measuring the accuracies to see how was the impact of the dominance effect on the model.
 
 ```{r}
 # Measure prediction accuracy
@@ -256,7 +255,7 @@ SP = SimParam$
   addSnpChip(500)$
   setVarE(h2=0.4)
   
-# Split the founders into two population (distinct groups)
+# Split the founders into two populations (distinct groups)
 lines = newPop(founderPop[1:100])
 tester = newPop(founderPop[101:102])
 
@@ -288,9 +287,9 @@ cor(gv(SCA_pop), ebv(SCA_pop))
 ```
 
 
-## Fixed effects into the population
+## Fixed effects on the population
 
-We can also use fixed effect into the model. The fixed effects get treated as a categorical variable and are used to construct a sum-to-zero design matrix. When we have years and locations, you want a unique fixed effect for each year by location combination. 
+We can also use a fixed effect in the model. The fixed effects get treated as a categorical variable and are used to construct a sum-to-zero design matrix. When we have years and locations, you want a unique fixed effect for each year by location combination. 
 
 
 Let's create a founder genome and a population out of it.
@@ -310,7 +309,7 @@ SP = SimParam$
   addSnpChip(500)$
   setVarE(h2=0.4)
   
-# Split the founders into two population (distinct groups)
+# Split the founders into two populations (distinct groups)
 pop = newPop(founderPop[1:100])
 
 ```
@@ -366,11 +365,11 @@ AccFix
 ```
 
 
-## Multi trait information into the prediction
+## Multi-trait information into the prediction
 
 In the same way that we predict estimated breeding values for one trait, we can deploy it for more than one trait as well.
 
-For such, we will create a base genome and implement two traits for latter prediction via genomic selection.
+For such, we will create a base genome and implement two traits for later prediction via genomic selection.
 
 ```{r}
 rm(list=ls())
@@ -390,7 +389,7 @@ SP = SimParam$
   addSnpChip(500)$
   setVarE(h2=c(0.4, 0.8))
   
-# Split the founders into two population (distinct groups)
+# Split the founders into two populations (distinct groups)
 pop1 = newPop(founderPop[1:100])
 pop2 = newPop(founderPop[101:200])
 
@@ -471,7 +470,7 @@ F1Pop = setPheno(F1Pop, h2 = 0.4)
 
 ### Using BGLR to deploy Genomic selection
 
-We can use the information from the individuals to fit the model in BGLR. So, the first step will be to get that information from the populations. We may get the phenotypic values for the individuals, the SNP data and create a relationship Matrix out of it.
+We can use the information from the individuals to fit the model in BGLR. So, the first step will be to get that information from the population. We may get the phenotypic values for the individuals and the SNP data and create a relationship Matrix out of it.
 
 
 ```{r}
@@ -508,9 +507,9 @@ F1Sel = selectInd(F1Pop, 25, use = 'ebv')
 ```
 
 
-### Multi trait implementation using BGLR
+### Multi-trait implementation using BGLR
 
-Same implementation could be done with the information of more than one trait at a time. So, we will do the same implementation before mentioned, but using two traits, as follows:
+The same implementation could be done with the information of more than one trait at a time. So, we will do the same implementation mentioned, but using two traits, as follows:
 
 
 
