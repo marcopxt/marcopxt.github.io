@@ -92,7 +92,10 @@ We recommend reading the following papers before the course, so should all be on
 
 ## 4. How to deploy Genomic selection in AlphaSimR
 
-- Link
+- Content - Recurrent selection program [[html]](https://htmlpreview.github.io/?https://github.com/marcopxt/marcopxt.github.io/blob/master/talks_teach/AlphasimR/4.DeployingGS.html)
+
+- Script [[rmd]](https://minhaskamal.github.io/DownGit/#/home?url=https://github.com/marcopxt/marcopxt.github.io/blob/master/talks_teach/AlphasimR/4.DeployingGS.Rmd)
+
   
 ## 5. Practical implementation GS
 
