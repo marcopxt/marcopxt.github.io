@@ -1,7 +1,5 @@
 ---
 title: |
-  ![](UF.jpg){width=10%}
-
   AlphaSimR: Practical implementation of GS
   
 author: 
@@ -9,29 +7,11 @@ author:
  
   - Marco Antonio Peixoto, Post doc^[University of Florida, deamorimpeixotom@ufl.edu]
   
-output: 
-  html_document:
-    toc: true
-    toc_float: false
-    theme: flatly
-    highlight: haddock
-bibliography: references.bib
 ---
-
-```{=html}
-<style type="text/css">
-  body{
-  font-size: 12pt;
-}
-</style>
-```
-
-
-<br>
 
 ## Introduction
 
-In this vignette, we will implement the genomic selection in a Maize pipeline. Two scenarios will be implemented after a fifteen years Burn-In period. The first scenario will account only for truncated phenotypic selection. In the second scenario, we will implement genomic selection in the pipeline. So, in the years 3 and 4, the individuals will be select based on the estimated breeding values that came from a genomic model (ridge regression model). In addition, the parents will be selected based on 'ebv' and came from year 3` inbreds. 
+In this vignette, we will implement the genomic selection in a Maize pipeline. Two scenarios will be implemented after a fifteen-year Burn-In period. The first scenario will account only for truncated phenotypic selection. In the second scenario, we will implement genomic selection in the pipeline. So, in years 3 and 4, the individuals will be selected based on the estimated breeding values that came from a genomic model (ridge regression model). In addition, the parents will be selected based on 'ebv' and came from year 3` inbreds. 
 
 
 
@@ -41,7 +21,7 @@ In this vignette, we will implement the genomic selection in a Maize pipeline. T
 # Packages
 require(AlphaSimR)
 
-# Creating the files for record the results
+# Creating the files to record the results
 MeanG_pop = matrix(NA, 35)
 MeanA_pop = matrix(NA, 35)
 VarG_pop  = matrix(NA, 35)
@@ -49,7 +29,7 @@ Accuracy  = matrix(NA, 35)
 
 ```
 
-## Create parents and the fill the pipeline
+## Create parents and fill the pipeline
 
 
 ```{r}
@@ -174,11 +154,6 @@ saveRDS(output1,"results/Results_GS.rds")
 # Loading the results
 Scenario1 = readRDS("results/Results_GS.rds")
 Scenario2 = readRDS("results/Results_PS.rds")
-
-# # Getting the mean across repetitions
-# MeanScen1 = lapply(Scenario1, function(x) apply(x,2,mean))
-# MeanScen2 = lapply(Scenario2, function(x) apply(x,2,mean))
-
 
 # Plot hybrid mean of genetic values over time
 meanRanges = range(c(Scenario1$MeanG_pop[15:35], Scenario2$MeanG_pop[15:35]))
