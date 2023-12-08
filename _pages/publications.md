@@ -8,11 +8,13 @@ author_profile: true
 {% include base_path %}
 
 ## 2023
-1. Malikouski R., **Peixoto, Marco Antônio**, Ferreira, F., Morais, A., Alves, R., Zucoloto, M., Bhering, L. Genotypic diversity and genetic parameters of 'tahiti' acid lime using different rootstocks. *Pesquisa Agropecuária Brasileira*, 58. [pdf](https://www.scielo.br/j/pab/a/bmBMGRkrKh8tKwtxzy9cr6m/)
+1. **Peixoto, Marco Antônio**, Ferreira I., Leach K., Bhering K., Resende Jr., M. Simulation-based decision-making and implementation of tools in hybrid crop breeding pipelines. *Crop Science*. [pdf](https://acsess.onlinelibrary.wiley.com/doi/full/10.1002/csc2.21139)
+  
+2. Malikouski R., **Peixoto, Marco Antônio**, Ferreira, F., Morais, A., Alves, R., Zucoloto, M., Bhering, L. Genotypic diversity and genetic parameters of 'tahiti' acid lime using different rootstocks. *Pesquisa Agropecuária Brasileira*, 58. [pdf](https://www.scielo.br/j/pab/a/bmBMGRkrKh8tKwtxzy9cr6m/)
 
-2. Santana A., Marçal T., Salvador F., Souza M., Silva L., Silva B., **Peixoto, Marco Antônio**, Carneiro P., Carneiro J. Analysis of advanced generation multistage field trials data in autogamous plant breeding: An evaluation in common Bean. *Crop Science*, 2023. [pdf](https://acsess.onlinelibrary.wiley.com/doi/10.1002/csc2.20935?af=R)
+3. Santana A., Marçal T., Salvador F., Souza M., Silva L., Silva B., **Peixoto, Marco Antônio**, Carneiro P., Carneiro J. Analysis of advanced generation multistage field trials data in autogamous plant breeding: An evaluation in common Bean. *Crop Science*, 2023. [pdf](https://acsess.onlinelibrary.wiley.com/doi/10.1002/csc2.20935?af=R)
 
-3. Evangelista J., **Peixoto, Marco Antônio**, Coelho I., Ferreira F., Marçal T., Alves R., Chaves S., Rodrigues E., Laviola B., Resende M., Dias K., Bhering L. Modeling covariance structures and optimizing Jatropha curcas breeding. *Tree Genetics & Genomes*. 2023 Apr;19(2):21. [pdf](https://link.springer.com/article/10.1007/s11295-023-01596-9)
+4. Evangelista J., **Peixoto, Marco Antônio**, Coelho I., Ferreira F., Marçal T., Alves R., Chaves S., Rodrigues E., Laviola B., Resende M., Dias K., Bhering L. Modeling covariance structures and optimizing Jatropha curcas breeding. *Tree Genetics & Genomes*. 2023 Apr;19(2):21. [pdf](https://link.springer.com/article/10.1007/s11295-023-01596-9)
 
 
 
