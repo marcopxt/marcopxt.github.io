@@ -9,7 +9,7 @@ redirect_from:
 ---
 
 
-Hi! My name is **Marco Antônio Peixoto**, a **Postdoctoral Associate** at the Sweet Corn and Genomics lab, working in collaboration with Professor Márcio Resende Jr. I recently graduated in genetics and breeding at the Federal University of Viçosa with a big focus on quantitative genetics. Here, I will share some papers, research projects, and codes from classes and short courses that I have developed over my career.
+Hi! My name is **Marco Antônio Peixoto**, a **Postdoctoral Associate** at the Sweet Corn and Potato Breeding and Genomics lab, working in collaboration with Dr. Márcio Resende Jr. I graduated in genetics and breeding at the Federal University of Viçosa with a big focus on quantitative genetics. My main interest is in the use and application of statistical genetics and genomic tools to increase genetic gain, efficiency, and speed up breeding programs. The research tools include genomic selection, GWAS, breeding program simulations, mate-pair allocation and optimization using additive, non-additive, cross variance, and restricting from inbreeding rates, development of tools and algorithms in R language, and low-density panel imputation.
 
 
 <br>
@@ -23,7 +23,6 @@ Feel free to contact me:
 Horticultural Sciences Department | IFAS - University of Florida  
 deamorimpeixotom@ufl.edu  
 marco.peixotom@gmail.com  
-+55 (31) 99121-8437  
 +1 (352) 871-7239  
 
 
