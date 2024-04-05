@@ -9,9 +9,9 @@ author_profile: true
 
 ## 2024
 
-1. **Peixoto, Marco Antonio**, Leach, K., Jarquin, D., Flannery, P., Zystro, J., Tracy, W., Bhering, L., Resende, M. Utilizing genomic prediction to boost hybrid performance in a sweet corn breeding program. *Frontiers in Plant Science*. [pdf](https://www.frontiersin.org/journals/plant-science/articles/10.3389/fpls.2024.1293307/abstract)
+1. **Peixoto, Marco Antonio**, Leach, K., Jarquin, D., Flannery, P., Zystro, J., Tracy, W., Bhering, L., Resende, M. Utilizing genomic prediction to boost hybrid performance in a sweet corn breeding program. *Frontiers in Plant Science*. [pdf](https://www.frontiersin.org/journals/plant-science/articles/10.3389/fpls.2024.1293307/abstract) [codes](https://github.com/Resende-Lab/Peixoto_Sweet_corn_hybrid_prediction)
   
-2. Leichtweis, B., Silva, L., **Peixoto, Marco Antonio**, Peternelli, L., Silva, F. Envirotype approach for soybean genotype selection through the integration of georeferenced climate and genetic data using artificial neural networks. [pdf](https://link.springer.com/article/10.1007/s10681-023-03267-1)
+2. Leichtweis, B., Silva, L., **Peixoto, Marco Antonio**, Peternelli, L., Silva, F. Envirotype approach for soybean genotype selection through the integration of georeferenced climate and genetic data using artificial neural networks. *Euphytica*. [pdf](https://link.springer.com/article/10.1007/s10681-023-03267-1) 
   
 3. Souza, K., Melo, S., **Peixoto, Marco Antônio**, Travenzoli, N., Feio, R., Dergam, J. Repetitive DNA mapping in five genera of tree frogs (Amphibia: Anura) from the Atlantic Forest: new highlights on genomic organization in Hylidae. *Cytogenetic and genome Research*. [pdf](https://karger.com/cgr/article-pdf/doi/10.1159/000537875/4180253/000537875.pdf)
   
