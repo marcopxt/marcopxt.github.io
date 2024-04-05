@@ -59,7 +59,7 @@ Breeding programs are intricate and multifaceted systems that demand careful con
 ## Mixed models methodology
 
 ### Motivation
-![Imputation](../assets/images/MixedModels.png){:width="30%" align="right"}
+![MixedMod](../assets/images/MixedModels.png){:width="30%" align="right"}
 
 Mixed models methodology has become a standard tool for evaluating data in breeding programs, offering numerous advantages that motivate researchers to embrace them as a powerful tool in plant breeding. These models enhance genetic-statistical analyses, increase the accuracy of selection, provide a better understanding of trait architectures, and facilitate the implementation of genomic selection in breeding programs. These benefits serve as strong motivation for researchers to embrace mixed models and harness their power in breeding programs.
 
