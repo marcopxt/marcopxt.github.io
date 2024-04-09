@@ -15,6 +15,7 @@ author_profile: true
 
 - Multi-Omics Workshop - [Summer/2023](talks_teach/Multi_Omics23/index.md)
 - Breeding program simulations Workshop - [Fall/2023](talks_teach/AlphasimR/index.md)
+- Optimization of breeding programs (UFV-2024) - [Summer/2024](talks_teach/SimulationsUFV/index.md)
 
 ### Others
 
