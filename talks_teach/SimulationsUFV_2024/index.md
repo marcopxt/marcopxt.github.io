@@ -12,7 +12,7 @@ Federal University of Vicosa
 
 **Schedule**  
 Monday (05/27) - 5:00 pm - 9:00 pm  
-Tuesday (05/28) - 5:00 pm - 9:00 pm
+Tuesday (05/28) - 5:00 pm - 9:00 pm  
 Wednesday (05/29) - 5:00 pm - 9:00 pm 
 
 ***
