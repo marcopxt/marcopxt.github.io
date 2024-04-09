@@ -29,8 +29,8 @@ Simulations have been demonstrated as a powerful tool to improve animal and plan
 We recommend reading the following papers before the course, so should all be on the same page regarding simulations.
 
 - Paper 1: Gaynor CR, Gorjanc G, and Hickey JM (2021). AlphaSimR: an R package for breeding program simulations. G3. https://doi.org/10.1093/g3journal/jkaa017
-- Paper 2: Bančič, Jon, et al. (2021). Modeling illustrates that genomic selection provides new opportunities for intercrop breeding. Frontiers in Plant Science. https://doi.org/10.3389/fpls.2021.605172
-- Paper 3: Werner, CR et al. (2023). Genomic selection strategies for clonally propagated crops. Theoretical and Applied Genetics. https://doi.org/10.1007/s00122-023-04300-6
+- Paper 2: Werner, CR et al. (2023). Genomic selection strategies for clonally propagated crops. Theoretical and Applied Genetics. https://doi.org/10.1007/s00122-023-04300-6
+- paper 3: 
 - Vignette: https://cran.r-project.org/web/packages/AlphaSimR/vignettes/traits.pdf
 
 
@@ -53,14 +53,13 @@ We recommend reading the following papers before the course, so should all be on
 | -Reciprocal Recurrent Selection breeding program          |           |       |
 | -Clonal breeding program                                  |           |       |
 | **How to deploy Genomic selection in AlphaSimR**          | Block 2   | 2 hr  |
+| -The genome and phenotypes                                |            |      |
 | -Models and predictions into AlphaSimR                |           |       |
 | -RRBLUP, RRBLUP_D, RRBLUP_GCA, RRBLUP_SCA             |           |       |
 | -Using external packages for predictions            |           |       |
 | **Practical implementation GS**                          | Block 3   | 2 hr  |
 | -Training populations                                 |           |       |
 | -Comparison                                           |           |       |
-| **Implementations/Discussion**                           | Block 4   | 4 hr  |
-
 
 ***
 
