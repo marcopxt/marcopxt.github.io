@@ -1,23 +1,19 @@
-**Fall/2023**
+**Summer/2024**
 ![FL](../../assets/images/UF.jpg){:width="20%" align="right"}  
 
 ***
 
-# Breeding program simulations via AlphaSimR
+# Optimization of breeding programs via Simulations and Genomic Selection
 
 Marco Antonio Peixoto  
-Marcio Resende Jr.  
-Camila Azevedo  
-Luis Felipe Ferrao  
 
-University of Florida  
-13-15/Nov/23
+Federal University of Vicosa  
+27-29/May/2024
 
 **Schedule**  
-Monday (11/13) - 10:00 am - 3:00 pm  
-Tuesday (11/14) - 10:00 am - 3:00 pm   
-Wednesday (11/15) - 9:00 - 11:00 am  
-1:00 pm - 5:00 pm (if needed - this is blocked just as discussion time)  
+Monday (05/27) - 5:00 pm - 9:00 pm  
+Tuesday (05/28) - 5:00 pm - 9:00 pm
+Wednesday (05/29) - 5:00 pm - 9:00 pm 
 
 ***
 
