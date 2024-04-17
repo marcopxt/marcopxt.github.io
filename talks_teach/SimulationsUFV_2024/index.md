@@ -63,12 +63,12 @@ We recommend reading the following papers:
 
 # Topics
 
-## **AlphasimR: Base population and Global parameters**  
+### **AlphasimR: Base population and Global parameters**  
 
 
-## **Breeding pipelines** 
+### **Breeding pipelines** 
 
 
-## **How to deploy Genomic selection**   
+### **How to deploy Genomic selection**   
 
 
