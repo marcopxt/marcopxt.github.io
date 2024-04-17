@@ -34,6 +34,7 @@ We recommend reading the following papers:
 - Paper 3: Meuwissen et al (2001). Prediction of Total Genetic Value Using Genome-Wide Dense Marker Maps.
 - Video: Genomic selection - David Habier (https://www.youtube.com/watch?v=UJd_SAgLKh0)
 
+***
 
 # **Tentative program**
 
@@ -60,6 +61,8 @@ We recommend reading the following papers:
 |-----------------------------------------------------------|-----------|-------|
 
 ***
+
+<br>
 
 # Topics
 
