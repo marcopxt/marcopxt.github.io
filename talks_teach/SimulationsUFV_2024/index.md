@@ -21,34 +21,32 @@ Wednesday (05/29) - 5:00 pm - 9:00 pm
 
 ![Imputation](../../assets/images/Picture1.png){:width="45%" align="right"}  
 
-Designing a breeding program is a complex task. It requires simultaneously considering multiple interdependent breeding objectives (costs, size, target traits, etc.). Towards this aim, simulations have been demonstrated as a powerful tool for auxiliary breeding decisions. One among several tools in simulations is the AlphaSimR package (Gaynor et al. 2021). The package uses stochastic simulations for the design and optimization of breeding programs. It offers a fast, simple, and inexpensive way to test alternative breeding programs.  
+Designing a breeding program is a complex task. It requires simultaneously considering multiple interdependent breeding objectives (costs, size, target traits, etc.). Towards this aim, simulations have been demonstrated as a powerful tool for auxiliary breeding decisions. One among several tools in simulations is the **AlphaSimR** package (Gaynor et al. 2021). The package uses stochastic simulations for the design and optimization of breeding programs. It offers a fast, simple, and inexpensive way to test alternative breeding programs.  
 In addition, genomic selection is a tool that has been shown as a game changer in plant breeding. It has been used to optimize several steps of a breeding program, such as advancements, early selections, in-situ hybrid prediction, parent selection, cross-selection, and trait introgression, among others.  
-Here, we gonna use both tools together (simulations and genomic selection) to optimize breeding programs.  
+Here, we gonna use both tools together (simulations and genomic selection) to guide discussions on how to optimize breeding programs.  
 
 # **Recommended literature**
 
-We recommend reading the following papers before the course, so should all be on the same page regarding simulations.
+We recommend reading the following papers:
 
 - Paper 1: Gaynor CR, Gorjanc G, and Hickey JM (2021). AlphaSimR: an R package for breeding program simulations. G3. https://doi.org/10.1093/g3journal/jkaa017
 - Paper 2: Werner, CR et al. (2023). Genomic selection strategies for clonally propagated crops. Theoretical and Applied Genetics. https://doi.org/10.1007/s00122-023-04300-6
-- paper 3: 
-- Vignette: https://cran.r-project.org/web/packages/AlphaSimR/vignettes/traits.pdf
+- Paper 3: Meuwissen et al (2001). Prediction of Total Genetic Value Using Genome-Wide Dense Marker Maps.
+- Video: Genomic selection - David Habier (https://www.youtube.com/watch?v=UJd_SAgLKh0)
 
 
 # **Tentative program**
 
 | Subject                                                  | Sections  | Time  |
 |----------------------------------------------------------|-----------|-------|
-|**Base population and Global parameters**                            |  Block 1  |  2 hr |
+|**AlphasimR: Base population and Global parameters**      |  Block 1  |  4 hr |
 | -Genetic basis of base populations                       |                | 
-| -Imputing real data into base population    |                 |
 | -Trait characteristics                                   |                 |
 | -QTL (and SNPs) for traits                                      |                |
 | -Non-additive effects                                    |                 |
 | -Population characteristics                              |                |
-| **Functions in AlphaSimR**                                | Block 1   | 2 hr  |
 | -Functions for modeling a breeding program               |           |       |
-| **Breeding pipeline**                                     | Block 2   | 2 hr  |
+| **Breeding pipeline**                                     | Block 2   | 4 hr  |
 | -From crosses to the release of varieties                     |           |       |
 | -Recurrent Selection breeding program                     |           |       |
 | -Reciprocal Recurrent Selection breeding program          |           |       |
