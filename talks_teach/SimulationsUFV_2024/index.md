@@ -54,6 +54,7 @@ We recommend reading the following papers:
 | -The genome and phenotypes                                |            |      |
 | -Mixed models and genomic models                          |           |       |
 | -Models and predictions into AlphaSimR                    |           |       |
+| -Factors affecting prediction accuracy                    |           |       |
 | -Training populations and model deployment                |           |       |
 | -Using external packages for predictions                  |           |       |
 |-----------------------------------------------------------|-----------|-------|
