@@ -42,55 +42,33 @@ We recommend reading the following papers:
 |**AlphasimR: Base population and Global parameters**      |  Block 1  |  4 hr |
 | -Genetic basis of base populations                       |                | 
 | -Trait characteristics                                   |                 |
-| -QTL (and SNPs) for traits                                      |                |
+| -QTL (and SNPs) for traits                               |                |
 | -Non-additive effects                                    |                 |
 | -Population characteristics                              |                |
 | -Functions for modeling a breeding program               |           |       |
 | **Breeding pipelines**                                    | Block 2   | 4 hr  |
-| -From crosses to the release of varieties                |           |       |
+| -From crosses to the release of varieties                 |           |       |
 | -Recurrent Selection breeding program                     |           |       |
 | -Reciprocal Recurrent Selection breeding program          |           |       |
-| -Clonal breeding program                                  |           |       |
 | **How to deploy Genomic selection in AlphaSimR**          | Block 3   | 4 hr  |
 | -The genome and phenotypes                                |            |      |
-| -Models and predictions into AlphaSimR                    |           |       |
-| -RRBLUP, RRBLUP_D, RRBLUP_GCA, RRBLUP_SCA                 |           |       |
+| -Mixed models and genomic models                          |           |       |
+| -Models and predictions into AlphaSimR (RRBLUP)           |           |       |
 | -Using external packages for predictions                  |           |       |
 | -Training populations                                     |           |       |
-| -Comparison                                               |           |       |
+| -Implementation                                           |           |       |
+|-----------------------------------------------------------|-----------|-------|
 
 ***
 
 # Topics
 
-## 1. Base population and Global parameters
-
-- Content [[html]](https://htmlpreview.github.io/?https://github.com/marcopxt/marcopxt.github.io/blob/master/talks_teach/AlphasimR/1.BasePopTraits.html)
-- Script [[rmd]](https://minhaskamal.github.io/DownGit/#/home?url=https://github.com/marcopxt/marcopxt.github.io/blob/master/talks_teach/AlphasimR/1.BasePopTraits.Rmd)
-- Data [[externalData]](https://minhaskamal.github.io/DownGit/#/home?url=https://github.com/marcopxt/marcopxt.github.io/blob/master/talks_teach/AlphasimR/External_Data.RData)
-
-## 2. Functions in AlphaSimR 
-
-- Content [[html]](https://htmlpreview.github.io/?https://github.com/marcopxt/marcopxt.github.io/blob/master/talks_teach/AlphasimR/2.AlphaSimR_Functions.html)
-- Script [[rmd]](https://minhaskamal.github.io/DownGit/#/home?url=https://github.com/marcopxt/marcopxt.github.io/blob/master/talks_teach/AlphasimR/2.AlphaSimR_Functions(RMD).Rmd)
-
-## 3. Breeding Pipeline
-
-- Content - Recurrent selection program [[html]](https://htmlpreview.github.io/?https://github.com/marcopxt/marcopxt.github.io/blob/master/talks_teach/AlphasimR/3.WheatBreeding.html)
-- Script [[rmd]](https://minhaskamal.github.io/DownGit/#/home?url=https://github.com/marcopxt/marcopxt.github.io/tree/master/talks_teach/AlphasimR/3.Wheat)
-
-- Content - Reciprocal recurrent selection program [[html]](https://htmlpreview.github.io/?https://github.com/marcopxt/marcopxt.github.io/blob/master/talks_teach/AlphasimR/3.MaizeBreeding.html)
-- Script [[rmd]](https://minhaskamal.github.io/DownGit/#/home?url=https://github.com/marcopxt/marcopxt.github.io/tree/master/talks_teach/AlphasimR/3.Maize)
+## **AlphasimR: Base population and Global parameters**  
 
 
-## 3. How to deploy Genomic selection in AlphaSimR
+## **Breeding pipelines** 
 
-- Content [[HTML]] (https://htmlpreview.github.io/?https://github.com/marcopxt/marcopxt.github.io/blob/master/talks_teach/AlphasimR/4.DeployingGS.html)
 
-- Script [[rmd]] (https://minhaskamal.github.io/DownGit/#/home?url=https://github.com/marcopxt/marcopxt.github.io/blob/master/talks_teach/AlphasimR/4.DeployingGS.Rmd)
+## **How to deploy Genomic selection**   
 
-  
-- Content [[HTML]] (https://htmlpreview.github.io/?https://github.com/marcopxt/marcopxt.github.io/blob/master/talks_teach/AlphasimR/5.Practical_ImplementationGS.html)
-
-- Script [[rmd]] (https://minhaskamal.github.io/DownGit/#/home?url=https://github.com/marcopxt/marcopxt.github.io/tree/master/talks_teach/AlphasimR/5.GS_Maize)
 
