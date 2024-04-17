@@ -46,7 +46,7 @@ We recommend reading the following papers:
 | -Non-additive effects                                    |                 |
 | -Population characteristics                              |                |
 | -Functions for modeling a breeding program               |           |       |
-| **Breeding pipeline**                                    | Block 2   | 4 hr  |
+| **Breeding pipelines**                                    | Block 2   | 4 hr  |
 | -From crosses to the release of varieties                |           |       |
 | -Recurrent Selection breeding program                     |           |       |
 | -Reciprocal Recurrent Selection breeding program          |           |       |
@@ -83,16 +83,14 @@ We recommend reading the following papers:
 - Script [[rmd]](https://minhaskamal.github.io/DownGit/#/home?url=https://github.com/marcopxt/marcopxt.github.io/tree/master/talks_teach/AlphasimR/3.Maize)
 
 
-## 4. How to deploy Genomic selection in AlphaSimR
+## 3. How to deploy Genomic selection in AlphaSimR
 
-- Content [[html]](https://htmlpreview.github.io/?https://github.com/marcopxt/marcopxt.github.io/blob/master/talks_teach/AlphasimR/4.DeployingGS.html)
+- Content [[HTML]] (https://htmlpreview.github.io/?https://github.com/marcopxt/marcopxt.github.io/blob/master/talks_teach/AlphasimR/4.DeployingGS.html)
 
-- Script [[rmd]](https://minhaskamal.github.io/DownGit/#/home?url=https://github.com/marcopxt/marcopxt.github.io/blob/master/talks_teach/AlphasimR/4.DeployingGS.Rmd)
+- Script [[rmd]] (https://minhaskamal.github.io/DownGit/#/home?url=https://github.com/marcopxt/marcopxt.github.io/blob/master/talks_teach/AlphasimR/4.DeployingGS.Rmd)
 
   
-## 5. Practical implementation GS
+- Content [[HTML]] (https://htmlpreview.github.io/?https://github.com/marcopxt/marcopxt.github.io/blob/master/talks_teach/AlphasimR/5.Practical_ImplementationGS.html)
 
-- Content [[html]](https://htmlpreview.github.io/?https://github.com/marcopxt/marcopxt.github.io/blob/master/talks_teach/AlphasimR/5.Practical_ImplementationGS.html)
-
-- Script [[rmd]](https://minhaskamal.github.io/DownGit/#/home?url=https://github.com/marcopxt/marcopxt.github.io/tree/master/talks_teach/AlphasimR/5.GS_Maize)
+- Script [[rmd]] (https://minhaskamal.github.io/DownGit/#/home?url=https://github.com/marcopxt/marcopxt.github.io/tree/master/talks_teach/AlphasimR/5.GS_Maize)
 
