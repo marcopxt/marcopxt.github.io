@@ -47,11 +47,11 @@ We recommend reading the following papers:
 | -Non-additive effects                                    |                 |
 | -Population characteristics                              |                |
 | -Functions for modeling a breeding program               |           |       |
-| **Breeding pipelines**                                    | Block 2   | 4 hr  |
+| **Breeding pipelines**                                    | Block 2   | 3 hr  |
 | -From crosses to the release of varieties                 |           |       |
 | -Recurrent Selection breeding program                     |           |       |
 | -Reciprocal Recurrent Selection breeding program          |           |       |
-| **How to deploy Genomic selection in AlphaSimR**          | Block 3   | 4 hr  |
+| **How to deploy Genomic selection in AlphaSimR**          | Block 3   | 5 hr  |
 | -The genome and phenotypes                                |            |      |
 | -Mixed models and genomic models                          |           |       |
 | -Models and predictions into AlphaSimR (RRBLUP)           |           |       |
