@@ -21,9 +21,9 @@ Wednesday (05/29) - 5:00 pm - 9:00 pm
 
 ![Imputation](../../assets/images/Picture1.png){:width="45%" align="right"}  
 
-Designing a breeding program is a complex task. It requires simultaneously considering multiple interdependent breeding objectives (costs, size, target traits, etc.). Towards this aim, simulations have been demonstrated as a powerful tool for auxiliary breeding decisions. One among several tools in simulations is the **AlphaSimR** package (Gaynor et al. 2021). The package uses stochastic simulations for the design and optimization of breeding programs. It offers a fast, simple, and inexpensive way to test alternative breeding programs.  
-In addition, genomic selection is a tool that has been shown as a game changer in plant breeding. It has been used to optimize several steps of a breeding program, such as advancements, early selections, in-situ hybrid prediction, parent selection, cross-selection, and trait introgression, among others.  
-Here, we gonna use both tools together (simulations and genomic selection) to guide discussions on how to optimize breeding programs.  
+Designing a breeding program is a complex task. It requires simultaneously considering multiple interdependent breeding objectives (costs, size, target traits, etc.). Towards this aim, simulations have been demonstrated as a powerful tool for generating data-driven evidence for breeding decisions. One among several tools in simulations is the **AlphaSimR** package (Gaynor et al. 2021). The package uses stochastic simulations for the design and optimization of breeding programs. It offers a fast, simple, and inexpensive way to test alternative breeding programs.  
+In addition, genomic selection is a tool that has been shown as a game changer in animal and plant breeding. It has been used to optimize several steps of a breeding program, such as advancements, early selections, hybrid prediction, parent selection, cross-selection, and trait introgression, among others.  
+Here, we will use both tools together (simulations and genomic selection) to guide discussions on how to optimize breeding programs.  
 
 # **Recommended literature**
 
