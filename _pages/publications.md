@@ -8,7 +8,7 @@ author_profile: true
 {% include base_path %}
 
 ## 2024
-1. **Peixoto, Marco Antonio**, Coelho, I, Leach, K, Lubberstedt, T, Bhering, LL, Resende, M. (2024). Use of simulation to optimize a sweet corn breeding program: implementing genomic selection and doubled haploid technology. *G3: Genes|Genome|Genetics*.
+1. **Peixoto, Marco Antonio**, Coelho, I, Leach, K, Lubberstedt, T, Bhering, LL, Resende, M. (2024). Use of simulation to optimize a sweet corn breeding program: implementing genomic selection and doubled haploid technology. *G3: Genes, Genome, Genetics*.
    
 2. **Peixoto, Marco Antonio**, Leach, K., Jarquin, D., Flannery, P., Zystro, J., Tracy, W., Bhering, L., Resende, M. Utilizing genomic prediction to boost hybrid performance in a sweet corn breeding program. *Frontiers in Plant Science*. [pdf](https://www.frontiersin.org/journals/plant-science/articles/10.3389/fpls.2024.1293307/abstract) [codes](https://github.com/Resende-Lab/Peixoto_Sweet_corn_hybrid_prediction)
   
