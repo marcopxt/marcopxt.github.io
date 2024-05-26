@@ -67,6 +67,9 @@ We recommend reading the following papers:
 
 ### **AlphasimR: Base population and Global parameters**  
 
+- Content [[html]](https://htmlpreview.github.io/?https://github.com/marcopxt/marcopxt.github.io/blob/master/talks_teach/SimulationsUFV_2024/1.BasePopTraits.html)
+- Script [[rmd]](https://minhaskamal.github.io/DownGit/#/home?url=https://github.com/marcopxt/marcopxt.github.io/blob/master/talks_teach/SimulationsUFV_2024/1.BasePopTraits.Rmd)
+
 
 ### **Simulating Breeding pipelines** 
 
