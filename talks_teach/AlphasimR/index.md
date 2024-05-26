@@ -99,7 +99,7 @@ We recommend reading the following papers before the course, so should all be on
   
 ## 5. Practical implementation GS
 
-- Content [[html]](https://htmlpreview.github.io/?https://github.com/marcopxt/marcopxt.github.io/blob/master/talks_teach/AlphasimR/5something.html)
+- Content [[html]](https://htmlpreview.github.io/?https://github.com/marcopxt/marcopxt.github.io/blob/master/talks_teach/AlphasimR/5.Practical_ImplementationGS.html)
 
 - Script [[rmd]](https://minhaskamal.github.io/DownGit/#/home?url=https://github.com/marcopxt/marcopxt.github.io/tree/master/talks_teach/AlphasimR/5.GS_Maize)
 

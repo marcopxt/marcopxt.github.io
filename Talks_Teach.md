@@ -9,12 +9,13 @@ author_profile: true
 
 ### Classes
 
-- Quantitative Genetics - [Fall/2022](talks_teach/QuantGen/index.md)
+- Quantitative Genetics (UF) - [Fall/2022](talks_teach/QuantGen/index.md)
 
 ### Workshop and Talks 
 
-- Multi-Omics course - [Summer/2023](talks_teach/Multi_Omics23/index.md)
-- Breeding program simulations course - [Fall/2023](talks_teach/AlphasimR/index.md)
+- Multi-Omics Workshop - [Summer/2023](talks_teach/Multi_Omics23/index.md)
+- Breeding program simulations Workshop - [Fall/2023](talks_teach/AlphasimR/index.md)
+- Optimization of breeding programs (UFV-2024) - [Summer/2024](talks_teach/SimulationsUFV_2024/index.md)
 
 ### Others
 

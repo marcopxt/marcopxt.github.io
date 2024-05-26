@@ -13,9 +13,9 @@ author_profile: true
 
 ### Motivation  
 
-![Optim](../assets/images/Mate_Allocation.png){:width="30%" align="right"}
+![Optim](../assets/images/Mate_Allocation.png){:width="40%" align="right"}
 
-Plant breeding programs rely on balancing long-term genetic diversity and genetic gains, which are conflicting goals. Therefore, in short term, plant breeding programs with genomic selection can improve performance by selecting individuals with the most outstanding genetic values for composing the next generation. Unfortunately, GS also accelerates the decrease of genetic diversity through cycles of selection. A method to deal with this corollary is cross selection, where we can jointly optimize the selection of crosses and the maintenance of genetic diversity. The combination of those factors (increasing the trait means and reducing inbreeding/coancestry) represents an important tool for selecting the best parents for the next generation.
+Plant breeding programs rely on balancing long-term genetic diversity and genetic gains, which are conflicting goals. Therefore, in the short term, plant breeding programs with genomic selection can improve performance by selecting individuals with the most outstanding genetic values for composing the next generation. Unfortunately, GS also accelerates the decrease of genetic diversity through cycles of selection. A method to deal with this corollary is cross selection, where we can jointly optimize the selection of crosses and the maintenance of genetic diversity. The combination of those factors (increasing the trait means and reducing inbreeding/coancestry) represents an important tool for selecting the best parents for the next generation.
 
 - **Mainly topics:**
 
@@ -59,7 +59,9 @@ Breeding programs are intricate and multifaceted systems that demand careful con
 ## Mixed models methodology
 
 ### Motivation
-Mixed models has become a standard tool for evaluating data in breeding programs, offering numerous advantages that motivate researchers to embrace them as a powerful tool in plant breeding. These models enhance genetic-statistical analyses, increase the accuracy of selection, provide a better understanding of trait architectures, and facilitate the implementation of genomic selection in breeding programs. These benefits serve as strong motivation for researchers to embrace mixed models and harness their power in breeding programs.
+![MixedMod](../assets/images/MixedModels.png){:width="30%" align="right"}
+
+Mixed models methodology has become a standard tool for evaluating data in breeding programs, offering numerous advantages that motivate researchers to embrace them as a powerful tool in plant breeding. These models enhance genetic-statistical analyses, increase the accuracy of selection, provide a better understanding of trait architectures, and facilitate the implementation of genomic selection in breeding programs. These benefits serve as strong motivation for researchers to embrace mixed models and harness their power in breeding programs.
 
 - **Mainly topics:**
   - **Variance components estimations**  

@@ -7,12 +7,24 @@ author_profile: true
 
 {% include base_path %}
 
+## 2024
+1. **Peixoto, Marco Antonio**, Coelho, I., Leach, K., Lubberstedt, T., Bhering, L., Resende, M. (2024). Use of simulation to optimize a sweet corn breeding program: implementing genomic selection and doubled haploid technology. *G3: Genes, Genome, Genetics*.
+   
+2. **Peixoto, Marco Antonio**, Leach, K., Jarquin, D., Flannery, P., Zystro, J., Tracy, W., Bhering, L., Resende, M. Utilizing genomic prediction to boost hybrid performance in a sweet corn breeding program. *Frontiers in Plant Science*. [pdf](https://www.frontiersin.org/journals/plant-science/articles/10.3389/fpls.2024.1293307/abstract) [codes](https://github.com/Resende-Lab/Peixoto_Sweet_corn_hybrid_prediction)
+  
+3. Leichtweis, B., Silva, L., **Peixoto, Marco Antonio**, Peternelli, L., Silva, F. Envirotype approach for soybean genotype selection through the integration of georeferenced climate and genetic data using artificial neural networks. *Euphytica*. [pdf](https://link.springer.com/article/10.1007/s10681-023-03267-1) 
+  
+4. Souza, K., Melo, S., **Peixoto, Marco Antônio**, Travenzoli, N., Feio, R., Dergam, J. Repetitive DNA mapping in five genera of tree frogs (Amphibia: Anura) from the Atlantic Forest: new highlights on genomic organization in Hylidae. *Cytogenetic and genome Research*. [pdf](https://karger.com/cgr/article-pdf/doi/10.1159/000537875/4180253/000537875.pdf)
+  
+  
 ## 2023
-1. Malikouski R., **Peixoto, Marco Antônio**, Ferreira, F., Morais, A., Alves, R., Zucoloto, M., Bhering, L. Genotypic diversity and genetic parameters of 'tahiti' acid lime using different rootstocks. *Pesquisa Agropecuária Brasileira*, 58. [pdf](https://www.scielo.br/j/pab/a/bmBMGRkrKh8tKwtxzy9cr6m/)
+1. **Peixoto, Marco Antônio**, Ferreira I., Leach K., Bhering K., Resende Jr., M. Simulation-based decision-making and implementation of tools in hybrid crop breeding pipelines. *Crop Science*. [pdf](https://acsess.onlinelibrary.wiley.com/doi/full/10.1002/csc2.21139)
+  
+2. Malikouski R., **Peixoto, Marco Antônio**, Ferreira, F., Morais, A., Alves, R., Zucoloto, M., Bhering, L. Genotypic diversity and genetic parameters of 'tahiti' acid lime using different rootstocks. *Pesquisa Agropecuária Brasileira*, 58. [pdf](https://www.scielo.br/j/pab/a/bmBMGRkrKh8tKwtxzy9cr6m/)
 
-2. Santana A., Marçal T., Salvador F., Souza M., Silva L., Silva B., **Peixoto, Marco Antônio**, Carneiro P., Carneiro J. Analysis of advanced generation multistage field trials data in autogamous plant breeding: An evaluation in common Bean. *Crop Science*, 2023. [pdf](https://acsess.onlinelibrary.wiley.com/doi/10.1002/csc2.20935?af=R)
+3. Santana A., Marçal T., Salvador F., Souza M., Silva L., Silva B., **Peixoto, Marco Antônio**, Carneiro P., Carneiro J. Analysis of advanced generation multistage field trials data in autogamous plant breeding: An evaluation in common Bean. *Crop Science*, 2023. [pdf](https://acsess.onlinelibrary.wiley.com/doi/10.1002/csc2.20935?af=R)
 
-3. Evangelista J., **Peixoto, Marco Antônio**, Coelho I., Ferreira F., Marçal T., Alves R., Chaves S., Rodrigues E., Laviola B., Resende M., Dias K., Bhering L. Modeling covariance structures and optimizing Jatropha curcas breeding. *Tree Genetics & Genomes*. 2023 Apr;19(2):21. [pdf](https://link.springer.com/article/10.1007/s11295-023-01596-9)
+4. Evangelista J., **Peixoto, Marco Antônio**, Coelho I., Ferreira F., Marçal T., Alves R., Chaves S., Rodrigues E., Laviola B., Resende M., Dias K., Bhering L. Modeling covariance structures and optimizing Jatropha curcas breeding. *Tree Genetics & Genomes*. 2023 Apr;19(2):21. [pdf](https://link.springer.com/article/10.1007/s11295-023-01596-9)
 
 
 

@@ -48,7 +48,7 @@ nYT5 = 4
 nQtl = 100
 
 #Number of SNP per pair of chromosome
-nSnp = 100
+nSnp = 25
 
 #Heterotic pool split
 nGenSplit = 100
