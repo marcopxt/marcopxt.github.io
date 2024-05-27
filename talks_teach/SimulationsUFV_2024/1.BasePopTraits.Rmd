@@ -41,13 +41,13 @@ To start a set of simulations in the `AlphaSimR` package [@gaynor2021alphasimr],
 
 In this vignette, we will implement and further explore the first two.
 
-## Founder genomes
+## Genetic basis of base population: Founder genomes
 
 First, we clean our working environment and download/load the AlphaSimR package.
 
 ```{r}
 
-# install.packages('AlphaSimR')
+#install.packages('AlphaSimR')
 require(AlphaSimR)
 
 ```
@@ -94,7 +94,7 @@ speciesHist = "-eN 0.03 1 -eN 0.05 2 -eN 0.10 4 -eN 0.15 6"
 **Obs**: `runMacs()` functions offers four target species with their demography already implemented in the package. Other than that, we can use `runMacs2()` function to set our own species characteristics (further discussed).
 
 
-## Traits
+## Trait characteristics
 
 With the founder genomes in perspective, we can proceed to add the characteristics of the target trait or traits to the simulation. **AlphaSimR** has a vignette that we recommend you take a look at [link](https://cran.r-project.org/web/packages/AlphaSimR/vignettes/traits.pdf). It gives, thoroughly, an explanation on the traits of interest and how to interpret its effects.
 
@@ -116,6 +116,7 @@ SP$addTraitA(nQtlPerChr = 15, # Number of QTL per chromosome
 
 # QTL effects (for the traits)
 SP$traits[[1]]@addEff
+SP$traits[[1]]@lociLoc
 
 ```
 
@@ -139,6 +140,7 @@ popGeno = pullSegSiteGeno(basePop)
 popGeno[, 1:10]
 
 
+
 ```
 
 #### Allele frequency
@@ -153,7 +155,7 @@ plot(alleleFreq)
 
 ```
 
-#### **Trait with additive and dominance effects**
+#### Non-additive effects: **Trait with additive and dominance effects**
 
 ```{r}
 
@@ -210,11 +212,9 @@ The first strategy is to set all traits at once (using `$addTrait`). In this opt
 ```{r}
 rm(list=ls())
 # Founder genome
-founderGenomes = runMacs(nInd = 3,
+founderGenomes = AlphaSimR::quickHaplo(nInd = 3, # LD, p=q=0.5, haplotypes from 0,1.
                          nChr = 3, 
-                         segSites = 100, 
-                         species = "MAIZE",
-                         ploidy = 2) 
+                         segSites = 100) 
 
 # From the base population
 SP = SimParam$new(founderGenomes)
@@ -232,6 +232,7 @@ SP$traits[[1]]@addEff
 
 # QTL effects for trait two
 SP$traits[[2]]@addEff
+
 
 
 ```

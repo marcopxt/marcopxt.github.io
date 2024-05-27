@@ -42,6 +42,7 @@ We will start by loading the packages.
 
 
 ```{r}
+rm(list=ls())
 # Loading packages
 library(AlphaSimR)
 library(ggplot2)
@@ -124,24 +125,25 @@ Then, we may assume phenotypes for all those individuals. For each individual, t
 There are three options for assuming the error variance mentioned. We can set the argument *h2*, *H2*, *varE*. We should use only one of these arguments. If we supply values for more than one, only one will be used according to the order in which they are listed above.
 
 ```{r}
-# # ---- Setup simulation ----
-# 
-# # Create founder haplotypes
-# founderPop = quickHaplo(nInd = 1000,
-#                         nChr = 1,
-#                         segSites = 1000)
-# 
-# # Set simulation parameters
-# SP = SimParam$new(founderPop)
-# 
-# # Add an additve + dominance trait
-# SP$addTraitAD(
-#   nQtlPerChr = 1000,
-#   mean   = 0,
-#   var    = 1,
-#   meanDD = 0.92,
-#   varDD  = 0.2
-# )
+# Explanation taken from Bancic et al. (2024)
+
+# ---- Setup simulation ----
+# Create founder haplotypes
+founderGenomes = quickHaplo(nInd = 1000,
+                        nChr = 1,
+                        segSites = 1000)
+
+# Set simulation parameters
+SP = SimParam$new(founderGenomes)
+
+# Add an additve + dominance trait
+SP$addTraitAD(
+  nQtlPerChr = 1000,
+  mean   = 0,
+  var    = 1,
+  meanDD = 0.92,
+  varDD  = 0.2
+)
 
 # Create population
 pop = newPop(founderGenomes)
@@ -154,24 +156,36 @@ varG = SP$varG[1]
 # NOTES:
 # Users should choose only one of three options to set phenotype.
 # Option 1 and 2 use variances that relate to the founder population
-# We assume that heritability of the trait is 0.5.
+
+# Trait heritability equals to 0.5.
 
 # ---- Option 1: By assigning the narrow sense heritability ----
 
 pop = setPheno(pop, h2 = 0.5)
+
 # Check heritability
 cor(pop@pheno, pop@gv)^2
+
+# H2 or h2
+
+# 
+#             varA                 1
+# h2 = ------------------- = ------------- = ~ 0.5
+#       varG + varE/nreps       1.52 + 0.47/1
+#
 
 # Equivalent to manual setting of phenotype as
 varE  = varA / 0.5 - varG  # obtain error variance given h2 and varA
 error = rnorm(pop@nInd, sd = sqrt(varE))
 pheno = pop@gv + error
+
 # Check heritability
 cor(pheno, pop@gv)^2
 
 # ---- Option 2: By assigning the broad-sense heritability ----
 
 pop = setPheno(pop, H2 = 0.5)
+
 # Check heritability
 cor(pop@pheno, pop@gv)^2
 
@@ -205,61 +219,28 @@ cor(pheno, pop@gv)^2
 
 The *reps* argument is for convenient representation of replicated data. It is intended to represent replicated yield trials in plant breeding programs. In this case, *varE* is set to the plot error and *reps* is set to the number of plots per entry. The resulting phenotype represents the entry-means.
 
-We will explore more in the following populations:
-
-```{r}
-# Setting phenotypes
-F2pheno1 = setPheno(F2pop, varE = 10, reps = 1)
-
-# Setting phenotypes
-F2pheno6 = setPheno(F2pop, varE = 10, reps = 6)
-
-# Setting phenotypes
-F2pheno10 = setPheno(F2pop, varE = 10, reps = 10)
-
-# Correlation with the genetic value using different numbers of repetitions
-cor(F2pheno1@gv, F2pheno1@pheno)
-cor(F2pheno6@gv, F2pheno6@pheno)
-cor(F2pheno10@gv, F2pheno10@pheno)
-
-# Plotting the parameters
-df = data.frame(Trait1 = c(F2pheno1@pheno,F2pheno6@pheno,F2pheno10@pheno),
-                Id = c(1:(3*nInd(F2pop))),
-                Pop = rep(c('rep1','rep6','rep10'), each=nInd(F2pop)))
-
-#require(ggplot2)
-ggplot(df, aes(x = Id, y = Trait1, color = Pop)) +
-  geom_point(show.legend = TRUE)
-
-```
-
 Another argument in the `setPheno()` function is *p*. It represents the environmental covariate and it varies from 0-1. Values close to 0 and 1 put more weight on the phenotypic values (larger errors) and values close to 0.5, have a smaller weight (lower errors). Generally, we assume uniform values for the *p* argument.
 
 We will explore more in the following populations:
 
 ```{r}
 # Setting phenotypes
-F2_pop1 = setPheno(F2pop, reps = 2, h2 = 0.1, p = 0.9) 
+F2_pop1 = setPheno(F2pop, reps = 2, h2 = 0.1, p = 0.1) 
 
 # Setting phenotypes
 F2_pop2 = setPheno(F2pop, reps = 2, h2 = 0.1, p = 0.5) 
 
-# Setting phenotypes
-F2_pop3 = setPheno(F2pop, reps = 2, h2 = 0.1, p = 0.1)
 
 # Correlation of the phenotypes with the genetic values
-cor(F2_pop1@gv, F2_pop1@pheno)
-cor(F2_pop2@gv, F2_pop2@pheno)
-cor(F2_pop3@gv, F2_pop3@pheno)
+cor(F2_pop1@gv, F2_pop1@pheno)^2
+cor(F2_pop2@gv, F2_pop2@pheno)^2
+
+
 ```
 
-The next step in modeling the breeding program is to make selections on the phenotypes. We may use the function `selectInd()`
+The next step in modeling the breeding program is to make selections on the phenotypes. We may use the function *selectInd()*
 
 ```{r}
-
-# Advancing F1->F2
-F2pop = self(pop = F1pop, nProgeny = 1)
-
 # Setting phenotypes
 F2pop = setPheno(F2pop, varE = 10, reps = 1)
 
@@ -268,80 +249,36 @@ F2popSel = selectInd(pop = F2pop,
                             nInd = 20,
                             use = "pheno") # gv, pheno, bv, ebv
 
-# Create a new population and assume phenotypes
-newPop = randCross(F2popSel, nCrosses = 100)
-newPop = setPheno(newPop, h2 = 0.5)
-
-# Evaluate observed response to selection between generations (as the difference between the mean of genetic values)
-deltaG = mean(gv(newPop)) - mean(gv(F2pop))
-
 ```
 
-
-### Plotting
-
-To see the impact of the selections in the genetic mean of the populations, we can plot the phenotypic and genetic values from both populations:
-
-```{r}
-phenoRange = range(pheno(c(F2pop, newPop)))
-par(mfrow = c(2, 2),
-    mar = c(4, 4, 2, 1))
-# Phenotype values in the base population and the selected individuals
-tmp = hist(pheno(F2pop), xlim = phenoRange, xlab = "Phenotype value", main = "Base population")
-abline(v = mean(pheno(F2pop)), col = "black", lty = 1, lwd = 3)
-hist(pheno(F2popSel), col = "blue", breaks = tmp$breaks, add = TRUE)
-abline(v = mean(pheno(F2popSel)), col = "blue", lty = 4, lwd = 3)
-
-# Genetic values in the base population and the selected individuals
-tmp = hist(gv(F2pop), xlim = phenoRange, xlab = "Genetic value", main = "Base population")
-abline(v = mean(gv(F2pop)), col = "black", lty = 1, lwd = 3)
-hist(gv(F2popSel), col = "blue", breaks = tmp$breaks, add = TRUE)
-abline(v = mean(gv(F2popSel)), col = "blue", lty = 4, lwd = 3)
-
-# Phenotype values in the new population
-hist(pheno(newPop), xlim = phenoRange, xlab = "Phenotype value", main = "New population")
-abline(v = mean(pheno(F2pop)), col = "black", lty = 1, lwd = 3)
-abline(v = mean(pheno(newPop)), col = "blue", lty = 4, lwd = 3)
-
-# Genetic values in the new population
-hist(gv(newPop), xlim = phenoRange, xlab = "Genetic value", main = "New population")
-abline(v = mean(gv(F2pop)), col = "black", lty = 1, lwd = 3)
-abline(v = mean(gv(newPop)), col = "blue", lty = 4, lwd = 3)
-
-```
 
 Then, we can advance the materials and do selections to the end of the pipeline.
 
 ```{r}
-  # Advancing F2->F3 and selection
-  F3pop = self(pop = F2pop, nProgeny = 4)
-  F3pop = setPheno(F3pop, varE = 10, reps = 3)
-  
-  F3popSel = selectWithinFam(F3pop, nInd = 4, use = "pheno")
-  F3popSel = selectInd(F3popSel, nInd = 300, use = "pheno")
+ #------------- Year 1 
+F1pop = randCross(pop = Parents, nCrosses = 50, nProgeny = 2) # Crossing block
 
-   # Advancing F3->F4 and selection
-  F4pop = self(pop = F3popSel, nProgeny = 2)
-  F4pop = setPheno(F4pop, varE = 10, reps = 5)
-  
-  F4popSel = selectWithinFam(F4pop, nInd = 1, use = "pheno")
-  F4popSel = selectInd(F4popSel, nInd = 50, use = "pheno")
+#------------- Year 2
+DHpop = makeDH(pop=F1pop, nDH=10) # Doubled Haploids
 
-  # Advancing F4->F5 and selection
-  F5pop = self(pop = F4popSel, nProgeny = 1)
-  F5pop = setPheno(F5pop, varE = 10, reps = 8)
-  
-  F5popSel = selectInd(F5pop, nInd = 10, use = "pheno")
-  
-  # Advancing F5->F6 and selection
-  F6pop = self(pop = F5popSel, nProgeny = 1)
-  F6pop = setPheno(F6pop, varE = 10, reps = 10)
-  
-  F6Sel = selectInd(F6pop, nInd = 5, use = "pheno")
+#------------- Year 3
+rowStage = setPheno(pop=DHpop, h2 = 0.1, reps = 1) # h2 = 0.1 (visual selection)
+PrelimTrial = selectWithinFam(rowStage, nInd = 3, use = "pheno") 
 
-  # Selecting Variety
-  F6Sel = setPheno(F6Sel, varE = 10, reps = 20)
-  Variety = selectInd(F6Sel, nInd = 1, use = "pheno")
+#-------------  Year 4
+PrelimTrial = setPheno(PrelimTrial, varE = 20, reps = 1) # h2 = 10/(10+20/1) = 0.33
+AdvancTrial = selectInd(PrelimTrial, nInd = 50, use = "pheno") # Preliminary Trial
+
+#------------- Year 5
+AdvancTrial = setPheno(AdvancTrial, varE = 20, reps = 5) # h2 = 10/(10+20/5) = 0.71
+EliteTrial = selectInd(AdvancTrial, nInd = 20, use = "pheno") # Advanced Trial
+
+#------------- Year 6
+EliteTrial = setPheno(EliteTrial, varE = 20, reps = 20) # h2 = 10/(10+20/20) = 0.90
+Variety = selectInd(EliteTrial, nInd = 2, use = "pheno") # Elite Trial
+
+#------------- Year 7    
+# Release varieties
     
 
 ```
