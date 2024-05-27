@@ -32,6 +32,7 @@ We recommend reading the following papers:
 - Paper 1: Gaynor CR, Gorjanc G, and Hickey JM (2021). AlphaSimR: an R package for breeding program simulations. G3. https://doi.org/10.1093/g3journal/jkaa017
 - Paper 2: Werner, CR et al. (2023). Genomic selection strategies for clonally propagated crops. Theoretical and Applied Genetics. https://doi.org/10.1007/s00122-023-04300-6
 - Paper 3: Meuwissen et al (2001). Prediction of Total Genetic Value Using Genome-Wide Dense Marker Maps. https://doi.org/10.1093/genetics/157.4.1819
+- Paper 4: Bancic et al. (2024) Plant breeding simulations with AlphaSimR. https://doi.org/10.1101/2023.12.30.573724
 
 ***
 

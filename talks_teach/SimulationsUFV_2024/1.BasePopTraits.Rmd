@@ -1,13 +1,20 @@
 ---
 title: |
- 
-  AlphaSimR: Base population and traits
+  ![](UF.jpg){width=10%}
+
+   AlphaSimR: Base population and traits
   
 author: 
  
-  - Marco Antonio Peixoto^[Post doc - University of Florida, deamorimpeixotom@ufl.edu]
+   - Marco Antonio Peixoto, ^[Post doc, University of Florida, deamorimpeixotom@ufl.edu]
   
- 
+output: 
+  html_document:
+    toc: true
+    toc_float: FALSE
+    theme: flatly
+    highlight: haddock
+bibliography: references.bib
 ---
 
 ```{=html}
@@ -50,8 +57,8 @@ To create the founder genome we may use the function `runMacs()`. It uses the me
 
 ```{r}
 # Founder genome
-founderGenomes = runMacs(nInd = 3, # Number of individuals that compose the base population
-                         nChr = 3, # Number of chromosome pairs of the target species
+founderGenomes = runMacs(nInd = 10, # Number of individuals that compose the base genome
+                         nChr = 10, # Number of chromosome pairs of the target species
                          segSites = 100, # number of segregation sites 
                          species = "MAIZE", # We can use the base parameters and we have available in the package MAIZE, WHEAT, CATTLE, and GENERIC.
                          ploidy = 2) # Setting the ploidy
@@ -70,8 +77,8 @@ founderGenomes@genMap
 When we choose the species in the argument *species*, four parameters are automatically adjusted:
 
 ```{r, eval=FALSE}
-# Genome length (i.e. Maize)
-genLen = 1.43
+# Genome length (i.e. Soybean)
+genLen = 1.15 #Gb
 
 # Effective population size (Ne)
 Ne = 50
