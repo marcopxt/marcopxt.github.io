@@ -59,7 +59,7 @@ Introducing a pipeline:
 
 Let's start the simulation by creating the base genome.
 
-```{r}
+```{r, eval=FALSE}
 # Creating the founding genome
 founderGenomes = runMacs(nInd = 100,
                          nChr = 4,
@@ -83,7 +83,7 @@ Parents = newPop(founderGenomes)
 
 First, at the beginning of each breeding cycle, we generate new crosses. We can implement random crosses as well as make oriented crosses by giving the list of crosses to make.
 
-```{r}
+```{r, eval=FALSE}
 
 # 1. Crossing randomly
 F1pop = randCross(pop = Parents, nCrosses = 100)
@@ -106,7 +106,7 @@ Pedigree = data.frame(Ind = F1Pop@id,
 
 Now, we can advance the materials. One function that we may use is the `self()`.
 
-```{r}
+```{r, eval=FALSE}
   # Advancing F1->F2
   F2pop = self(pop = F1pop, nProgeny = 10)
 
@@ -124,7 +124,7 @@ Then, we may assume phenotypes for all those individuals. For each individual, t
 
 There are three options for assuming the error variance mentioned. We can set the argument *h2*, *H2*, *varE*. We should use only one of these arguments. If we supply values for more than one, only one will be used according to the order in which they are listed above.
 
-```{r}
+```{r, eval=FALSE}
 # Explanation taken from Bancic et al. (2024)
 
 # ---- Setup simulation ----
@@ -223,7 +223,7 @@ Another argument in the `setPheno()` function is *p*. It represents the environm
 
 We will explore more in the following populations:
 
-```{r}
+```{r, eval=FALSE}
 # Setting phenotypes
 F2_pop1 = setPheno(F2pop, reps = 2, h2 = 0.1, p = 0.1) 
 
@@ -240,7 +240,7 @@ cor(F2_pop2@gv, F2_pop2@pheno)^2
 
 The next step in modeling the breeding program is to make selections on the phenotypes. We may use the function *selectInd()*
 
-```{r}
+```{r, eval=FALSE}
 # Setting phenotypes
 F2pop = setPheno(F2pop, varE = 10, reps = 1)
 
@@ -254,7 +254,7 @@ F2popSel = selectInd(pop = F2pop,
 
 Then, we can advance the materials and do selections to the end of the pipeline.
 
-```{r}
+```{r, eval=FALSE}
  #------------- Year 1 
 F1pop = randCross(pop = Parents, nCrosses = 50, nProgeny = 2) # Crossing block
 
@@ -286,7 +286,7 @@ Variety = selectInd(EliteTrial, nInd = 2, use = "pheno") # Elite Trial
 ## Some (other) useful functions in **AlphaSimR**.
 
 
-```{r}  
+```{r, eval=FALSE}  
 # 1. Making DHs
 F1 = randCross(Parents,120,1)
 DHs = makeDH(F1, nDH = 10)
@@ -307,131 +307,10 @@ cor(linesGCA@pheno, lines@pheno)
 ```
 
 
-## Examine results over generations
-
-
-```{r}
-rm(list=ls())
-
-# Creating the founding genome
-founderGenomes = runMacs(nInd = 100,
-                         nChr = 4,
-                         segSites = 20,
-                         species = "MAIZE")
-
-
-# Setting up trait characteristics
-SP = SimParam$new(founderGenomes)
-SP$addTraitA(nQtlPerChr = 20, 
-             mean = 10, 
-             var = 1)
-
-# Generating base population
-basePop = newPop(founderGenomes)
-
-
-# Set simulation parameters 
-nSelected1 = 10 # Scenario 1
-nSelected2 = 50  # Scenario 2
-
-##------------------- For the first scenario
-# Select the best performing individuals according to their phenotype
-basePopSelected = basePop
-
-# Allocate vectors
-nGenerations = 10 + 1 # +1 to store starting generation
-meanGAll = numeric(nGenerations)
-varGAll = numeric(nGenerations)
-
-# Save the starting values
-meanGAll[1] = meanG(basePop)
-varGAll[1] = varG(basePop)
-
-# To make the for loop below simpler we will make a copy of the object basePopSelected
-newPopSelected = basePopSelected
-
-# Selection over many generations
-for (generation in 1:(nGenerations - 1)) {
-  # Cross parents, phenotype progeny, and select new parents
-  newPop = randCross(newPopSelected, nCrosses = nInd(basePop))
-  newPop = setPheno(newPop, h2 = 0.5)
-  newPopSelected = selectInd(pop = newPop,
-                             nInd = nSelected1,
-                             use = "pheno")
-  # Save summaries
-  meanGAll[1 + generation] = meanG(newPop)
-  varGAll[1 + generation] = varG(newPop)
-}
-
-# Now save these outputs by copying the objects
-meanGAll_n10 = meanGAll
-varGAll_n10 = varGAll
-
-##------------------- For second scenario
-
-# Allocate vectors
-nGenerations = 10 + 1 # +1 to store starting generation
-meanGAll = numeric(nGenerations)
-varGAll = numeric(nGenerations)
-
-# Save the starting values
-meanGAll[1] = meanG(basePop)
-varGAll[1] = varG(basePop)
-
-# To make the for loop below simpler we will make a copy of the object basePopSelected
-newPopSelected = basePopSelected
-
-# Selection over many generations
-for (generation in 1:(nGenerations - 1)) {
-  # Cross parents, phenotype progeny, and select new parents
-  newPop = randCross(newPopSelected, nCrosses = nInd(basePop))
-  newPop = setPheno(newPop, h2 = 0.5)
-  newPopSelected = selectInd(pop = newPop,
-                             nInd = nSelected2,
-                             use = "pheno")
-  # Save summaries
-  meanGAll[1 + generation] = meanG(newPop)
-  varGAll[1 + generation] = varG(newPop)
-}
-
-# Now save these outputs by copying the objects
-meanGAll_n50 = meanGAll
-varGAll_n50 = varGAll
-
-
-```
-
-Let's plot and see the changes over time
-
-
-```{r}
-
-par(mfrow = c(2, 1),
-    mar = c(4, 4, 1, 1))
-
-# Plot mean of genetic values over time
-meanRanges = range(c(meanGAll_n10, meanGAll_n50))
-plot(x = 1:nGenerations, y = meanGAll_n10, type = "l", col = "black", lwd = 3,
-     xlab = "Generation", ylab = "Mean of genetic values", ylim = meanRanges)
-lines(x = 1:nGenerations, y = meanGAll_n50, type = "l", col = "purple", lty = 2, lwd = 3)
-legend(x = "topleft", legend = c(10, 50), title = "nSelected",
-       lwd = 3, lty = c(1, 2), col = c("black", "purple"), bty = "n")
-
-# Plot variance of genetic values over time
-varRanges = range(c(varGAll_n50, varGAll_n10))
-plot(x = 1:nGenerations, y = varGAll_n10, type = "l", col = "black", lwd = 3,
-     xlab = "Generation", ylab = "Variance of genetic values", ylim = varRanges)
-lines(x = 1:nGenerations, y = varGAll_n50, type = "l", col = "purple", lty = 2, lwd = 3)
-legend(x = "topright", legend = c(10, 50), title = "nSelected",
-       lwd = 3, lty = c(1, 2), col = c("black", "purple"), bty = "n")
-```
-
-
-
 ## Multi traits 
 
 
-```{r}
+```{r, eval=FALSE}
 # Clean the working environment
 rm(list = ls())
 
@@ -454,7 +333,7 @@ Parents = newPop(founderGenomes)
 
 We can proceed and create crosses that take both traits into account. In addition, we can assume phenotypes and select individuals.
 
-```{r}
+```{r, eval=FALSE}
 # Crossing randomly
 F1pop = randCross(pop = Parents, nCrosses = 100)
 

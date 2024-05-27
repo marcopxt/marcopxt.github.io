@@ -74,7 +74,8 @@ We recommend reading the following papers:
 
 ### **Simulating Breeding pipelines** 
 
-
+- Content [[html]](https://htmlpreview.github.io/?https://github.com/marcopxt/marcopxt.github.io/blob/master/talks_teach/SimulationsUFV_2024/2.AlphaSimR_Functions.html)
+- Script [[rmd]](https://minhaskamal.github.io/DownGit/#/home?url=https://github.com/marcopxt/marcopxt.github.io/blob/master/talks_teach/SimulationsUFV_2024/2.AlphaSimR_Functions.Rmd)
 
 ### **How to deploy Genomic selection**   
 
