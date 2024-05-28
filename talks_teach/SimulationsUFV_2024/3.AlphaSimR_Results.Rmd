@@ -1,0 +1,178 @@
+---
+title: |
+  ![](UF.jpg){width=10%}
+
+   AlphaSimR: Trancking results over time
+  
+author: 
+ 
+   - Marco Antonio Peixoto, ^[Post doc, University of Florida, deamorimpeixotom@ufl.edu]
+  
+output: 
+  html_document:
+    toc: true
+    toc_float: FALSE
+    theme: flatly
+    highlight: haddock
+bibliography: references.bib
+
+---
+
+```{=html}
+<style type="text/css">
+  body{
+  font-size: 12pt;
+}
+</style>
+```
+
+## Introduction
+
+As we recall from the first vignette, in a way to implement a set of simulations in the **AlphaSimR** package four steps must be followed:
+
+1. Simulate founder genomes/haplotypes.
+2. Set global simulation parameters for a target trait/traits.
+3. Model the breeding program.
+4. Examine results by looking into population individuals' metrics.
+
+In this vignette, we will cover the last step of the simulation: examining the results. For such, we will compare two implementations over a few generations of selection.
+
+
+We will start by loading the packages.
+
+
+```{r}
+# Loading packages
+library(AlphaSimR)
+library(ggplot2)
+
+```
+
+
+## Examine results over generations
+
+
+```{r}
+rm(list=ls())
+
+# Creating the founding genome
+founderGenomes = runMacs(nInd = 100,
+                         nChr = 4,
+                         segSites = 20,
+                         species = "MAIZE")
+
+
+# Setting up trait characteristics
+SP = SimParam$new(founderGenomes)
+SP$addTraitA(nQtlPerChr = 20, 
+             mean = 10, 
+             var = 1)
+
+# Generating base population
+basePop = newPop(founderGenomes)
+
+
+# Set simulation parameters 
+nSelected1 = 10 # Scenario 1
+nSelected2 = 50  # Scenario 2
+
+##------------------- For the first scenario
+# Select the best performing individuals according to their phenotype
+basePopSelected = basePop
+
+# Allocate vectors
+nGenerations = 10 + 1 # +1 to store starting generation
+meanGAll = numeric(nGenerations)
+varGAll = numeric(nGenerations)
+
+# Save the starting values
+meanGAll[1] = meanG(basePop)
+varGAll[1] = varG(basePop)
+
+# To make the for loop below simpler we will make a copy of the object basePopSelected
+newPopSelected = basePopSelected
+
+# Selection over many generations
+for (generation in 1:(nGenerations - 1)) {
+  # Cross parents, phenotype progeny, and select new parents
+  newPop = randCross(newPopSelected, nCrosses = nInd(basePop))
+  newPop = setPheno(newPop, h2 = 0.5)
+  newPopSelected = selectInd(pop = newPop,
+                             nInd = nSelected1,
+                             use = "pheno")
+  # Save summaries
+  meanGAll[1 + generation] = meanG(newPop)
+  varGAll[1 + generation] = varG(newPop)
+}
+
+# Now save these outputs by copying the objects
+meanGAll_n10 = meanGAll
+varGAll_n10 = varGAll
+
+##------------------- For second scenario
+
+# Allocate vectors
+nGenerations = 10 + 1 # +1 to store starting generation
+meanGAll = numeric(nGenerations)
+varGAll = numeric(nGenerations)
+
+# Save the starting values
+meanGAll[1] = meanG(basePop)
+varGAll[1] = varG(basePop)
+
+# To make the for loop below simpler we will make a copy of the object basePopSelected
+newPopSelected = basePopSelected
+
+# Selection over many generations
+for (generation in 1:(nGenerations - 1)) {
+  # Cross parents, phenotype progeny, and select new parents
+  newPop = randCross(newPopSelected, nCrosses = nInd(basePop))
+  newPop = setPheno(newPop, h2 = 0.5)
+  newPopSelected = selectInd(pop = newPop,
+                             nInd = nSelected2,
+                             use = "pheno")
+  # Save summaries
+  meanGAll[1 + generation] = meanG(newPop)
+  varGAll[1 + generation] = varG(newPop)
+}
+
+# Now save these outputs by copying the objects
+meanGAll_n50 = meanGAll
+varGAll_n50 = varGAll
+
+
+```
+
+Let's plot and see the changes over time
+
+
+```{r}
+
+par(mfrow = c(2, 1),
+    mar = c(4, 4, 1, 1))
+
+# Plot mean of genetic values over time
+meanRanges = range(c(meanGAll_n10, meanGAll_n50))
+plot(x = 1:nGenerations, y = meanGAll_n10, type = "l", col = "black", lwd = 3,
+     xlab = "Generation", ylab = "Mean of genetic values", ylim = meanRanges)
+lines(x = 1:nGenerations, y = meanGAll_n50, type = "l", col = "purple", lty = 2, lwd = 3)
+legend(x = "topleft", legend = c(10, 50), title = "nSelected",
+       lwd = 3, lty = c(1, 2), col = c("black", "purple"), bty = "n")
+
+# Plot variance of genetic values over time
+varRanges = range(c(varGAll_n50, varGAll_n10))
+plot(x = 1:nGenerations, y = varGAll_n10, type = "l", col = "black", lwd = 3,
+     xlab = "Generation", ylab = "Variance of genetic values", ylim = varRanges)
+lines(x = 1:nGenerations, y = varGAll_n50, type = "l", col = "purple", lty = 2, lwd = 3)
+legend(x = "topright", legend = c(10, 50), title = "nSelected",
+       lwd = 3, lty = c(1, 2), col = c("black", "purple"), bty = "n")
+```
+
+
+## References
+
+::: {#refs}
+:::
+
+
+
