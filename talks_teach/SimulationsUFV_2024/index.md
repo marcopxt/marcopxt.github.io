@@ -66,13 +66,13 @@ We recommend reading the following papers:
 
 # Topics and Content
 
-## **AlphasimR: Base population and Global parameters**  
+## **I. AlphasimR: Base population and Global parameters**  
 
 - Content [[html]](https://htmlpreview.github.io/?https://github.com/marcopxt/marcopxt.github.io/blob/master/talks_teach/SimulationsUFV_2024/1.BasePopTraits.html)
 - Script [[rmd]](https://minhaskamal.github.io/DownGit/#/home?url=https://github.com/marcopxt/marcopxt.github.io/blob/master/talks_teach/SimulationsUFV_2024/1.BasePopTraits.Rmd)
 
 
-## **Simulating Breeding pipelines** 
+## **II. Simulating Breeding pipelines** 
 
 - Content [[html]](https://htmlpreview.github.io/?https://github.com/marcopxt/marcopxt.github.io/blob/master/talks_teach/SimulationsUFV_2024/2.AlphaSimR_Functions.html)
 - Script [[rmd]](https://minhaskamal.github.io/DownGit/#/home?url=https://github.com/marcopxt/marcopxt.github.io/blob/master/talks_teach/SimulationsUFV_2024/2.AlphaSimR_Functions.Rmd)
@@ -90,6 +90,6 @@ We recommend reading the following papers:
 - Content [[html]](https://htmlpreview.github.io/?https://github.com/marcopxt/marcopxt.github.io/blob/master/talks_teach/SimulationsUFV_2024/4.2.MaizeBreeding.html)
 - Script [[rmd]](https://minhaskamal.github.io/DownGit/#/home?url=https://github.com/marcopxt/marcopxt.github.io/blob/master/talks_teach/SimulationsUFV_2024/4.2.MaizeBreeding.Rmd)
 
-## **How to deploy Genomic selection**   
+## **III. How to deploy Genomic selection**   
 
 
