@@ -71,6 +71,11 @@ We recommend reading the following papers:
 - Content [[html]](https://htmlpreview.github.io/?https://github.com/marcopxt/marcopxt.github.io/blob/master/talks_teach/SimulationsUFV_2024/1.BasePopTraits.html)
 - Script [[rmd]](https://minhaskamal.github.io/DownGit/#/home?url=https://github.com/marcopxt/marcopxt.github.io/blob/master/talks_teach/SimulationsUFV_2024/1.BasePopTraits.Rmd)
 
+**Importing external data**
+- Content [[html]](https://htmlpreview.github.io/?https://github.com/marcopxt/marcopxt.github.io/blob/master/talks_teach/SimulationsUFV_2024/1.2.ImportDataExt.html)
+- Script [[rmd]](https://minhaskamal.github.io/DownGit/#/home?url=https://github.com/marcopxt/marcopxt.github.io/blob/master/talks_teach/SimulationsUFV_2024/1.2.ImportDataExt.Rmd)
+- Data [[externalData]](https://minhaskamal.github.io/DownGit/#/home?url=https://github.com/marcopxt/marcopxt.github.io/blob/master/talks_teach/SimulationsUFV_2024/External_Data.RData)
+
 
 ## **II. Simulating Breeding pipelines** 
 

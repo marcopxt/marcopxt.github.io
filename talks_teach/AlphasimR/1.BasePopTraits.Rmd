@@ -179,7 +179,7 @@ The implementation of traits in **AlphaSimR** follows a biological model, which 
 **A**: additive effect  
 **D**: dominance effect  
 **G**: genotype by environment interaction effect  
-**E**: environmental effect  
+**E**: epistasis effect  
 
 So, we can create traits with the combinations of those effects (assuming that all of them as, at least, additive) using the **ADGE** framework, as it follows:
 
@@ -195,7 +195,7 @@ SP$addTraitAEG()
 
 ```
 
-It is important to have in mind that for dominance effects (**D**) we set the mean of the dominance degree (0-1) and variance, whereas for genotype by environment effect (**G**) and environmental effect (**E**) we have just to adjust the variance.
+It is important to have in mind that for dominance effects (**D**) we set the mean of the dominance degree (0-1) and variance, whereas for genotype by environment effect (**G**) and epistasis effect (**E**) we have just to adjust the variance.
 
 ## Importing external Data
 

@@ -1,0 +1,151 @@
+---
+title: |
+  ![](UF.jpg){width=10%}
+
+   AlphaSimR: How to import external data
+  
+author: 
+ 
+   - Marco Antonio Peixoto, ^[Post doc, University of Florida, deamorimpeixotom@ufl.edu]
+    - Camila Azevedo ^[Professor - Federal University of Viçosa, camila.azevedo@ufv.br]
+    
+output: 
+  html_document:
+    toc: true
+    toc_float: FALSE
+    theme: flatly
+    highlight: haddock
+bibliography: references.bib
+
+---
+
+```{=html}
+<style type="text/css">
+  body{
+  font-size: 12pt;
+}
+</style>
+```
+<br>
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+
+
+## Importing external Data
+
+The **AlphaSimR** package allows you to import genomic data and requires a genetic map and phased genotypes.
+
+First, we load the genetic map in the format 'Marker name, Chromosome, Position (in Morgans)'.
+
+In the example below, we have a diploid species with 20 individuals, 10 chromosomes, each with 10 markers, and these markers are equally spaced along 1 Morgan chromosome.
+
+```{r}
+# Clean the directory
+rm(list=ls())
+require(AlphaSimR)
+# Load the External Data Set and Change the Directory
+load("External_Data.RDATA")
+
+# Genetic map
+head(genMap)
+dim(genMap) # nrows: Number of markers
+
+```
+
+If we have phased haplotypes, the file needs to be 40 rows (the number of individuals times the ploidy level), with each individual having 100 loci based on the map above.
+
+```{r}
+# Haplotype file
+haplo[1:6,1:6] 
+dim(haplo) # nrows: Number of individuals multiplied by ploidy level, and ncols: number of markers
+```
+
+If we don't have phased haplotypes, we can simulate the haplotype phases multiple times.
+
+```{r}
+# Loading a function for later
+sim_haplo_phase <- function(M, ploidy) {
+  haplo <- NULL
+  for (i in 1:nrow(M)) {
+    b <- NULL
+    for (j in 1:ncol(M)) {
+      a <- rep(0, ploidy)
+      if (M[i, j] > 0) {
+        ones_count <- min(M[i, j], ploidy)
+        a[1:ones_count] <- 1
+      }
+      b <- cbind(b, a)
+    }
+    haplo <- rbind(haplo, b)
+    colnames(haplo)=colnames(M)
+  }
+  return(haplo)
+}
+```
+
+
+```{r}
+# SNP matrix
+snp[1:6,1:6] 
+dim(snp) # nrows: Number of individuals and ncols: number of markers
+
+# Haplotype file simulated
+haplo=sim_haplo_phase(M=snp, ploidy=2)
+haplo[1:6,1:6]
+```
+
+We can also import the pedigree file.
+
+```{r}
+# Pedigree file
+head(ped)
+```
+
+To create the founder genome using the imported data set, we can utilize the `importHaplo()` function. 
+
+```{r}
+# Create the founder population
+founderPop = importHaplo(haplo = haplo,
+                         genMap = genMap,
+                         ploidy = 2,
+                         ped = ped)
+founderPop
+
+# Set simulation parameters
+# Initialize parameters with founder haplotypes
+SP = SimParam$new(founderPop)
+```
+
+
+We can also load our own QTL effects or simulated traits using our imported genomic data set.
+
+```{r}
+
+# Load our own QTL effects
+qtlEffects = data.frame(marker = c("M1", "M11","M80"),
+                        aditiveEffect = c(1, -1, 1),
+                        domEffect = c(0.3, 0, -0.3))
+
+# Import in SimParam
+SP$importTrait(markerNames = qtlEffects$marker,
+               addEff = qtlEffects$aditiveEffect,
+               intercept = 10,
+               domEff = qtlEffects$domEffect,
+               name = "Trait1")
+
+# Create a population from the founder haplotypes
+pop = newPop(founderPop)
+
+# The population now works like any other AlphaSimR population
+gv(pop)[1:6]
+```
+
+
+
+## References
+
+::: {#refs}
+:::
