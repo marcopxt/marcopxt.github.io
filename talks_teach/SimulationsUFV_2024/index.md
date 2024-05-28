@@ -77,6 +77,14 @@ We recommend reading the following papers:
 - Content [[html]](https://htmlpreview.github.io/?https://github.com/marcopxt/marcopxt.github.io/blob/master/talks_teach/SimulationsUFV_2024/2.AlphaSimR_Functions.html)
 - Script [[rmd]](https://minhaskamal.github.io/DownGit/#/home?url=https://github.com/marcopxt/marcopxt.github.io/blob/master/talks_teach/SimulationsUFV_2024/2.AlphaSimR_Functions.Rmd)
 
+**Line breeding pipeline**
+- Content [[html]](https://htmlpreview.github.io/?https://github.com/marcopxt/marcopxt.github.io/blob/master/talks_teach/SimulationsUFV_2024/3.WheatBreeding.html)
+- Script [[rmd]](https://minhaskamal.github.io/DownGit/#/home?url=https://github.com/marcopxt/marcopxt.github.io/blob/master/talks_teach/SimulationsUFV_2024/3.WheatBreeding.Rmd)
+
+**Maize breeding pipeline**
+- Content [[html]](https://htmlpreview.github.io/?https://github.com/marcopxt/marcopxt.github.io/blob/master/talks_teach/SimulationsUFV_2024/3.MaizeBreeding.html)
+- Script [[rmd]](https://minhaskamal.github.io/DownGit/#/home?url=https://github.com/marcopxt/marcopxt.github.io/blob/master/talks_teach/SimulationsUFV_2024/3.MaizeBreeding.Rmd)
+
 ### **How to deploy Genomic selection**   
 
 

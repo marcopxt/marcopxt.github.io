@@ -86,7 +86,8 @@ First, at the beginning of each breeding cycle, we generate new crosses. We can 
 ```{r, eval=FALSE}
 
 # 1. Crossing randomly
-F1pop = randCross(pop = Parents, nCrosses = 100)
+F1pop = randCross(pop = Parents, nCrosses = 100, nProgeny = 2)
+F1pop@mother
 
 # 2. Make crosses by a list of individuals
 # Making the crossing plan
@@ -110,6 +111,8 @@ Now, we can advance the materials. One function that we may use is the `self()`.
   # Advancing F1->F2
   F2pop = self(pop = F1pop, nProgeny = 10)
 
+
+F2pop@
 ``` 
 
 Then, we may assume phenotypes for all those individuals. For each individual, the phenotypes are assumed to come from the genetic values generated. Then, **AlphaSimR** adds in each genetic value a random error sampled from a multivariate normal distribution in the function `setPheno()`. Some important arguments in the function `setPheno()` are:
@@ -162,10 +165,14 @@ varG = SP$varG[1]
 # ---- Option 1: By assigning the narrow sense heritability ----
 
 pop = setPheno(pop, h2 = 0.5)
+pop@pheno[1:10]
 
 # Check heritability
 cor(pop@pheno, pop@gv)^2
+```
 
+
+```{r, eval=FALSE}
 # H2 or h2
 
 # 
