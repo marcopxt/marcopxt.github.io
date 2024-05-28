@@ -1,0 +1,564 @@
+---
+title: |
+  AlphaSimR: Deploying genomic selection
+  
+author: 
+  - Marcio Resende, professor^[University of Florida, mresende@ufl.edu]
+ 
+  - Marco Antonio Peixoto, Post doc^[University of Florida, deamorimpeixotom@ufl.edu]
+  
+
+---
+
+## Deploying genomic selection
+
+
+
+In this vignette, we will present how to use **AlphaSimR** objects to deploy genomic selection (GS). In addition, we will show how to use BGLR package [@perez2014genome, @perez2022multitrait] for doing the predictions.
+
+Genomic selection is a method that leverages both phenotype and genome data from historical individuals to develop a predictive model. This model is then applied to new individuals, utilizing their genome data alongside the prediction model to forecast their phenotype performance. The foundation of this predictive model lies in the inferred associations between variations in phenotypes and the corresponding variations along the genome. These associations are calculated for numerous positions in the genome, commonly referred to as genomic markers. The prevailing choice for such markers is often bi-allelic Single Nucleotide Polymorphisms (SNPs), a type of genetic variation that **AlphaSimR** emulates. Once these associations between phenotype and genome are established, it becomes possible to predict the performance of any individual genotyped for the selected set of SNP markers.
+
+
+## One trait with additive effect
+
+The first implementation will use one additive trait. Let's create the founder genome and also a base population and assume the trait characteristics. In addition to the argument that we have been describing, we need to use the function `addSnpChip` to add the SNPs for each individual.
+
+```{r}
+library(AlphaSimR)
+
+# Founder haplotypes
+founderPop = runMacs(nInd=1000, nChr=10, segSites=600)
+
+# trait parameters
+SP = SimParam$
+  new(founderPop)$
+  addTraitA(100)$
+  addSnpChip(500)$ # Number of SNPs per pair of chromosome
+  setVarE(h2=0.4)
+  
+# Split the founders into two population
+pop1 = newPop(founderPop[1:500])
+pop2 = newPop(founderPop[501:1000])
+
+#SNPs
+SNPop = pullSnpGeno(pop1)
+
+SNPop[1:10,1:10]
+
+```
+
+### New population from crosses and training the model
+
+Now, we can create a large F1 population derived from the initial individuals and fit a genomic selection model using the function `RRBLUP()` from **AlphaSimR**. We may use the phenotypes assumed out of `setPheno()` function and, together with the marker's information, create a model that will give us the marker's effects, as follows:
+
+
+```{r}
+# Create a third population derived from the first populations
+pop3 = randCross(pop1, nCrosses=1000)
+pop3 = setPheno(pop3, h2 = 0.6)
+
+# Train a GS model using the first population
+gsModel = RRBLUP(pop1, use = 'pheno') #RRBLUP
+
+```
+
+### Using markers effect to predict the values
+
+Now that we have a calibration, we can deploy genomic selection by using the marker effects to predict, together with the genotypes of the target population, the estimated breeding value of the individuals.
+
+```{r}
+# Set EBVs for all populations using the GS model
+pop1 = setEBV(pop1, gsModel)
+pop2 = setEBV(pop2, gsModel)
+pop3 = setEBV(pop3, gsModel)
+```
+
+### Measuring the correlation with the genetic value (parametric value of the trait)
+
+We can measure how good was the prediction by comparing the actual true genetic value (gv) with the prediction (ebv) for each individual.
+
+```{r}
+# Measure prediction accuracy
+cor(gv(pop1), ebv(pop1)) 
+cor(gv(pop2), ebv(pop2)) 
+cor(gv(pop3), ebv(pop3))
+```
+
+
+## One trait with additive/dominance effect
+
+So, we can implement the same pipeline as before but accounting for dominance effects. In this case, we may use the function `RRBLUP_D` from *AlphaSimR*.
+
+```{r}
+rm(list=ls())
+library(AlphaSimR)
+
+# Base genome
+founderPop = runMacs(nInd=1000, nChr=10, segSites=600)
+
+# Trait
+SP = SimParam$
+  new(founderPop)$
+  addTraitAD(100,
+             meanDD = 0.5,
+             varDD = 0.2)$
+  addSnpChip(500)$
+  setVarE(h2=0.4)
+  
+# Split the founders into two population
+pop1 = newPop(founderPop[1:500])
+pop2 = newPop(founderPop[501:1000])
+
+```
+
+
+### New population from crosses and training the model
+
+We may implement a model with additive and a model with additive and dominance effects in order to compare the implementations.
+
+```{r}
+# Create a third population derived from the first
+pop3 = randCross(pop1, nCrosses=1000)
+
+# Train a GS model using the first population
+gsModel = RRBLUP(pop1) #RRBLUP
+
+gsModelD = RRBLUP_D(pop1) ##RRBLUP with both, A+D
+
+```
+
+### Using markers effect to predict the values
+
+Now we can deploy the model in the same way that we did before and use both models in the same three populations.
+
+
+```{r}
+# Set EBVs for all populations using the additive GS model
+pop1 = setEBV(pop1, gsModel)
+pop2 = setEBV(pop2, gsModel)
+pop3 = setEBV(pop3, gsModel)
+
+# Set EBVs for all populations using additive and dom the GS model
+popD1 = setEBV(pop1, gsModelD)
+popD2 = setEBV(pop2, gsModelD)
+popD3 = setEBV(pop3, gsModelD)
+
+```
+
+### Measuring the correlation with the genetic value (parametric value of the trait)
+
+Measuring the accuracies to see how was the impact of the dominance effect on the model.
+
+```{r}
+# Measure prediction accuracy
+Pop1A = cor(gv(pop1), ebv(pop1)) 
+Pop2A = cor(gv(pop2), ebv(pop2)) 
+Pop3A = cor(gv(pop3), ebv(pop3))
+
+# Measure prediction accuracy
+Pop1AD = cor(gv(pop1), ebv(popD1)) 
+Pop2AD = cor(gv(pop2), ebv(popD2)) 
+Pop3AD = cor(gv(pop3), ebv(popD3))
+
+df = data.frame(Pop = c('Pop1', 'Pop2', 'Pop3'),
+                AModel = c(Pop1A, Pop2A, Pop3A),
+                ADModel = c(Pop1AD, Pop2AD, Pop3AD))
+
+df
+
+```
+
+
+## General combining ability model
+
+**AlphaSimR** also gives us the possibility to calculate the general combining ability using genomic information.
+
+```{r}
+rm(list=ls())
+library(AlphaSimR)
+
+# Founder genome
+founderPop = runMacs(nInd=102, nChr=10, segSites=600)
+
+# Traits
+SP = SimParam$
+  new(founderPop)$
+  addTraitAD(100,
+             meanDD = 0.5,
+             varDD = 0.2)$
+  addSnpChip(500)$
+  setVarE(h2=0.4)
+  
+# Split the founders into two population
+lines = newPop(founderPop[1:100])
+tester = newPop(founderPop[101:102])
+
+
+```
+
+
+Creating Doubled haploids (DHs)
+
+
+```{r}
+# Creating DHs and testers from the founder
+DHs = makeDH(lines, 2)
+TestDH = makeDH(tester, 1)
+
+# Create the hybrid crosses
+Hybrid = hybridCross(DHs, TestDH, crossPlan = "testcross")
+Hybrid = setPheno(Hybrid)
+
+# Genomic model for GCA
+gsModel_GCA = RRBLUP_GCA(Hybrid)
+
+# Model deployment
+GCA_Male = setEBV(Hybrid, gsModel_GCA, value = 'male', simParam=SP)
+
+GCA_Female = setEBV(Hybrid, gsModel_GCA, value = 'female', simParam=SP)
+
+
+```
+
+
+## Specific combining ability model
+
+```{r}
+rm(list=ls())
+library(AlphaSimR)
+
+# founder genome
+founderPop = runMacs(nInd=102, nChr=10, segSites=600)
+
+SP = SimParam$
+  new(founderPop)$
+  addTraitAD(100,
+             meanDD = 0.5,
+             varDD = 0.2)$
+  addSnpChip(500)$
+  setVarE(h2=0.4)
+  
+# Split the founders into two populations (distinct groups)
+lines = newPop(founderPop[1:100])
+tester = newPop(founderPop[101:102])
+
+
+```
+
+
+Creating DHs
+
+```{r}
+# Creating DHs and testers from the founder
+DHs = makeDH(lines, 2)
+TestDH = makeDH(tester, 1)
+
+# Create the hybrid crosses
+Hybrid = hybridCross(DHs, TestDH, crossPlan = "testcross")
+Hybrid = setPheno(Hybrid)
+
+# Genomic model for GCA
+gsModel_SCA = RRBLUP_SCA(Hybrid)
+
+# Model deployment
+SCA_pop = setEBV(Hybrid, gsModel_SCA, value = 'gv', simParam=SP)
+
+
+```
+
+
+## Fixed effects on the population
+
+We can also use a fixed effect in the model. The fixed effects get treated as a categorical variable and are used to construct a sum-to-zero design matrix. When we have years and locations, you want a unique fixed effect for each year by location combination. 
+
+
+Let's create a founder genome and a population out of it.
+
+```{r}
+rm(list=ls())
+library(AlphaSimR)
+
+# founder genome
+founderPop = runMacs(nInd=100, nChr=10, segSites=600)
+
+SP = SimParam$
+  new(founderPop)$
+  addTraitAD(100,
+             meanDD = 0.5,
+             varDD = 0.2)$
+  addSnpChip(500)$
+  setVarE(h2=0.4)
+  
+# Split the founders into two populations (distinct groups)
+pop = newPop(founderPop[1:100])
+
+```
+
+
+Population and output.
+
+
+
+```{r}
+# Generate populations for 4 locations - environments
+loc1 = setPheno(pop)
+loc2 = setPheno(pop)
+loc3 = setPheno(pop)
+loc4 = setPheno(pop)
+
+# Combine locations into a training population
+trainPop = c(loc1, loc2, loc3, loc4)
+
+# Run GS model
+gsModel1 = RRBLUP(trainPop)
+
+# Set EBV
+pop = setEBV(pop, gsModel1)
+
+# Measure accuracy
+AccNofix = cor(gv(pop), ebv(pop))
+
+# Generate populations for 4 locations - environments
+loc1 = setPheno(pop, fixEff=1)
+loc2 = setPheno(pop, fixEff=2)
+loc3 = setPheno(pop, fixEff=3)
+loc4 = setPheno(pop, fixEff=4)
+
+# Combine locations into a training population
+trainPop = c(loc1, loc2, loc3, loc4)
+
+# Run GS model
+gsModel2 = RRBLUP(trainPop)
+
+# Set EBV
+pop = setEBV(pop, gsModel2)
+
+# Measure accuracy
+AccFix = cor(gv(pop), ebv(pop))
+
+# Comparison
+
+AccNofix
+AccFix
+
+
+```
+
+
+## Multi-trait information into the prediction
+
+In the same way that we predict estimated breeding values for one trait, we can deploy it for more than one trait as well.
+
+For such, we will create a base genome and implement two traits for later prediction via genomic selection.
+
+```{r}
+rm(list=ls())
+library(AlphaSimR)
+
+# founder genome
+founderPop = runMacs(nInd=200, nChr=10, segSites=600)
+
+# Traits
+SP = SimParam$
+  new(founderPop)$
+  addTraitAD(100,
+             mean = c(10,100),
+             var = c(5, 50),
+             meanDD = c(0.5, 0.2),
+             varDD = c(0.2, 0.1))$
+  addSnpChip(500)$
+  setVarE(h2=c(0.4, 0.8))
+  
+# Split the founders into two populations (distinct groups)
+pop1 = newPop(founderPop[1:100])
+pop2 = newPop(founderPop[101:200])
+
+
+```
+
+
+
+Several traits in the model
+
+
+```{r}
+
+# Create a third population derived from the first
+F1Pop = randCross(pop1, nCrosses=1000)
+F1Pop = setPheno(F1Pop, h2 = 0.4)
+
+# Train a GS model using the first population
+gsModel = RRBLUP(F1Pop, trait = c(1,2)) #RRBLUP
+
+# Set EBVs for all populations using the GS model
+pop1 = setEBV(pop1, gsModel)
+pop2 = setEBV(pop2, gsModel)
+F1Pop = setEBV(F1Pop, gsModel)
+
+```
+
+Measuring the correlation with the genetic value (parametric value of the trait)
+
+
+```{r}
+# Measure prediction accuracy
+Pop1A = diag(cor(gv(pop1), ebv(pop1)))
+Pop2A = diag(cor(gv(pop2), ebv(pop2)))
+Pop3A = diag(cor(gv(F1Pop), ebv(F1Pop)))
+
+df = data.frame(Pop = c('Pop1', 'Pop2', 'Pop3'),
+                Trait1 = c(Pop1A[1], Pop2A[1], Pop3A[1]),
+                Trait2 = c(Pop1A[2], Pop2A[2], Pop3A[2]))
+
+df
+
+```
+
+
+
+## Using another package to do predictions in the GS models
+
+The genomic models implemented before using the functions from **AlphaSimR** are very useful for predictions. However,  **AlphaSimR** also gives us the possibility of using other packages to do genomic predictions. And it is easily implemented into a pipeline. Here, we will use the **BGLR** package [@BGLR] to predict the breeding values for the individuals in the populations. So, we will start by creating the founder genome for one trait.
+
+### Single trait
+
+
+```{r}
+
+rm(list=ls())
+
+# Founder genome
+founderGen = runMacs(nInd=100, nChr=10, segSites=600)
+
+# Trait characteristics
+SP = SimParam$
+  new(founderGen)$
+  addTraitAD(100,
+             mean = 10,
+             var = 2)$
+  addSnpChip(100)$
+  setVarE(h2=0.5)
+  
+# Create the individuals
+pop = newPop(founderGen[1:100])
+
+# Create a third population derived from the first
+F1Pop = randCross(pop, nCrosses=200)
+F1Pop = setPheno(F1Pop, h2 = 0.4)
+
+```
+
+### Using BGLR to deploy Genomic selection
+
+We can use the information from the individuals to fit the model in BGLR. So, the first step will be to get that information from the population. We may get the phenotypic values for the individuals and the SNP data and create a relationship Matrix out of it.
+
+
+```{r}
+require(BGLR)
+require(AGHmatrix)
+
+# 1. Pulling data from AlphaSimR code
+y = data.frame(Trait_1 = pheno(F1Pop)) # Phenotypic data
+Markers = pullSnpGeno(F1Pop) #Access SNP genotype data 
+rownames(Markers) = F1Pop@id
+
+# 2. Creating the G Matrix
+G = Gmatrix(Markers) 
+
+# 3. Genomic model - Individuals effects
+# Model - trait 1
+fm_t1 = BGLR(y = y[,1],
+             ETA=list(A = list(K=G, model="RKHS")),
+             nIter = 300,
+             burnIn = 30,
+             thin = 5,
+             saveAt = 'STM_',
+             verbose = FALSE)
+
+
+# 4. Saving it back to the population
+F1Pop@ebv = as.matrix(fm_t1$yHat)
+
+# 5. Selections using ebv
+F1Sel = selectInd(F1Pop, 25, use = 'ebv')
+
+
+
+```
+
+
+### Multi-trait implementation using BGLR
+
+The same implementation could be done with the information of more than one trait at a time. So, we will do the same implementation mentioned, but using two traits, as follows:
+
+
+
+```{r}
+
+rm(list=ls())
+library(AlphaSimR)
+
+# founder genome
+founderPop = runMacs(nInd=100, nChr=10, segSites=600)
+
+# Trait characteristics
+SP = SimParam$
+  new(founderPop)$
+  addTraitAD(100,
+             mean = c(10,100),
+             var = c(2,10))$
+  addSnpChip(100)$
+  setVarE(h2=c(0.5,0.2))
+  
+# Creating the base population
+pop = newPop(founderPop[1:100])
+
+# Create a third population derived from the first
+F1Pop = randCross(pop, nCrosses=200)
+F1Pop = setPheno(F1Pop, h2 = 0.4)
+
+```
+
+Implementing the *Spikeslab* from BGLR using the `Multitrait` function. It will return the SNP effects for both traits.  
+
+```{r}
+require(BGLR)
+
+# 1. Pulling data from AlphaSimR code
+Y = data.frame(Trait_1 = pheno(F1Pop))# Phenotypic data
+
+Markers = pullSnpGeno(F1Pop) #Access SNP genotype data
+rownames(Markers) = F1Pop@id
+
+# 2. Genomic model - SNP effects model
+fmSM<-Multitrait(y = as.matrix(Y), 
+                 ETA = list(A = list(X=Markers, model="SpikeSlab", saveEffects=TRUE)),
+                 nIter = 300, 
+                 burnIn = 30,
+                 verbose=FALSE)
+
+
+# 3. Saving
+addEff = as.matrix(cbind(fmSM$ETA[[1]]$b))
+
+# 4. BackSolving to ebvs
+F1Pop@ebv = as.matrix(Markers %*% scale(addEff))
+plot(F1Pop@ebv[,1], F1Pop@ebv[,2])
+
+
+# 5. Selections
+F1Sel = selectInd(F1Pop, 25, traits = c(1,2), use = 'ebv')
+
+
+
+```
+
+
+
+
+## References
+
+::: {#refs}
+:::
+
+
