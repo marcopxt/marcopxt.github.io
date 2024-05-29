@@ -97,6 +97,7 @@ We recommend reading the following papers:
 
 ## **III. How to deploy Genomic selection**   
 
+**Intro to GS in AlphaSimR**
 - Content [[html]](https://htmlpreview.github.io/?https://github.com/marcopxt/marcopxt.github.io/blob/master/talks_teach/SimulationsUFV_2024/5.Intro2GS.html)
 - Script [[rmd]](https://minhaskamal.github.io/DownGit/#/home?url=https://github.com/marcopxt/marcopxt.github.io/blob/master/talks_teach/SimulationsUFV_2024/5.Intro2GS.Rmd)
 
