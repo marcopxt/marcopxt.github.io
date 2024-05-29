@@ -99,3 +99,10 @@ We recommend reading the following papers:
 
 - Content [[html]](https://htmlpreview.github.io/?https://github.com/marcopxt/marcopxt.github.io/blob/master/talks_teach/SimulationsUFV_2024/5.Intro2GS.html)
 - Script [[rmd]](https://minhaskamal.github.io/DownGit/#/home?url=https://github.com/marcopxt/marcopxt.github.io/blob/master/talks_teach/SimulationsUFV_2024/5.Intro2GS.Rmd)
+
+
+
+**Maize breeding pipeline II (with GS now)**
+- Content [[html]](https://htmlpreview.github.io/?https://github.com/marcopxt/marcopxt.github.io/blob/master/talks_teach/SimulationsUFV_2024/5.GS_Maize/5.Practical_ImplementationGS.html)
+- Script [[rmd]](https://minhaskamal.github.io/DownGit/#/home?url=https://github.com/marcopxt/marcopxt.github.io/blob/master/talks_teach/SimulationsUFV_2024/5.GS_Maize/5.Practical_ImplementationGS.Rmd)
+
