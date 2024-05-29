@@ -50,8 +50,8 @@ MaleYT2 = setPhenoGCA(MaleYT2,FemaleTester2,reps=repYT2,inbred=T,p=p,varE = varE
 FemaleYT2 = setPhenoGCA(FemaleYT2,MaleTester2,reps=repYT2,inbred=T,p=p,varE = varE)
 
 ####>>>>>-------------- Year 2
-MaleYT1 = setPhenoGCA(MaleDH,FemaleTester1,reps=repYT1,inbred=T,p=p,varE = varE)
-FemaleYT1 = setPhenoGCA(FemaleDH,MaleTester1,reps=repYT1,inbred=T,p=p,varE = varE)
+MaleYT1 = setPheno(MaleDH,reps=repYT1,p=p,varE = varE)
+FemaleYT1 = setPheno(FemaleDH,reps=repYT1,p=p,varE = varE)
 
 ####>>>>>-------------- Year 1
 MaleF1 = randCross(MaleParents, nCrosses)

@@ -7,18 +7,18 @@ futureYears = 20 #Length of testing period
 # Crossing->DH ------------------------------------------------------------
 
 #Initial parents per heterotic pool
-nParents = 20
+nParents = 50
 
 #Number of crosses
-nCrosses = 20
+nCrosses = 50
 
 #DH lines produced per F1
-nDH = 25
+nDH = 20
 
 # Selection on GCA --------------------------------------------------------
 
 #Number of inbreds per heterotic pool per stage
-nInbred1 = nCrosses*nDH #Do not change
+nInbred1 = 300
 nInbred2 = 100
 nInbred3 = 20
 
@@ -48,7 +48,7 @@ nYT5 = 4
 nQtl = 100
 
 #Number of SNP per pair of chromosome
-nSnp = 25
+nSnp = 1000
 
 #Heterotic pool split
 nGenSplit = 100
@@ -81,3 +81,5 @@ repYT5 = 600
 #--- Genomic selection parameters ---------------------------------------------
 #Start the training population historical records (3 years)
 startTrainPop <- 13
+
+

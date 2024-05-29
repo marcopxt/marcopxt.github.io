@@ -42,18 +42,13 @@ MaleHybridYT3 = setPheno(MaleHybridYT3,reps=repYT3,p=p,varE = varE)
 FemaleHybridYT3 = setPheno(FemaleHybridYT3,reps=repYT3,p=p,varE = varE)
 
 ####>>>>>-------------- Year 3
-MaleYT1ebv = setEBV(MaleYT1, gsmodel)
-FemaleYT1ebv = setEBV(FemaleYT1, gsmodelF)
-
-MaleYT2 = selectInd(MaleYT1ebv, nInbred2, use = 'ebv')
-FemaleYT2 = selectInd(FemaleYT1ebv, nInbred2, use = 'ebv')
-
-MaleYT2 = setPhenoGCA(MaleYT2,FemaleTester2,reps=repYT2,inbred=T,p=p,varE = varE)
-FemaleYT2 = setPhenoGCA(FemaleYT2,MaleTester2,reps=repYT2,inbred=T,p=p,varE = varE)
 
 ####>>>>>-------------- Year 2
-MaleYT1 = setPhenoGCA(MaleDH,FemaleTester1,reps=repYT1,inbred=T,p=p,varE = varE)
-FemaleYT1 = setPhenoGCA(FemaleDH,MaleTester1,reps=repYT1,inbred=T,p=p,varE = varE)
+MaleYT1 = setPheno(MaleDH,reps=repYT1,p=p,varE = varE)
+FemaleYT1 = setPheno(FemaleDH,reps=repYT1,p=p,varE = varE)
+
+MaleYT2 = selectInd(MaleYT1, nInbred1)
+FemaleYT2 = selectInd(FemaleYT1, nInbred1)
 
 
 ####>>>>>-------------- Year 1
