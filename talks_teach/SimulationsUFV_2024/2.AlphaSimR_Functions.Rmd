@@ -112,7 +112,7 @@ Now, we can advance the materials. One function that we may use is the `self()`.
   F2pop = self(pop = F1pop, nProgeny = 10)
 
 
-F2pop@
+
 ``` 
 
 Then, we may assume phenotypes for all those individuals. For each individual, the phenotypes are assumed to come from the genetic values generated. Then, **AlphaSimR** adds in each genetic value a random error sampled from a multivariate normal distribution in the function `setPheno()`. Some important arguments in the function `setPheno()` are:
@@ -250,7 +250,7 @@ The next step in modeling the breeding program is to make selections on the phen
 ```{r, eval=FALSE}
 # Setting phenotypes
 F2pop = setPheno(F2pop, varE = 10, reps = 1)
-
+F2pop@pheno[1:10]
 # Select the best-performing individuals according to their phenotype
 F2popSel = selectInd(pop = F2pop,
                             nInd = 20,
@@ -353,6 +353,10 @@ popSelT1 = selectInd(pop = F2pop,
                      nInd = 20,
                      use = "pheno",
                      trait = 1) # gv, pheno, bv, ebv
+
+
+phenoF2 = F2pop@pheno
+rownames(phenoF2) <- F2pop@id
 
 # Select the top individuals based on their phenotypes - trait 2
 popSelT2 = selectInd(pop = F2pop,

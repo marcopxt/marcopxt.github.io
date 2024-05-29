@@ -178,7 +178,7 @@ for (year in 1:BunrInYears) {
   
   # Save the state of simulation
   if (year == 10) {
-    save.image(file = "results/year10.RData")
+    save.image(file = "year10.RData")
   }
 }
 
@@ -190,7 +190,7 @@ The first scenario uses phenotypic selection and it use the same pipeline develo
 
 ```{r}
 # 1. Load state of simulation from year 10
-load(file = "results/year10.RData")
+load(file = "year10.RData")
 
 # 2. Loop
 for (year in (BunrInYears+1):(BunrInYears+futureYears)) {
@@ -234,7 +234,7 @@ output1 = data.frame(Year = c(1:20),
 
 
 # 4. Saving the results as RDS
-saveRDS(output1,"results/Wheat_Scenario1.rds")
+saveRDS(output1,"Wheat_Scenario1.rds")
 
 ```
 
@@ -247,7 +247,7 @@ In the scenario two of this set of simulations, we will implement the early pare
 ```{r}
 
 # 1. Load state of simulation from year 10
-load(file = "results/year10.RData")
+load(file = "year10.RData")
 
 # 2. Running the loop
 for (year in (BunrInYears+1):(BunrInYears+futureYears)) {
@@ -291,7 +291,7 @@ output2 = data.frame(Year = c(1:20),
 
 
 # 4. Saving the results as RDS
-saveRDS(output2,"results/Wheat_Scenario2.rds")
+saveRDS(output2,"Wheat_Scenario2.rds")
 
 ```
 
@@ -303,8 +303,8 @@ saveRDS(output2,"results/Wheat_Scenario2.rds")
 
 # Load the results from the two scenarios
 rm(list=ls())
-Scen1 = readRDS('results/Wheat_Scenario1.rds')
-Scen2 = readRDS('results/Wheat_Scenario2.rds')
+Scen1 = readRDS('Wheat_Scenario1.rds')
+Scen2 = readRDS('Wheat_Scenario2.rds')
 df = rbind(data.frame(Scen1), data.frame(Scen2))
 
 # Organizing

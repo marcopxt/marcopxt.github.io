@@ -84,10 +84,12 @@ basePopSelected = basePop
 nGenerations = 10 + 1 # +1 to store starting generation
 meanGAll = numeric(nGenerations)
 varGAll = numeric(nGenerations)
+corGAll = numeric(nGenerations)
 
 # Save the starting values
 meanGAll[1] = meanG(basePop)
 varGAll[1] = varG(basePop)
+corGAll[1] = cor(gv(basePop), pheno(basePop))
 
 # To make the for loop below simpler we will make a copy of the object basePopSelected
 newPopSelected = basePopSelected
@@ -103,22 +105,25 @@ for (generation in 1:(nGenerations - 1)) {
   # Save summaries
   meanGAll[1 + generation] = meanG(newPop)
   varGAll[1 + generation] = varG(newPop)
+  corGAll[1 + generation] = cor(gv(newPop), pheno(newPop))
 }
 
 # Now save these outputs by copying the objects
 meanGAll_n10 = meanGAll
 varGAll_n10 = varGAll
-
+corGAll_10 = corGAll
 ##------------------- For second scenario
 
 # Allocate vectors
 nGenerations = 10 + 1 # +1 to store starting generation
 meanGAll = numeric(nGenerations)
 varGAll = numeric(nGenerations)
+corGAll = numeric(nGenerations)
 
 # Save the starting values
 meanGAll[1] = meanG(basePop)
 varGAll[1] = varG(basePop)
+corGAll[1] = cor(gv(basePop), pheno(basePop))
 
 # To make the for loop below simpler we will make a copy of the object basePopSelected
 newPopSelected = basePopSelected
@@ -134,12 +139,13 @@ for (generation in 1:(nGenerations - 1)) {
   # Save summaries
   meanGAll[1 + generation] = meanG(newPop)
   varGAll[1 + generation] = varG(newPop)
+  corGAll[1 + generation] = cor(gv(newPop), pheno(newPop))
 }
 
 # Now save these outputs by copying the objects
 meanGAll_n50 = meanGAll
 varGAll_n50 = varGAll
-
+corGAll_n50 = corGAll
 
 ```
 

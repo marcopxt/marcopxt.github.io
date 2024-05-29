@@ -57,8 +57,8 @@ output = list(inbredMean=NULL,
               hybridMean=NULL)
 
 # File to store the results
-  saveRDS(output,"results/Maize_Scenario1.rds")
-  saveRDS(output,"results/Maize_Scenario2.rds")
+  saveRDS(output,"Maize_Scenario1.rds")
+  saveRDS(output,"Maize_Scenario2.rds")
 ```
 
 
@@ -136,14 +136,14 @@ for(rep in 1:nReps){
   }
 
   # Report results for scenario 2
-  output = readRDS("results/Maize_Scenario2.rds")
+  output = readRDS("Maize_Scenario2.rds")
   output = list(inbredMean=rbind(output$inbredMean,inbredMean),
                 inbredVar=rbind(output$inbredVar,inbredVar),
                 hybridMean=rbind(output$hybridMean,hybridMean))
-  saveRDS(output,"results/Maize_Scenario2.rds")
+  saveRDS(output,"Maize_Scenario2.rds")
   
 #Delete tmp file
-file.remove("results/BurnIn_rep.rda")
+file.remove("BurnIn_rep.rda")
 
 
 }
