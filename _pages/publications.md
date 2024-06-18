@@ -8,7 +8,7 @@ author_profile: true
 {% include base_path %}
 
 ## 2024
-1. **Peixoto, Marco Antonio**, Bhering, L., Resende, M. (2024). SimpleMating: R-package for Prediction and Optimization of Breeding Crosses Using Genomic Selection. BioRxiv. [pdf](https://www.biorxiv.org/content/10.1101/2024.05.24.595600v1) [package](https://github.com/Resende-Lab/SimpleMating)
+1. **Peixoto, Marco Antonio**, Amadeu, R, Ferrao, F., Munoz, P., Bhering, L., Resende, M. (2024). SimpleMating: R-package for Prediction and Optimization of Breeding Crosses Using Genomic Selection. BioRxiv. [pdf](https://www.biorxiv.org/content/10.1101/2024.05.24.595600v1) [package](https://github.com/Resende-Lab/SimpleMating)
 
 2. **Peixoto, Marco Antonio**, Coelho, I., Leach, K., Lubberstedt, T., Bhering, L., Resende, M. (2024). Use of simulation to optimize a sweet corn breeding program: implementing genomic selection and doubled haploid technology. *G3: Genes, Genome, Genetics*. [pdf](https://academic.oup.com/g3journal/advance-article/doi/10.1093/g3journal/jkae128/7692866?login=true) [codes](https://github.com/Resende-Lab/Coelho_Peixoto-Sweet_Corn_DH-GS_simulation)
    
