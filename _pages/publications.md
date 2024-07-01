@@ -17,6 +17,8 @@ author_profile: true
 4. Leichtweis, B., Silva, L., **Peixoto, Marco Antonio**, Peternelli, L., Silva, F. Envirotype approach for soybean genotype selection through the integration of georeferenced climate and genetic data using artificial neural networks. *Euphytica*. [pdf](https://link.springer.com/article/10.1007/s10681-023-03267-1) 
   
 5. Souza, K., Melo, S., **Peixoto, Marco Antônio**, Travenzoli, N., Feio, R., Dergam, J. Repetitive DNA mapping in five genera of tree frogs (Amphibia: Anura) from the Atlantic Forest: new highlights on genomic organization in Hylidae. *Cytogenetic and genome Research*. [pdf](https://karger.com/cgr/article-pdf/doi/10.1159/000537875/4180253/000537875.pdf)
+
+6. Elizeu A., **Peixoto, Marco Antônio**, Evangelista J., Chaves S., Nascimento E., Benites, F., Teodoro, P., Dias, K., Bhering, L. Applications of linear mixed models in *Cynodon* spp. breeding. *CBAB*. [pdf](https://cbab.sbmp.org.br/wp-content/uploads/2024/06/2_AR_4859_2.pdf).
   
   
 ## 2023
