@@ -27,7 +27,7 @@ Plant breeding programs rely on balancing long-term genetic diversity and geneti
 
 ### SimpleMating
 
-As part of this topic, we created an R package for crosse optimization. SimpleMating can be downloaded from [here](https://github.com/Resende-Lab/SimpleMating). Check out the [paper](https://doi.org/10.1002/tpg2.20533)
+As part of this topic, we created an R package for cross-optimization. SimpleMating can be downloaded from [here](https://github.com/Resende-Lab/SimpleMating). Check out the [paper](https://doi.org/10.1002/tpg2.20533)
 
 
 
