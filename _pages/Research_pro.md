@@ -25,22 +25,15 @@ Plant breeding programs rely on balancing long-term genetic diversity and geneti
    - **Cross optimization**
    - **Package development**
 
+### SimpleMating
+
+As part of this topic, we created an R package for cross-optimization. SimpleMating can be downloaded from [here](https://github.com/Resende-Lab/SimpleMating). Check out the [paper](https://doi.org/10.1002/tpg2.20533)
+
+
+
+
 
 ***
-
-## Markers panel imputation 
-
-### Motivation  
-
-![Imputation](../assets/images/Imputation_Marco.png){:width="30%" align="right"}
-
-The implementation of Whole Genomic Selection has been proven as an important tool for increasing genetic gain in several breeding programs. However, the acquisition of such high-density covered markers represents a barrier to the implementation of WGS in breeding programs. One alternative is to input some markers rather than measure them directly, which could decrease the costs of WGS.
-
-- **Objective**  
-  - Evaluate the predictive ability of genomic values for some target traits in Sweet Corn when genotypes at some SNPs loci were imputed rather than measured directly.     
-
-***
-
 
 ## Breeding programs simulations
 
@@ -69,6 +62,20 @@ Mixed models methodology has become a standard tool for evaluating data in breed
   - **Genomic selection**  
   - **Models with additive and non-additive effects**  
   - **BLUEs and BLUPs**  
+
+***
+
+
+## Markers panel imputation 
+
+### Motivation  
+
+![Imputation](../assets/images/Imputation_Marco.png){:width="30%" align="right"}
+
+The implementation of Whole Genomic Selection has been proven as an important tool for increasing genetic gain in several breeding programs. However, the acquisition of such high-density covered markers represents a barrier to the implementation of WGS in breeding programs. One alternative is to input some markers rather than measure them directly, which could decrease the costs of WGS.
+
+- **Objective**  
+  - Evaluate the predictive ability of genomic values for some target traits in Sweet Corn when genotypes at some SNPs loci were imputed rather than measured directly.     
 
 ***
 <br>

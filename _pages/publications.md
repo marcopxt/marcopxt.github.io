@@ -7,14 +7,22 @@ author_profile: true
 
 {% include base_path %}
 
+## Submitted
+1. Graciano, R., **Peixoto, Marco Antonio**, Leach, K., Gustin, J., Settles, M., Armstrong, P.,  Resende, M. (2024). Integrating Phenomic Selection Using Single-Kernel Near-Infrared Spectroscopy and Genomic Selection for Corn Breeding Improvement. [pdf](https://www.biorxiv.org/content/10.1101/2024.09.07.611678v1.abstract)
+
+
 ## 2024
-1. **Peixoto, Marco Antonio**, Coelho, I., Leach, K., Lubberstedt, T., Bhering, L., Resende, M. (2024). Use of simulation to optimize a sweet corn breeding program: implementing genomic selection and doubled haploid technology. *G3: Genes, Genome, Genetics*.
+1. **Peixoto, Marco Antonio**, Amadeu, R, Ferrao, F., Munoz, P., Bhering, L., Resende, M. (2024). SimpleMating: R-package for Prediction and Optimization of Breeding Crosses Using Genomic Selection. The Plant Genome. [pdf](https://doi.org/10.1002/tpg2.20533) [package](https://github.com/Resende-Lab/SimpleMating)
+
+2. **Peixoto, Marco Antonio**, Coelho, I., Leach, K., Lubberstedt, T., Bhering, L., Resende, M. (2024). Use of simulation to optimize a sweet corn breeding program: implementing genomic selection and doubled haploid technology. *G3: Genes, Genome, Genetics*. [pdf](https://academic.oup.com/g3journal/advance-article/doi/10.1093/g3journal/jkae128/7692866?login=true) [codes](https://github.com/Resende-Lab/Coelho_Peixoto-Sweet_Corn_DH-GS_simulation)
    
-2. **Peixoto, Marco Antonio**, Leach, K., Jarquin, D., Flannery, P., Zystro, J., Tracy, W., Bhering, L., Resende, M. Utilizing genomic prediction to boost hybrid performance in a sweet corn breeding program. *Frontiers in Plant Science*. [pdf](https://www.frontiersin.org/journals/plant-science/articles/10.3389/fpls.2024.1293307/abstract) [codes](https://github.com/Resende-Lab/Peixoto_Sweet_corn_hybrid_prediction)
+3. **Peixoto, Marco Antonio**, Leach, K., Jarquin, D., Flannery, P., Zystro, J., Tracy, W., Bhering, L., Resende, M. Utilizing genomic prediction to boost hybrid performance in a sweet corn breeding program. *Frontiers in Plant Science*. [pdf](https://www.frontiersin.org/journals/plant-science/articles/10.3389/fpls.2024.1293307/abstract) [codes](https://github.com/Resende-Lab/Peixoto_Sweet_corn_hybrid_prediction)
   
-3. Leichtweis, B., Silva, L., **Peixoto, Marco Antonio**, Peternelli, L., Silva, F. Envirotype approach for soybean genotype selection through the integration of georeferenced climate and genetic data using artificial neural networks. *Euphytica*. [pdf](https://link.springer.com/article/10.1007/s10681-023-03267-1) 
+4. Leichtweis, B., Silva, L., **Peixoto, Marco Antonio**, Peternelli, L., Silva, F. Envirotype approach for soybean genotype selection through the integration of georeferenced climate and genetic data using artificial neural networks. *Euphytica*. [pdf](https://link.springer.com/article/10.1007/s10681-023-03267-1) 
   
-4. Souza, K., Melo, S., **Peixoto, Marco Antônio**, Travenzoli, N., Feio, R., Dergam, J. Repetitive DNA mapping in five genera of tree frogs (Amphibia: Anura) from the Atlantic Forest: new highlights on genomic organization in Hylidae. *Cytogenetic and genome Research*. [pdf](https://karger.com/cgr/article-pdf/doi/10.1159/000537875/4180253/000537875.pdf)
+5. Souza, K., Melo, S., **Peixoto, Marco Antônio**, Travenzoli, N., Feio, R., Dergam, J. Repetitive DNA mapping in five genera of tree frogs (Amphibia: Anura) from the Atlantic Forest: new highlights on genomic organization in Hylidae. *Cytogenetic and genome Research*. [pdf](https://karger.com/cgr/article-pdf/doi/10.1159/000537875/4180253/000537875.pdf)
+
+6. Elizeu A., **Peixoto, Marco Antônio**, Evangelista J., Chaves S., Nascimento E., Benites, F., Teodoro, P., Dias, K., Bhering, L. Applications of linear mixed models in *Cynodon* spp. breeding. *CBAB*. [pdf](https://cbab.sbmp.org.br/wp-content/uploads/2024/06/2_AR_4859_2.pdf).
   
   
 ## 2023
