@@ -69,6 +69,7 @@ Now that we have a calibration, we can deploy genomic selection by using the mar
 ```{r}
 # Set EBVs for all populations using the GS model
 pop1 = setEBV(pop1, gsModel)
+
 pop2 = setEBV(pop2, gsModel)
 pop3 = setEBV(pop3, gsModel)
 ```
@@ -79,9 +80,9 @@ We can measure how good was the prediction by comparing the actual true genetic 
 
 ```{r}
 # Measure prediction accuracy
-cor(gv(pop1), ebv(pop1)) 
-cor(gv(pop2), ebv(pop2)) 
-cor(gv(pop3), ebv(pop3))
+cor(gv(pop1), ebv(pop1)) # 0.7229844
+cor(gv(pop2), ebv(pop2)) # 0.5395827
+cor(gv(pop3), ebv(pop3)) # 0.6300565
 ```
 
 
@@ -388,12 +389,12 @@ F1Pop = randCross(pop1, nCrosses=1000)
 F1Pop = setPheno(F1Pop, h2 = 0.4)
 
 # Train a GS model using the first population
-gsModel = RRBLUP(F1Pop, trait = c(1,2)) #RRBLUP
+gsModel3 = RRBLUP(F1Pop, trait = c(1,2)) #RRBLUP
 
 # Set EBVs for all populations using the GS model
-pop1 = setEBV(pop1, gsModel)
-pop2 = setEBV(pop2, gsModel)
-F1Pop = setEBV(F1Pop, gsModel)
+pop1 = setEBV(pop1, gsModel3)
+pop2 = setEBV(pop2, gsModel3)
+F1Pop = setEBV(F1Pop, gsModel3)
 
 ```
 
@@ -459,11 +460,13 @@ require(AGHmatrix)
 
 # 1. Pulling data from AlphaSimR code
 y = data.frame(Trait_1 = pheno(F1Pop)) # Phenotypic data
+dim(Markers)
 Markers = pullSnpGeno(F1Pop) #Access SNP genotype data 
 rownames(Markers) = F1Pop@id
-
+Markers[1:10,1:10]
 # 2. Creating the G Matrix
-G = Gmatrix(Markers) 
+G = AGHmatrix::Gmatrix(Markers) 
+dim(G)
 
 # 3. Genomic model - Individuals effects
 # Model - trait 1
@@ -500,16 +503,17 @@ library(AlphaSimR)
 
 # founder genome
 founderPop = runMacs(nInd=100, nChr=10, segSites=600)
-
+?SimParam
 # Trait characteristics
 SP = SimParam$
   new(founderPop)$
-  addTraitAD(100,
-             mean = c(10,100),
-             var = c(2,10))$
+  addTraitAG(100, mean = c(10,100), var = c(2,10),
+             varGxE = c(10,10))$
   addSnpChip(100)$
   setVarE(h2=c(0.5,0.2))
-  
+
+SP = SimParam$setVarE(h2=c(0.5,0.2)
+                      
 # Creating the base population
 pop = newPop(founderPop[1:100])
 
@@ -540,7 +544,7 @@ fmSM<-Multitrait(y = as.matrix(Y),
 
 # 3. Saving
 addEff = as.matrix(cbind(fmSM$ETA[[1]]$b))
-
+length(addEff)
 # 4. BackSolving to ebvs
 F1Pop@ebv = as.matrix(Markers %*% scale(addEff))
 plot(F1Pop@ebv[,1], F1Pop@ebv[,2])
@@ -550,7 +554,7 @@ plot(F1Pop@ebv[,1], F1Pop@ebv[,2])
 F1Sel = selectInd(F1Pop, 25, traits = c(1,2), use = 'ebv')
 
 
-
+F1Sel@gxe
 ```
 
 
