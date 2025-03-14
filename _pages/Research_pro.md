@@ -17,7 +17,7 @@ author_profile: true
 
 Plant breeding programs rely on balancing long-term genetic diversity and genetic gains, which are conflicting goals. Therefore, in the short term, plant breeding programs with genomic selection can improve performance by selecting individuals with the most outstanding genetic values for composing the next generation. Unfortunately, GS also accelerates the decrease of genetic diversity through cycles of selection. A method to deal with this corollary is cross selection, where we can jointly optimize the selection of crosses and the maintenance of genetic diversity. The combination of those factors (increasing the trait means and reducing inbreeding/coancestry) represents an important tool for selecting the best parents for the next generation.
 
-- **Mainly topics:**
+- **Main topics:**
 
    - **Usefulness prediction**  
    - **Cross prediction**  
@@ -42,7 +42,7 @@ As part of this topic, we created an R package for cross-optimization. SimpleMat
 
 Breeding programs are intricate and multifaceted systems that demand careful consideration when implementing tools and refining resource allocation. Simulating breeding programs has emerged as a valuable approach for assessing and fine-tuning various aspects of these programs. This simulation method serves as an ideal platform for evaluating the overarching strategy and the intricate details of breeding programs. This includes aspects like selection methods, program sizes, the number of testers, the integration of genomic selection tools, and the optimal number of environments to be included.
 
-- **Mainly topics:**
+- **Main topics:**
   - **Decision-based breeding**  
   - **Genomic selection implementation**
   - **Parental selection and allocation**  
@@ -78,5 +78,18 @@ The implementation of Whole Genomic Selection has been proven as an important to
   - Evaluate the predictive ability of genomic values for some target traits in Sweet Corn when genotypes at some SNPs loci were imputed rather than measured directly.     
 
 ***
+
+## Genotype-by-environment interaction in potato breeding program
+
+### Motivation  
+
+
+Large planted crops faces the
+
+- **Objective**  
+  - To recommend potato varietys for target population of environments.
+
+***
+
 <br>
 
