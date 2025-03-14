@@ -7,8 +7,8 @@ author_profile: true
 
 {% include base_path %}
 
-## Submitted
-1. Graciano, R., **Peixoto, Marco Antonio**, Leach, K., Gustin, J., Settles, M., Armstrong, P.,  Resende, M. (2024). Integrating Phenomic Selection Using Single-Kernel Near-Infrared Spectroscopy and Genomic Selection for Corn Breeding Improvement. [pdf](https://www.biorxiv.org/content/10.1101/2024.09.07.611678v1.abstract)
+## 2025
+1. Graciano, R., **Peixoto, Marco Antonio**, Leach, K., Gustin, J., Settles, M., Armstrong, P.,  Resende, M. (2025). Integrating Phenomic Selection Using Single-Kernel Near-Infrared Spectroscopy and Genomic Selection for Corn Breeding Improvement. Theoretical and Applied Genetics. [pdf](https://link.springer.com/article/10.1007/s00122-025-04843-w) [codes](https://github.com/Resende-Lab/Graciano_skNIR_Phenomic_Seleciton)
 
 
 ## 2024
