@@ -15,13 +15,7 @@ I am a quantitative geneticist working as an **Associated researcher** at the Sw
 
 <br>
 
-## Research Interests
-
-* 👨‍👩‍👧‍👦 [Quantitative Genetics](/)
-* 🧠 [Precision breeding](/)
-* 🍃 [Software Sustainability](/)
-* 📈 [Empirical Software Engineering](/)
-
+====
 *** 
 
 Feel free to contact me:  
