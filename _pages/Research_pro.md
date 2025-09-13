@@ -35,7 +35,7 @@ As part of this topic, we created an R package for cross-optimization. SimpleMat
 
 ***
 
-## Breeding Designe
+## Breeding Design
 
 ### Motivation
 ![Imputation](../assets/images/Picture1.png){:width="30%" align="right"}
