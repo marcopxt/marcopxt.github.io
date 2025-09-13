@@ -15,6 +15,30 @@ My name is **Marco Antônio Peixoto**, a **Associated researcher** at the Sweet 
 
 <br>
 
+## Research Interests
+
+<div class="research-grid">
+  <a class="research-card human-aspects" href="/">
+    <div class="icon"><i class="fas fa-users"></i></div>
+    <h3>Human Aspects of Software Engineering</h3>
+  </a>
+
+  <a class="research-card ai4se" href="/">
+    <div class="icon"><i class="fas fa-brain"></i></div>
+    <h3>AI4SE and SE4AI</h3>
+  </a>
+
+  <a class="research-card software-sustainability" href="/">
+    <div class="icon"><i class="fas fa-leaf"></i></div>
+    <h3>Software Sustainability</h3>
+  </a>
+
+  <a class="research-card empirical-se" href="/">
+    <div class="icon"><i class="fas fa-chart-line"></i></div>
+    <h3>Empirical Software Engineering</h3>
+  </a>
+</div>
+
 *** 
 
 Feel free to contact me:  
