@@ -9,9 +9,11 @@ redirect_from:
 
 {% include base_path %}
 
-* **2023-currently**: Postdoctoral Researcher, University of Florida - USA. Supervisor: Dr. Márcio Resende
+* **2024-currently**: Associated Researcher, Sweet Corn and Potato Breeding and Genomics Lab, University of Florida - USA. 
+  
+* **2023-2024**: Postdoctoral Researcher,Sweet Corn and Potato Breeding and Genomics Lab, University of Florida - USA. 
 
-* **2021-2023**: Visiting Research Scholar, University of Florida - USA. Supervisor: Dr. Márcio Resende
+* **2021-2023**: Visiting Research Scholar, Sweet Corn and Potato Breeding and Genomics Lab, University of Florida - USA. 
 
 * **2019-2023**: Ph.D in Genetics and Breeding, Federal University of Viçosa - Brazil. Supervisor: Dr. Leonardo Lopes Bhering
 
@@ -24,6 +26,7 @@ redirect_from:
 
 
 [Download CV here](https://github.com/marcopxt/marcopxt.github.io/blob/master/files/MPeixotoCV.pdf)
+
 
 
 
