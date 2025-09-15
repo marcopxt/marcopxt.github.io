@@ -40,7 +40,7 @@ As part of this topic, we created an R package for cross-optimization. SimpleMat
 ### Motivation
 ![Imputation](../assets/images/Picture1.png){:width="30%" align="right"}
 
-Breeding programs are intricate and multifaceted systems that demand careful consideration when implementing tools and refining resource allocation. Simulating breeding programs has emerged as a valuable approach for assessing and fine-tuning various aspects of these programs. This simulation method serves as an ideal platform for evaluating the overarching strategy and the intricate details of breeding programs. This includes aspects like selection methods, program sizes, the number of testers, the integration of genomic selection tools, and the optimal number of environments to be included.
+Breeding programs are intricate and multifaceted systems that demand careful consideration when implementing tools and refining resource allocation. Breeding design via breeding program simulation has emerged as a valuable approach for assessing and fine-tuning various aspects of these programs. Breeding program simulations serves as an ideal platform for evaluating the overarching strategy and the intricate details. This includes aspects like selection methods, program sizes, the number of testers, the integration of genomic selection tools, and the optimal number of environments to be included.
 
 - **Main topics:**
   - **Decision-based breeding**  
