@@ -8,8 +8,8 @@ author_profile: true
 {% include base_path %}
 
 ## 2025
-1. Graciano, R., **Peixoto, Marco Antonio**, Leach, K., Gustin, J., Settles, M., Armstrong, P.,  Resende, M. Integrating Phenomic Selection Using Single-Kernel Near-Infrared Spectroscopy and Genomic Selection for Corn Breeding Improvement. Theoretical and Applied Genetics. [pdf](https://link.springer.com/article/10.1007/s00122-025-04843-w) [codes](https://github.com/Resende-Lab/Graciano_skNIR_Phenomic_Seleciton)
-2. Nascimento, E., Netto, J.,  **Peixoto, Marco Antonio**, Teodoro, L., Teodoro, P., Bhering, L. Southern Forests: a Journal of Forest Science. Species-specific wood volume growth models outperform unified model across eucalypt species. [pdf](https://www.tandfonline.com/doi/abs/10.2989/20702620.2025.2494768)
+1. Graciano, R., **Peixoto, Marco Antonio**, Leach, K., Gustin, J., Settles, M., Armstrong, P.,  Resende, M. Integrating Phenomic Selection Using Single-Kernel Near-Infrared Spectroscopy and Genomic Selection for Corn Breeding Improvement. *Theoretical and Applied Genetics.* [pdf](https://link.springer.com/article/10.1007/s00122-025-04843-w) [codes](https://github.com/Resende-Lab/Graciano_skNIR_Phenomic_Seleciton)
+2. Nascimento, E., Netto, J.,  **Peixoto, Marco Antonio**, Teodoro, L., Teodoro, P., Bhering, L. Species-specific wood volume growth models outperform unified model across eucalypt species. *Southern Forests: a Journal of Forest Science.* [pdf](https://www.tandfonline.com/doi/abs/10.2989/20702620.2025.2494768)
 
 
 ## 2024
