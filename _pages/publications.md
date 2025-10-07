@@ -8,13 +8,14 @@ author_profile: true
 {% include base_path %}
 
 ## 2025
-1. Graciano, R., **Peixoto, Marco Antonio**, Leach, K., Gustin, J., Settles, M., Armstrong, P.,  Resende, M. (2025). Integrating Phenomic Selection Using Single-Kernel Near-Infrared Spectroscopy and Genomic Selection for Corn Breeding Improvement. Theoretical and Applied Genetics. [pdf](https://link.springer.com/article/10.1007/s00122-025-04843-w) [codes](https://github.com/Resende-Lab/Graciano_skNIR_Phenomic_Seleciton)
+1. Graciano, R., **Peixoto, Marco Antonio**, Leach, K., Gustin, J., Settles, M., Armstrong, P.,  Resende, M. Integrating Phenomic Selection Using Single-Kernel Near-Infrared Spectroscopy and Genomic Selection for Corn Breeding Improvement. Theoretical and Applied Genetics. [pdf](https://link.springer.com/article/10.1007/s00122-025-04843-w) [codes](https://github.com/Resende-Lab/Graciano_skNIR_Phenomic_Seleciton)
+2. Nascimento, E., Netto, J.,  **Peixoto, Marco Antonio**, Teodoro, L., Teodoro, P., Bhering, L. Southern Forests: a Journal of Forest Science. Species-specific wood volume growth models outperform unified model across eucalypt species. [pdf](https://www.tandfonline.com/doi/abs/10.2989/20702620.2025.2494768)
 
 
 ## 2024
-1. **Peixoto, Marco Antonio**, Amadeu, R, Ferrao, F., Munoz, P., Bhering, L., Resende, M. (2024). SimpleMating: R-package for Prediction and Optimization of Breeding Crosses Using Genomic Selection. The Plant Genome. [pdf](https://doi.org/10.1002/tpg2.20533) [package](https://github.com/Resende-Lab/SimpleMating)
+1. **Peixoto, Marco Antonio**, Amadeu, R, Ferrao, F., Munoz, P., Bhering, L., Resende, M. SimpleMating: R-package for Prediction and Optimization of Breeding Crosses Using Genomic Selection. The Plant Genome. [pdf](https://doi.org/10.1002/tpg2.20533) [package](https://github.com/Resende-Lab/SimpleMating)
 
-2. **Peixoto, Marco Antonio**, Coelho, I., Leach, K., Lubberstedt, T., Bhering, L., Resende, M. (2024). Use of simulation to optimize a sweet corn breeding program: implementing genomic selection and doubled haploid technology. *G3: Genes, Genome, Genetics*. [pdf](https://academic.oup.com/g3journal/advance-article/doi/10.1093/g3journal/jkae128/7692866?login=true) [codes](https://github.com/Resende-Lab/Coelho_Peixoto-Sweet_Corn_DH-GS_simulation)
+2. **Peixoto, Marco Antonio**, Coelho, I., Leach, K., Lubberstedt, T., Bhering, L., Resende, M. Use of simulation to optimize a sweet corn breeding program: implementing genomic selection and doubled haploid technology. *G3: Genes, Genome, Genetics*. [pdf](https://academic.oup.com/g3journal/advance-article/doi/10.1093/g3journal/jkae128/7692866?login=true) [codes](https://github.com/Resende-Lab/Coelho_Peixoto-Sweet_Corn_DH-GS_simulation)
    
 3. **Peixoto, Marco Antonio**, Leach, K., Jarquin, D., Flannery, P., Zystro, J., Tracy, W., Bhering, L., Resende, M. Utilizing genomic prediction to boost hybrid performance in a sweet corn breeding program. *Frontiers in Plant Science*. [pdf](https://www.frontiersin.org/journals/plant-science/articles/10.3389/fpls.2024.1293307/abstract) [codes](https://github.com/Resende-Lab/Peixoto_Sweet_corn_hybrid_prediction)
   
