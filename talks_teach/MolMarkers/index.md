@@ -10,17 +10,13 @@ taught together with Prof. Márcio Resende and Prof. Felipe Ferrão.
 ***
 
 ## 2. Classes
-### Introduction to AlphasimR and response to selection
+### Introduction to AlphasimR and Breeding Design
 
-- Response to selection / AlphaSimR package [[html]](https://htmlpreview.github.io/?https://github.com/marcopxt/marcopxt.github.io/blob/master/talks_teach/QuantGen/RUNME.html)
+- AlphaSimR and Breeding Design [[html]](https://htmlpreview.github.io/?https://github.com/marcopxt/marcopxt.github.io/blob/master/talks_teach/MolMarkers/Class_One_Functions.html)
 
-### Spatial analyses for breeding programs
+### Deployment of Genomic Selection via simulations
 
-- Implementation of spatial analyses in plant breeding using ASREML package [[html]](https://htmlpreview.github.io/?https://github.com/marcopxt/marcopxt.github.io/blob/master/talks_teach/QuantGen/Spatial.html)  
-
-### Introduction to Genomic Selection - GBLUP
-
-- GBLUP model implemented using ASREML package [[html]](https://htmlpreview.github.io/?https://github.com/marcopxt/marcopxt.github.io/blob/master/talks_teach/QuantGen/GBLUP.html)
+- Genomic Selection [[html]](https://htmlpreview.github.io/?https://github.com/marcopxt/marcopxt.github.io/blob/master/talks_teach/MolMarkers/Class2_GSModels.html)  
 
 
 ***
