@@ -9,7 +9,8 @@ author_profile: true
 
 ### Classes
 
-- Quantitative Genetics (UF) - [Fall/2022](talks_teach/QuantGen/index.md)
+- Introduction to Quantitative Genetics (UF) - (talks_teach/QuantGen/index.md)
+- Molecular Markers Assisted in Plant Breeding (UF) - (talks_teach/MolMarkers/index.md)
 
 ### Workshop and Talks 
 
