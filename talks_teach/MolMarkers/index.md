@@ -4,7 +4,7 @@
 
 ***
 ## 1. Introduction
-The material below came from classes conducted as part of the discipline Molecular Markers Assisted in Plant Breeding at University of Florida (PCB-6555) in Fall/2023 and Fall/2025,
+The material below came from classes conducted as part of the discipline Molecular Markers Assisted in Plant Breeding at University of Florida (HOS-6236) in Fall/2023 and Fall/2025,
 taught together with Prof. Márcio Resende and Prof. Felipe Ferrão. 
 
 ***

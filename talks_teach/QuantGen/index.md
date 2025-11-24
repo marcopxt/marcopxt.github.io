@@ -1,25 +1,26 @@
 
 **Marco Antônio Peixoto**  
-**Fall-2022**
+**Intro to Quant Gen**
 
 ***
 ## 1. Introduction
-These three classes were conducted as part of the discipline Quantitative Genetics (PCB-6555) taught at the University of Florida in the Fall of 2022. It was taught by Prof. Márcio Resende and Prof. Felipe Ferrão, and I was invited to participate as a Teaching assistant. As part of it, I put some effort together to generate three topics, as below indicated. 
+Those classes above were part of Introduction to Quantitative Genetics (PCB-6555) discipline taught at the University of Florida. It was taught by Prof. Márcio Resende and Prof. Felipe Ferrão, and I was invited to contribute. 
 
 ***
 
 ## 2. Classes
-### Introduction to AlphasimR and response to selection
+### Introduction to AlphasimR and response to selection (Fall-2022)
 
 - Response to selection / AlphaSimR package [[html]](https://htmlpreview.github.io/?https://github.com/marcopxt/marcopxt.github.io/blob/master/talks_teach/QuantGen/RUNME.html)
 
-### Spatial analyses for breeding programs
+### Spatial analyses for breeding programs (Fall-2022/2024)
 
 - Implementation of spatial analyses in plant breeding using ASREML package [[html]](https://htmlpreview.github.io/?https://github.com/marcopxt/marcopxt.github.io/blob/master/talks_teach/QuantGen/Spatial.html)  
 
-### Introduction to Genomic Selection - GBLUP
+### Introduction to Genomic Selection - GBLUP (Fall-2022/2024)
 
 - GBLUP model implemented using ASREML package [[html]](https://htmlpreview.github.io/?https://github.com/marcopxt/marcopxt.github.io/blob/master/talks_teach/QuantGen/GBLUP.html)
+
 
 
 ***
