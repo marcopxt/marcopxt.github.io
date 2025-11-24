@@ -10,13 +10,26 @@ taught together with Prof. Márcio Resende and Prof. Felipe Ferrão.
 ***
 
 ## 2. Classes
-### Introduction to AlphasimR and Breeding Design
 
-- AlphaSimR and Breeding Design [[html]](https://htmlpreview.github.io/?https://github.com/marcopxt/marcopxt.github.io/blob/master/talks_teach/MolMarkers/Class_One_Functions.html)
+### Introduction to AlphasimR and Breeding Design (Fall-2023)
 
-### Deployment of Genomic Selection via simulations
+- AlphaSimR and Breeding Design [[html]](https://htmlpreview.github.io/?https://github.com/marcopxt/marcopxt.github.io/blob/master/talks_teach/MolMarkers/2023_Class_One_Functions.html)
 
-- Genomic Selection [[html]](https://htmlpreview.github.io/?https://github.com/marcopxt/marcopxt.github.io/blob/master/talks_teach/MolMarkers/Class2_GSModels.html)  
+### Deployment of Genomic Selection via simulations (Fall-2023)
+
+- Genomic Selection [[html]](https://htmlpreview.github.io/?https://github.com/marcopxt/marcopxt.github.io/blob/master/talks_teach/MolMarkers/2023_Class2_GSModels.html)  
+
+### Introduction to Genomic Selection using BGLR package (Fall-2025)
+
+- Introduction to Genomic Selection [[html]](https://htmlpreview.github.io/?https://github.com/marcopxt/marcopxt.github.io/blob/master/talks_teach/MolMarkers/2025_Intro2GenSel.html)
+
+### Models for GxE interaction using BGLR package (Fall-2025)
+
+- GxE interaction using markers [[html]](https://htmlpreview.github.io/?https://github.com/marcopxt/marcopxt.github.io/blob/master/talks_teach/MolMarkers/2025_GxE_2025.html)
+
+### Using *SimpleMating* package for cross prediction and optimization (Fall-2025)
+
+- Cross prediction and Optimization [[html]](https://htmlpreview.github.io/?https://github.com/marcopxt/marcopxt.github.io/blob/master/talks_teach/MolMarkers/2025_GS_SM.html)
 
 
 ***
