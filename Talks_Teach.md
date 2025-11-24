@@ -9,8 +9,8 @@ author_profile: true
 
 ### Classes
 
-- Introduction to Quantitative Genetics (UF) - (talks_teach/QuantGen/index.md)
-- Molecular Markers Assisted in Plant Breeding (UF) - (talks_teach/MolMarkers/index.md)
+- Introduction to Quantitative Genetics (UF) - [QuantGen](talks_teach/QuantGen/index.md)
+- Molecular Markers Assisted in Plant Breeding (UF) - [MolMark](talks_teach/MolMarkers/index.md)
 
 ### Workshop and Talks 
 
