@@ -85,10 +85,11 @@ The implementation of Whole Genomic Selection has been proven as an important to
 
 ![](../assets/images/GenInt.png){:width="30%" align="right"}
 
-Large planted crops faces the
+When analyzing groups of individuals (Genotypes) across a set of environments, the performance of them generally differ (changes of rankings). This particular 
+phenomenon can be explained by *G*enotype-by-*E*nvironment (*GxE*) interaction. While placing large recommendations, models that not only captures GxE, but also capitalize the GxE in the recommendation are potentially superiors.
 
 - **Objective**  
-  - To recommend potato varietys for target population of environments.
+  - Developing pipelines for potato recommendations, leveraging through GxE.
 
 ***
 
