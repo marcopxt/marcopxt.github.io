@@ -83,6 +83,7 @@ The implementation of Whole Genomic Selection has been proven as an important to
 
 ### Motivation  
 
+![](../assets/images/GenInt.png){:width="30%" align="right"}
 
 Large planted crops faces the
 
