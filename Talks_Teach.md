@@ -17,9 +17,10 @@ author_profile: true
 - Multi-Omics Workshop (UF) - [Workshop/2023](talks_teach/Multi_Omics23/index.md)
 - Breeding program simulations Workshop (UF) - [Workshop/2023](talks_teach/AlphasimR/index.md)
 - Optimization of breeding programs Workshop (UFV) - [Workshop/2024](talks_teach/SimulationsUFV_2024/index.md)
-- Optimization of breeding Crosses (CANVAS) - [Talk/2025](talks_teach/Lectures/2025/CANVAS/BreedingCrosses_SimpleMating.pdf))
-- Genomic selection and breeding crosses optimization (University of Arkansas) - [[Guest Lecture/2025]](https://htmlpreview.github.io/?https://github.com/marcopxt/marcopxt.github.io/blob/master/talks_teach/Lectures/2025/UniArk/UniArk_GS.html)
-
+- Optimization of breeding Crosses (CANVAS) - [Talk/2025](talks_teach/Lectures/2025/CANVAS/BreedingCrosses_SimpleMating.pdf)
+- Genomic selection and breeding crosses optimization (University of Arkansas)  
+  - [[Guest Lecture/2025]](https://htmlpreview.github.io/?https://github.com/marcopxt/marcopxt.github.io/blob/master/talks_teach/Lectures/2025/UniArk/UniArk_GS.html)  
+  - [[Download R code]](https://raw.githubusercontent.com/marcopxt/marcopxt.github.io/master/talks_teach/Lectures/2025/UniArk/RUNME.R)
 
 ### Others
 
