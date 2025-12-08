@@ -12,7 +12,7 @@ author_profile: true
 
 2. Nascimento, E., Netto, J.,  **Peixoto, Marco Antonio**, Teodoro, L., Teodoro, P., Bhering, L. Species-specific wood volume growth models outperform unified model across Eucalypt species. *Southern Forests: a Journal of Forest Science.* [pdf](https://www.tandfonline.com/doi/abs/10.2989/20702620.2025.2494768)
 
-3. **Peixoto, Marco Antonio**, Finegan, C., Offornedo, Q., Leach, K., Hu, Y., Tracy, W., Resende, M. Genome-enabled Breeding Strategies for Nitrogen Use Efficiency in Sweet Corn. *HortScience* [pdf](https://journals.ashs.org/view/journals/hortsci/60/12/article-p2335.xml?tab_body=pdf)
+3. **Peixoto, Marco Antonio**, Finegan, C., Offornedo, Q., Leach, K., Hu, Y., Tracy, W., Resende, M. Genome-enabled Breeding Strategies for Nitrogen Use Efficiency in Sweet Corn. *HortScience* [pdf](https://journals.ashs.org/view/journals/hortsci/60/12/article-p2335.xml?tab_body=pdf) [codes](https://github.com/Resende-Lab/NUE-Traits_SweetCorn)
 
 
 ## 2024
