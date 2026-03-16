@@ -11,6 +11,7 @@ author_profile: true
 
 - Introduction to Quantitative Genetics (UF) - [QuantGen](talks_teach/QuantGen/index.md)
 - Molecular Markers Assisted in Plant Breeding (UF) - [MolMark](talks_teach/MolMarkers/index.md)
+- Survey of Breeding Tools (UF) - [SurTools](talks_teach/SurTools/index.md)
 
 ### Workshop and Talks 
 
