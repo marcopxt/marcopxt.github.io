@@ -8,13 +8,12 @@ The class Survey of Breeding Tools and Methods (HOS6932) was taught in Spring - 
 to dive deeper into methods and tools for Mate Allocation
 
 ***
-
+sq
 ## 2. Classes
 
 ### Introduction to Mate allocation
 
-##### - AlphaSimR and Breeding Design [[html]](https://htmlpreview.github.io/?https://github.com/marcopxt/marcopxt.github.io/blob/master/talks_teach/MolMarkers/2023_Class_One_Functions.html)
-
+##### - AlphaSimR and Breeding Design 
 
 
 ***
