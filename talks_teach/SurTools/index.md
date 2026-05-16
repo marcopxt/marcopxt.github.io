@@ -17,26 +17,26 @@ to dive deeper into methods and tools for Mate Allocation.
 
 ### Relatives, kinship and inbreeding
 
-- Class one [[html]](https://htmlpreview.github.io/?https://github.com/marcopxt/marcopxt.github.io/blob/master/talks_teach/SurTools/ClassOne/Class_I.html)
+- Class one [[html]](https://htmlpreview.github.io/?https://github.com/marcopxt/marcopxt.github.io/blob/master/talks_teach/SurTools/Class_I.html)
 
 
 ### Optimum contribution selection
 
-- Class two [[html]](https://htmlpreview.github.io/?https://github.com/marcopxt/marcopxt.github.io/blob/master/talks_teach/SurTools/ClassOne/Class_II.html)
+- Class two [[html]](https://htmlpreview.github.io/?https://github.com/marcopxt/marcopxt.github.io/blob/master/talks_teach/SurTools/Class_II.html)
 
 
 ### Optimal Cross Selection I: Criterion
 
-- Class three [[html]](https://htmlpreview.github.io/?https://github.com/marcopxt/marcopxt.github.io/blob/master/talks_teach/SurTools/ClassOne/Class_III.html)
+- Class three [[html]](https://htmlpreview.github.io/?https://github.com/marcopxt/marcopxt.github.io/blob/master/talks_teach/SurTools/Class_III.html)
 
 
 ### Optimal Cross Selection II:  optimization
 
-- Class four [[html]](https://htmlpreview.github.io/?https://github.com/marcopxt/marcopxt.github.io/blob/master/talks_teach/SurTools/ClassOne/Class_IV.html)
+- Class four [[html]](https://htmlpreview.github.io/?https://github.com/marcopxt/marcopxt.github.io/blob/master/talks_teach/SurTools/Class_IV.html)
 
 
 ### Resemblance Between Individuals and Inbreeding in Breeding Programs
-- Class five [[html]](https://htmlpreview.github.io/?https://github.com/marcopxt/marcopxt.github.io/blob/master/talks_teach/SurTools/ClassOne/Class_V.html)
+- Class five [[html]](https://htmlpreview.github.io/?https://github.com/marcopxt/marcopxt.github.io/blob/master/talks_teach/SurTools/Class_V.html)
 
 
 
