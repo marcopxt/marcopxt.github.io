@@ -176,15 +176,15 @@
 .greedy-nav {
   position: relative;
   min-width: 250px;
-  // Set the main nav background to navy
-  background: #002147;
-  
+  // Soft beige background to match the masthead
+  background: #f5f0e8;
+
   a {
     display: block;
     margin: 0 1rem;
     padding: 0.5rem 0;
-    // Use white for links
-    color: #ffffff;
+    // Dark navy for links — readable on the beige background
+    color: #002147;
     text-decoration: none;
 
     &:hover {
@@ -237,8 +237,8 @@
         left: 0;
         bottom: 0;
         height: 4px;
-        // Use a mix of white and navy for a subtle underline effect
-        background: mix(#fff, #002147, 50%);
+        // Orange underline indicator — matches the masthead accent border
+        background: #f97316;
         width: 100%;
         -webkit-transition: $global-transition;
         transition: $global-transition;
