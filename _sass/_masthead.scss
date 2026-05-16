@@ -4,7 +4,7 @@
 
 .masthead {
   position: relative;
-  background-color: #002147;      // 3Lab Navy Blue background
+  background-color: #f5f0e8;      // Soft beige background
   border-bottom: 3px solid #f97316; // Accent Orange border
   -webkit-animation: intro 0.3s both;
           animation: intro 0.3s both;
@@ -17,8 +17,8 @@
     @include clearfix;
     padding: 1em;
     font-family: $sans-serif-narrow;
-    color: #ffffff;             // Set default text to white for readability
-     
+    color: #002147;             // Dark navy text for readability on beige
+
     @include breakpoint($x-large) {
       max-width: $x-large;
     }
@@ -27,10 +27,10 @@
       z-index: 10;
     }
 
-    // Ensure anchor links inherit white text with an orange hover effect
+    // Ensure anchor links inherit navy text with an orange hover effect
     a {
       text-decoration: none;
-      color: inherit;           // Inherit white from parent
+      color: inherit;           // Inherit navy from parent
       transition: color 0.3s ease;
 
       &:hover {
