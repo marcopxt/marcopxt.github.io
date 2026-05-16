@@ -18,11 +18,15 @@ to dive deeper into methods and tools for Mate Allocation.
 
 ### Introduction to Mate allocation II - Optimum contribution selection and Optimal crosse selection
 
--
+- Class two [[html]](https://htmlpreview.github.io/?https://github.com/marcopxt/marcopxt.github.io/blob/master/talks_teach/SurTools/ClassOne/Class_II.html)
+
 
 ### Introduction to Mate allocation III - Criterions and optimization
 
--
+- Class three [[html]](https://htmlpreview.github.io/?https://github.com/marcopxt/marcopxt.github.io/blob/master/talks_teach/SurTools/ClassOne/Class_III.html)
+- Class four [[html]](https://htmlpreview.github.io/?https://github.com/marcopxt/marcopxt.github.io/blob/master/talks_teach/SurTools/ClassOne/Class_IV.html)
+- Class five [[html]](https://htmlpreview.github.io/?https://github.com/marcopxt/marcopxt.github.io/blob/master/talks_teach/SurTools/ClassOne/Class_V.html)
+
 
 
 ***
